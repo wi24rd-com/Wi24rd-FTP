@@ -22,6 +22,7 @@ public partial class MainWindow : Window
     private string _mode = "FTP";
     private string _password = NewPassword();
     private UpdateInfo? _update;
+    private bool _askedAboutFiles;   // Stop har allerede spurgt – Luk skal ikke spørge igen
 
     public MainWindow()
     {
@@ -211,7 +212,7 @@ public partial class MainWindow : Window
     /// <summary>Navn-kolonnen fylder den plads, de faste kolonner ikke bruger.</summary>
     private void FileList_SizeChanged(object sender, SizeChangedEventArgs e)
     {
-        const double fixedCols = 36 + 40;                 // ikon + fjern-knap
+        const double fixedCols = 36 + 52;                 // ikon + fjern-knap
         var scroll = SystemParameters.VerticalScrollBarWidth + 12;
         var w = FileList.ActualWidth - fixedCols - ColSize.Width - ColAdded.Width - scroll;
         ColName.Width = Math.Max(120, w);
@@ -291,6 +292,7 @@ public partial class MainWindow : Window
         }
 
         _mode = ModeSftp.IsChecked == true ? "SFTP" : "FTP";
+        _askedAboutFiles = false;
         var ok = await RunBackendAsync("Start",
             _mode == "FTP" ? L.StartingFtp : L.StartingSftp,
             _mode, _password);
@@ -334,6 +336,7 @@ public partial class MainWindow : Window
 
     private void AskAboutFiles()
     {
+        _askedAboutFiles = true;
         if (_files.Count == 0) return;
         var r = MessageBox.Show(this,
             L.F(L.DeleteFilesQ, _files.Count),
@@ -391,7 +394,7 @@ public partial class MainWindow : Window
             }
         }
 
-        AskAboutFiles();
+        if (!_askedAboutFiles) AskAboutFiles();
 
         _closeConfirmed = true;
         _statusTimer.Stop();

@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="78"/>
+            <RowDefinition Height="86"/>
         </Grid.RowDefinitions>
 
         <!-- HEADER (blå gradient) -->
@@ -220,10 +220,10 @@
                                         <GridViewColumn x:Name="ColName" Header="{x:Static loc:L.ColName}" Width="300" DisplayMemberBinding="{Binding Name}"/>
                                         <GridViewColumn x:Name="ColSize" Header="{x:Static loc:L.ColSize}" Width="130" DisplayMemberBinding="{Binding SizeText}"/>
                                         <GridViewColumn x:Name="ColAdded" Header="{x:Static loc:L.ColAdded}" Width="140" DisplayMemberBinding="{Binding AddedText}"/>
-                                        <GridViewColumn Width="40">
+                                        <GridViewColumn Width="52">
                                             <GridViewColumn.CellTemplate>
                                                 <DataTemplate>
-                                                    <Button Content="&#xE74D;" Style="{StaticResource RowIconButton}"
+                                                    <Button Content="&#xE74D;" Style="{StaticResource RowIconButton}" HorizontalAlignment="Center"
                                                             ToolTip="{x:Static loc:L.RemoveTip}" Tag="{Binding}"
                                                             Click="BtnRemoveFile_Click"/>
                                                 </DataTemplate>
@@ -371,10 +371,10 @@
                                  Visibility="Collapsed" Foreground="{StaticResource Brush.Accent}"
                                  Background="{StaticResource Brush.AccentPale}" BorderThickness="0" Margin="0,0,12,0"/>
                     <StackPanel VerticalAlignment="Center">
-                        <TextBlock x:Name="LogLine" Text="{x:Static loc:L.Ready}" FontWeight="SemiBold" FontSize="14"
-                                   TextTrimming="CharacterEllipsis"/>
-                        <TextBlock x:Name="LogHint" Text="{x:Static loc:L.HintStart}" FontSize="12"
-                                   Foreground="{StaticResource Brush.Muted}" TextTrimming="CharacterEllipsis"/>
+                        <TextBlock x:Name="LogLine" Text="{x:Static loc:L.Ready}" FontWeight="SemiBold" FontSize="13"
+                                   TextWrapping="Wrap" LineHeight="17" LineStackingStrategy="BlockLineHeight"/>
+                        <TextBlock x:Name="LogHint" Text="{x:Static loc:L.HintStart}" FontSize="11.5"
+                                   Foreground="{StaticResource Brush.Muted}" TextWrapping="Wrap"/>
                     </StackPanel>
                 </DockPanel>
 
