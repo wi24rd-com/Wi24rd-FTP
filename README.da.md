@@ -8,10 +8,16 @@
 [![Release](https://img.shields.io/github/v/release/wi24rd-com/Wi24rd-FTP?label=download)](https://github.com/wi24rd-com/Wi24rd-FTP/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+<p align="center">
+  <a href="https://github.com/wi24rd-com/Wi24rd-FTP/releases/latest/download/Wi24rdFTP-Setup.exe">
+    <img src="https://img.shields.io/badge/⬇_Hent_Wi24rd_FTP_til_Windows-1E7BFF?style=for-the-badge&logoColor=white" alt="Hent Wi24rd FTP til Windows">
+  </a>
+  <br>
+  <sub>Windows 10/11 · 64-bit · ingen .NET-installation nødvendig · <a href="https://github.com/wi24rd-com/Wi24rd-FTP/releases">alle versioner</a></sub>
+</p>
+
 Super enkel, midlertidig fildeling oven på Windows 11's indbyggede **IIS FTP-server** (ftpsvc) og **OpenSSH** (sshd).
 Træk filer ind → Start → giv modtageren adresse + brugernavn + engangsadgangskode → Stop. Færdig.
-
-**Download:** [Wi24rdFTP-Setup.exe (nyeste version)](https://github.com/wi24rd-com/Wi24rd-FTP/releases/latest/download/Wi24rdFTP-Setup.exe) · Windows 10/11 64-bit · ingen .NET-installation nødvendig.
 
 > Installeren er endnu ikke kodesigneret, så SmartScreen kan vise "Windows beskyttede din pc" første gang. Klik *Flere oplysninger → Kør alligevel*, eller verificér SHA256 mod `SHA256SUMS.txt` på release-siden.
 
