@@ -8,6 +8,9 @@
 [![Release](https://img.shields.io/github/v/release/wi24rd-com/Wi24rd-FTP?label=download)](https://github.com/wi24rd-com/Wi24rd-FTP/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+Dead-simple, temporary file sharing on top of Windows 11's built-in **IIS FTP server** (ftpsvc) and **OpenSSH** (sshd).
+Drag files in → Start → hand the recipient address + username + one-time password → Stop. Done.
+
 <p align="center">
   <a href="https://github.com/wi24rd-com/Wi24rd-FTP/releases/latest/download/Wi24rdFTP-Setup.exe">
     <img src="https://img.shields.io/badge/⬇_Download_Wi24rd_FTP_for_Windows-1E7BFF?style=for-the-badge&logoColor=white" alt="Download Wi24rd FTP for Windows">
@@ -16,12 +19,7 @@
   <sub>Windows 10/11 · 64-bit · no .NET installation required · <a href="https://github.com/wi24rd-com/Wi24rd-FTP/releases">all versions</a></sub>
 </p>
 
-Dead-simple, temporary file sharing on top of Windows 11's built-in **IIS FTP server** (ftpsvc) and **OpenSSH** (sshd).
-Drag files in → Start → hand the recipient address + username + one-time password → Stop. Done.
-
 > The installer is not code-signed yet, so SmartScreen may show "Windows protected your PC" the first time. Click *More info → Run anyway*, or verify the SHA256 against `SHA256SUMS.txt` on the release page.
-
-The UI follows the Windows display language: Danish on Danish Windows, English otherwise.
 
 **Free, and it stays that way**
 
@@ -31,6 +29,8 @@ The UI follows the Windows display language: Danish on Danish Windows, English o
 - ✅ Everything runs locally on your own PC – your files never pass through a third party
 
 ![Wi24rd FTP main window](docs/screenshot.png)
+
+The UI follows the Windows display language: Danish on Danish Windows, English otherwise.
 
 ## How it works
 
