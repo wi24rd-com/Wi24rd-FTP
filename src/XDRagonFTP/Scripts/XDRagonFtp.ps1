@@ -106,7 +106,7 @@ function Ensure-FtpUser([string]$Password) {
     if (-not $u) {
         Write-Log "Opretter lokal konto $FtpUser"
         New-LocalUser -Name $FtpUser -Password $sec -FullName 'XDRagon FTP' `
-            -Description 'Midlertidig FTP/SFTP-konto oprettet af XDRagon FTP' `
+            -Description 'Midlertidig konto oprettet af XDRagon FTP' `
             -PasswordNeverExpires -AccountNeverExpires -UserMayNotChangePassword | Out-Null
     } else {
         Set-LocalUser -Name $FtpUser -Password $sec -PasswordNeverExpires $true
