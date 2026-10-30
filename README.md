@@ -2,89 +2,65 @@
 
 # Wi24rd FTP
 
+**English** · [Dansk](README.da.md)
+
 [![CI](https://github.com/wi24rd-com/Wi24rd-FTP/actions/workflows/ci.yml/badge.svg)](https://github.com/wi24rd-com/Wi24rd-FTP/actions/workflows/ci.yml)
 [![Release](https://img.shields.io/github/v/release/wi24rd-com/Wi24rd-FTP?label=download)](https://github.com/wi24rd-com/Wi24rd-FTP/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-Super enkel, midlertidig fildeling oven på Windows 11's indbyggede **IIS FTP-server** (ftpsvc) og **OpenSSH** (sshd).
-Træk filer ind → Start → giv modtageren adresse + brugernavn + engangsadgangskode → Stop. Færdig.
+Dead-simple, temporary file sharing on top of Windows 11's built-in **IIS FTP server** (ftpsvc) and **OpenSSH** (sshd).
+Drag files in → Start → hand the recipient address + username + one-time password → Stop. Done.
 
-**Download:** [Wi24rdFTP-Setup.exe (nyeste version)](https://github.com/wi24rd-com/Wi24rd-FTP/releases/latest/download/Wi24rdFTP-Setup.exe) · Windows 10/11 64-bit · ingen .NET-installation nødvendig.
+**Download:** [Wi24rdFTP-Setup.exe (latest)](https://github.com/wi24rd-com/Wi24rd-FTP/releases/latest/download/Wi24rdFTP-Setup.exe) · Windows 10/11 64-bit · no .NET installation required.
 
-> Installeren er endnu ikke kodesigneret, så SmartScreen kan vise "Windows beskyttede din pc" første gang. Klik *Flere oplysninger → Kør alligevel*, eller verificér SHA256 mod `SHA256SUMS.txt` på release-siden.
+> The installer is not code-signed yet, so SmartScreen may show "Windows protected your PC" the first time. Click *More info → Run anyway*, or verify the SHA256 against `SHA256SUMS.txt` on the release page.
 
-Sproget følger Windows' visningssprog: dansk på dansk Windows, ellers engelsk.
+The UI follows the Windows display language: Danish on Danish Windows, English otherwise.
 
-## Sådan virker det
+## How it works
 
-| Knap | Hvad sker der |
+| Button | What happens |
 |---|---|
-| **Start FTP / SFTP** | Ny engangsadgangskode til kontoen `wi24rdftp` · kontoen aktiveres · ftpsvc (eller sshd) startes · firewall-regel for port 21 (+ passiv 50000-50100) eller port 22 aktiveres · adresse og adgangskode vises i GUI'en |
-| **Stop FTP / SFTP** | Firewall-regler deaktiveres · tjenesten stoppes · kontoen deaktiveres og får ny, ukendt adgangskode · bruger spørges: *slet filerne eller lad dem blive?* |
-| **Luk program** | Kører Stop-rutinen (hvis noget kører) → spørger om filerne → lukker |
+| **Start FTP / SFTP** | New one-time password for the `wi24rdftp` account · account enabled · ftpsvc (or sshd) started · firewall rule for port 21 (+ passive 50000-50100) or port 22 enabled · address and password shown in the GUI |
+| **Stop FTP / SFTP** | Firewall rules disabled · service stopped · account disabled and given a new, unknown password · you are asked: *delete the files or keep them?* |
+| **Close program** | Runs the Stop routine (if anything is running) → asks about the files → closes |
 
-* Filer kopieres til `C:\Wi24rdFTP\Share` – originalerne røres aldrig.
-* Modtageren har **kun læseadgang** (IIS-autorisation = Read, og NTFS-deny på skriv/slet for `wi24rdftp`).
-* Alt der kræver admin (tjenester, firewall, konto, IIS-features) ligger i `Scripts\Wi24rdFtp.ps1`, som GUI'en kører eleveret (UAC-prompt ved Start/Stop).
-  GUI'en selv kører **uden** admin – det er bevidst: Windows blokerer drag-and-drop fra Explorer ind i elevede vinduer.
-* Første gang: hvis ftpsvc mangler, viser GUI'en et gult banner med **Installér nu** (installeren gør det samme automatisk).
+* Files are copied to `C:\Wi24rdFTP\Share` – the originals are never touched.
+* The recipient has **read-only access** (IIS authorization = Read, plus an NTFS deny on write/delete for `wi24rdftp`).
+* Everything that needs admin rights (services, firewall, account, IIS features) lives in `Scripts\Wi24rdFtp.ps1`, which the GUI runs elevated (UAC prompt at Start/Stop).
+  The GUI itself runs **without** admin rights – on purpose: Windows blocks drag-and-drop from Explorer into elevated windows.
+* First run: if ftpsvc is missing, the GUI shows a yellow banner with **Install now** (the installer does the same automatically).
 
-## Byg
+## Install
 
-Krav på byggemaskinen: Windows, [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0), valgfrit [Inno Setup 6](https://jrsoftware.org/isdl.php).
+Run `dist\Wi24rdFTP-Setup-1.0.0.exe`. The installer:
 
-```powershell
-.\build.ps1               # -> publish\Wi24rdFTP.exe  og  dist\Wi24rdFTP-Setup-1.0.0.exe
-.\build.ps1 -SkipInstaller
-```
+1. Puts the program in `C:\Program Files\Wi24rd FTP`
+2. Runs `Wi24rdFtp.ps1 -Action Install`, which enables the Windows features `IIS-WebServerRole`, `IIS-FTPServer`, `IIS-FTPSvc`, `IIS-ManagementScriptingTools`, creates the `Wi24rdFTP` FTP site, the (disabled) firewall rules, the folders and the (disabled) account.
 
-Resultatet er én selvstændig `.exe` (self-contained) – brugeren behøver ingen .NET-runtime.
+Uninstalling stops everything and removes the site, rules, account and sshd configuration. `C:\Wi24rdFTP` is kept.
 
-## Installér
+## Folders and files
 
-Kør `dist\Wi24rdFTP-Setup-1.0.0.exe`. Installeren:
-
-1. Lægger programmet i `C:\Program Files\Wi24rd FTP`
-2. Kører `Wi24rdFtp.ps1 -Action Install` som aktiverer Windows-features `IIS-WebServerRole`, `IIS-FTPServer`, `IIS-FTPSvc`, `IIS-ManagementScriptingTools`, opretter FTP-sitet `Wi24rdFTP`, de (deaktiverede) firewall-regler, mapperne og den (deaktiverede) konto.
-
-Afinstallation stopper alt og fjerner site, regler, konto og sshd-konfiguration. `C:\Wi24rdFTP` bevares.
-
-## Mapper og filer
-
-| Sti | Indhold |
+| Path | Contents |
 |---|---|
-| `C:\Wi24rdFTP\Share` | Filer der deles (= FTP-rod / SFTP-chroot ser `/Share`) |
-| `%ProgramData%\Wi24rdFTP\state.json` | Backendens resultat (status, IP'er, adgangskode mens serveren kører) |
-| `%ProgramData%\Wi24rdFTP\log\backend-ÅÅÅÅMMDD.log` | Transcript af hvert backend-kald – kig her ved fejl |
-| `%ProgramData%\ssh\sshd_config` | Får en `# WI24RD-FTP BEGIN … END`-blok (Match User wi24rdftp, ChrootDirectory, internal-sftp) i SFTP-mode |
+| `C:\Wi24rdFTP\Share` | Files being shared (= FTP root / SFTP chroot sees `/Share`) |
+| `%ProgramData%\Wi24rdFTP\state.json` | Backend result (status, IPs, password while the server runs) |
+| `%ProgramData%\Wi24rdFTP\log\backend-YYYYMMDD.log` | Transcript of every backend call – look here when something fails |
+| `%ProgramData%\ssh\sshd_config` | Gets a `# WI24RD-FTP BEGIN … END` block (Match User wi24rdftp, ChrootDirectory, internal-sftp) in SFTP mode |
 
-## Udgiv en ny version
+## Security notes
 
-```bash
-git tag v1.0.1
-git push --tags
-```
+* **FTP is unencrypted** – password and files travel in clear text. Use **SFTP** whenever the recipient can (most clients: FileZilla, WinSCP, `sftp`). SFTP mode installs OpenSSH Server (a Windows capability; needs internet the first time).
+* The password only lives from Start to Stop. The account is disabled and hidden from the logon screen while the server is not running.
+* Access from the outside still requires a port forward on your router/firewall to the machine's IP – the program cannot do that for you.
+* The app checks GitHub Releases at startup (one anonymous call, no telemetry) and shows a banner when a newer version exists.
+* The passive FTP port range is 50000-50100 (set in IIS *FTP Firewall Support*). It may need to be opened on the router/firewall as well.
 
-GitHub Actions bygger exe + installer, laver en Release med auto-genererede noter og lægger `Wi24rdFTP-Setup-1.0.1.exe`, `Wi24rdFTP-Setup.exe` og `SHA256SUMS.txt` som assets. Appen tjekker GitHub Releases ved opstart (ét anonymt kald, ingen telemetri) og viser et banner, hvis der findes en nyere version.
+## Developer notes
 
-## Sikkerhedsnoter
+Project layout, build instructions and the release process are in [DEVELOPMENT.md](DEVELOPMENT.md).
 
-* **FTP er ukrypteret** – adgangskode og filer går i klartekst. Brug **SFTP** når modtageren kan (de fleste klienter: FileZilla, WinSCP, `sftp`). SFTP-mode installerer OpenSSH Server (Windows-capability, kræver internet første gang).
-* Adgangskoden lever kun fra Start til Stop. Kontoen er deaktiveret og skjult på login-skærmen når serveren ikke kører.
-* Udefra-adgang kræver stadig port-forward på routeren/firewallen til maskinens IP – det kan programmet ikke gøre for dig.
-* Passivt FTP-portområde er 50000-50100 (sat i IIS *FTP Firewall Support*). Skal evt. også åbnes på router/forti.
+## License
 
-## Projektstruktur
-
-```
-build.ps1                     Bygger exe + installer
-installer\Wi24rdFTP.iss      Inno Setup-script
-src\Wi24rdFTP\
-  Wi24rdFTP.csproj           .NET 8 WPF
-  app.manifest                asInvoker + PerMonitorV2 DPI
-  App.xaml                    Farver og styles (Veeam-stil)
-  MainWindow.xaml(.cs)        GUI
-  Services\Backend.cs         Kører PowerShell eleveret, læser state.json
-  Services\SharedFile.cs      Model for fillisten
-  Scripts\Wi24rdFtp.ps1      Backend: Install / Start / Stop / Uninstall
-```
+[MIT](LICENSE) · © 2026 Wi24rd
