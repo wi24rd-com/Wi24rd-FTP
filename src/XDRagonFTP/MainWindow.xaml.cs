@@ -20,6 +20,7 @@ public partial class MainWindow : Window
     private bool _busy;
     private bool _closeConfirmed;
     private string _mode = "FTP";
+    private string? _password;
 
     public MainWindow()
     {
@@ -285,7 +286,7 @@ public partial class MainWindow : Window
         if (ok)
         {
             _running = false;
-            PasswordBox.Text = "••••••••••••";
+            ShowPassword(null);
             IpList.ItemsSource = null;
             IpHint.Visibility = Visibility.Visible;
             Log("Stoppet – porten er lukket og kontoen deaktiveret.");
@@ -377,7 +378,7 @@ public partial class MainWindow : Window
 
     private void ApplyState(BackendState st)
     {
-        PasswordBox.Text = string.IsNullOrEmpty(st.Password) ? "••••••••••••" : st.Password;
+        ShowPassword(string.IsNullOrEmpty(st.Password) ? null : st.Password);
         UserBox.Text = string.IsNullOrEmpty(st.User) ? "xdragonftp" : st.User;
         var ips = st.Ips?.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray() ?? Array.Empty<string>();
         IpList.ItemsSource = ips.Length == 0 ? null : ips.Select(ip => $"{ip}  :{st.Port}").ToArray();
@@ -432,6 +433,41 @@ public partial class MainWindow : Window
         DropZone.IsEnabled = !busy;
     }
 
+    /// <summary>
+    /// Viser adgangskoden farvekodet: tal = rød, STORE bogstaver = blå, små bogstaver = grøn,
+    /// grupperet i blokke af 4 så den er let at læse op i telefonen.
+    /// </summary>
+    private void ShowPassword(string? password)
+    {
+        _password = password;
+        PasswordText.Inlines.Clear();
+        PasswordLegend.Visibility = password is null ? Visibility.Collapsed : Visibility.Visible;
+
+        if (password is null)
+        {
+            PasswordText.Foreground = (Brush)FindResource("Brush.Muted");
+            PasswordText.Text = "••••••••••••••••";
+            return;
+        }
+
+        var digit = (Brush)FindResource("Brush.PwDigit");
+        var upper = (Brush)FindResource("Brush.PwUpper");
+        var lower = (Brush)FindResource("Brush.PwLower");
+
+        for (int i = 0; i < password.Length; i++)
+        {
+            if (i > 0 && i % 4 == 0)
+                PasswordText.Inlines.Add(new System.Windows.Documents.Run(" ") );
+
+            var c = password[i];
+            var run = new System.Windows.Documents.Run(c.ToString())
+            {
+                Foreground = char.IsDigit(c) ? digit : char.IsUpper(c) ? upper : lower
+            };
+            PasswordText.Inlines.Add(run);
+        }
+    }
+
     private void Log(string message)
     {
         LogLine.Text = $"{DateTime.Now:HH:mm}  {message}";
@@ -448,8 +484,8 @@ public partial class MainWindow : Window
 
     private void BtnCopyPassword_Click(object sender, RoutedEventArgs e)
     {
-        if (PasswordBox.Text.StartsWith('•')) { Log("Ingen aktiv adgangskode – start serveren først."); return; }
-        Clipboard.SetText(PasswordBox.Text);
+        if (_password is null) { Log("Ingen aktiv adgangskode – start serveren først."); return; }
+        Clipboard.SetText(_password);
         Log("Adgangskode kopieret.");
     }
 }

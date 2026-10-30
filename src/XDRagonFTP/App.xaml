@@ -21,6 +21,11 @@
         <SolidColorBrush x:Key="Brush.Muted"     Color="#6B7680"/>
         <SolidColorBrush x:Key="Brush.Hover"     Color="#F7F9FA"/>
 
+        <!-- Adgangskode-farver: tal / STORE / små bogstaver -->
+        <SolidColorBrush x:Key="Brush.PwDigit"   Color="#D64545"/>
+        <SolidColorBrush x:Key="Brush.PwUpper"   Color="#1B5FBF"/>
+        <SolidColorBrush x:Key="Brush.PwLower"   Color="#00962D"/>
+
         <!-- ===== Knapper ===== -->
         <Style x:Key="BaseButton" TargetType="Button">
             <Setter Property="FontFamily" Value="Segoe UI"/>
