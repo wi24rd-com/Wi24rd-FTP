@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="AppTitle" xml:space="preserve"><value>Wi24rd FTP</value></data>
+  <data name="Tagline" xml:space="preserve"><value>Secure, temporary file sharing</value></data>
+  <data name="Stopped" xml:space="preserve"><value>Stopped</value></data>
+  <data name="InstallNow" xml:space="preserve"><value>Install now</value></data>
+  <data name="PrereqBanner" xml:space="preserve"><value>Windows' built-in FTP server is not installed yet. Click Install now – it requires administrator approval and takes a few minutes.</value></data>
+  <data name="ElevatedBanner" xml:space="preserve"><value>The program is running as administrator, so Windows blocks drag-and-drop from File Explorer – start Wi24rd FTP from the Start menu or the desktop instead. The Browse buttons still work.</value></data>
+  <data name="Status" xml:space="preserve"><value>STATUS</value></data>
+  <data name="Server" xml:space="preserve"><value>Server</value></data>
+  <data name="Firewall" xml:space="preserve"><value>Firewall</value></data>
+  <data name="Files" xml:space="preserve"><value>Files</value></data>
+  <data name="OpenFolder" xml:space="preserve"><value>Open folder</value></data>
+  <data name="FilesShared" xml:space="preserve"><value>FILES BEING SHARED</value></data>
+  <data name="DropTitle" xml:space="preserve"><value>Drag files or folders here</value></data>
+  <data name="DropSub" xml:space="preserve"><value>They are copied to Wi24rd FTP – the originals are not touched</value></data>
+  <data name="BrowseFiles" xml:space="preserve"><value>Browse files…</value></data>
+  <data name="ChooseFolder" xml:space="preserve"><value>Choose folder…</value></data>
+  <data name="ColName" xml:space="preserve"><value>Name</value></data>
+  <data name="ColSize" xml:space="preserve"><value>Size</value></data>
+  <data name="ColAdded" xml:space="preserve"><value>Added</value></data>
+  <data name="RemoveTip" xml:space="preserve"><value>Remove from Wi24rd FTP</value></data>
+  <data name="EmptyList" xml:space="preserve"><value>No files yet – drag them in above.</value></data>
+  <data name="Connection" xml:space="preserve"><value>CONNECTION</value></data>
+  <data name="Protocol" xml:space="preserve"><value>Protocol</value></data>
+  <data name="Address" xml:space="preserve"><value>Address</value></data>
+  <data name="AddressHint" xml:space="preserve"><value> (choose the one reachable from outside)</value></data>
+  <data name="IpHint" xml:space="preserve"><value>Shown when the server is started</value></data>
+  <data name="Username" xml:space="preserve"><value>Username</value></data>
+  <data name="Copy" xml:space="preserve"><value>Copy</value></data>
+  <data name="Password" xml:space="preserve"><value>Password</value></data>
+  <data name="PasswordHint" xml:space="preserve"><value> (new at every start)</value></data>
+  <data name="NewPassword" xml:space="preserve"><value>New password</value></data>
+  <data name="LegendDigit" xml:space="preserve"><value>digit</value></data>
+  <data name="LegendUpper" xml:space="preserve"><value>UPPER case</value></data>
+  <data name="LegendLower" xml:space="preserve"><value>lower case</value></data>
+  <data name="ReadOnlyInfo" xml:space="preserve"><value>The recipient only gets read access. The account is closed again at Stop.</value></data>
+  <data name="Ready" xml:space="preserve"><value>Ready.</value></data>
+  <data name="HintStart" xml:space="preserve"><value>Press Start FTP to share files and folders.</value></data>
+  <data name="HintStop" xml:space="preserve"><value>Press Stop FTP to close the port again.</value></data>
+  <data name="StartFtp" xml:space="preserve"><value>Start FTP</value></data>
+  <data name="StartSftp" xml:space="preserve"><value>Start SFTP</value></data>
+  <data name="StopFtp" xml:space="preserve"><value>Stop FTP</value></data>
+  <data name="StopSftp" xml:space="preserve"><value>Stop SFTP</value></data>
+  <data name="CloseApp" xml:space="preserve"><value>Close program</value></data>
+  <data name="InstallingMsg" xml:space="preserve"><value>Installing Windows' FTP server – please wait…</value></data>
+  <data name="DlgChooseFiles" xml:space="preserve"><value>Choose files to share</value></data>
+  <data name="DlgChooseFolder" xml:space="preserve"><value>Choose folder to share</value></data>
+  <data name="ErrCreateFolder" xml:space="preserve"><value>Could not create {0}: {1}</value></data>
+  <data name="ErrCreateFolderBox" xml:space="preserve"><value>The folder {0} could not be created.
+Run 'Install now' first.
+
+{1}</value></data>
+  <data name="OverwriteQ" xml:space="preserve"><value>"{0}" already exists in Wi24rd FTP.
+
+Overwrite it? (Applies to all in this batch)</value></data>
+  <data name="OverwriteTitle" xml:space="preserve"><value>Overwrite?</value></data>
+  <data name="ErrCopy" xml:space="preserve"><value>Error copying {0}: {1}</value></data>
+  <data name="CopiedN" xml:space="preserve"><value>{0} item(s) copied to Wi24rd FTP.</value></data>
+  <data name="CopiedSkipped" xml:space="preserve"><value>{0} copied, {1} skipped.</value></data>
+  <data name="RunningFilesHint" xml:space="preserve"><value>The server is running – the files can be fetched right away.</value></data>
+  <data name="RemoveQ" xml:space="preserve"><value>Remove "{0}" from Wi24rd FTP?
+
+The original elsewhere on disk is not touched.</value></data>
+  <data name="RemoveTitle" xml:space="preserve"><value>Remove</value></data>
+  <data name="ErrRemove" xml:space="preserve"><value>Could not remove {0}: {1}</value></data>
+  <data name="NoFilesQ" xml:space="preserve"><value>There are no files in Wi24rd FTP yet.
+
+Start the server anyway?</value></data>
+  <data name="NoFilesTitle" xml:space="preserve"><value>No files</value></data>
+  <data name="StartingFtp" xml:space="preserve"><value>Starting FTP server and opening port 21…</value></data>
+  <data name="StartingSftp" xml:space="preserve"><value>Starting SFTP (OpenSSH) and opening port 22…</value></data>
+  <data name="RunningMsg" xml:space="preserve"><value>{0} is running. Give the recipient the address, username and password.</value></data>
+  <data name="StartFailed" xml:space="preserve"><value>Start failed.</value></data>
+  <data name="StoppingMsg" xml:space="preserve"><value>Closing port and stopping server…</value></data>
+  <data name="StoppedMsg" xml:space="preserve"><value>Stopped – the port is closed and the account disabled.</value></data>
+  <data name="DeleteFilesQ" xml:space="preserve"><value>There are {0} item(s) in Wi24rd FTP.
+
+Delete them now?
+
+Yes = delete the files from Wi24rd FTP
+No = keep them for next time</value></data>
+  <data name="DeleteFilesTitle" xml:space="preserve"><value>Delete files?</value></data>
+  <data name="FilesDeleted" xml:space="preserve"><value>The files have been deleted from Wi24rd FTP.</value></data>
+  <data name="StopFailedQ" xml:space="preserve"><value>The server could not be stopped (maybe you declined the administrator prompt).
+
+Close anyway and leave the port open?</value></data>
+  <data name="Warning" xml:space="preserve"><value>Warning</value></data>
+  <data name="Cancelled" xml:space="preserve"><value>Cancelled – administrator approval was declined.</value></data>
+  <data name="ScriptMissing" xml:space="preserve"><value>The backend script is missing:
+{0}
+
+Reinstall Wi24rd FTP.</value></data>
+  <data name="UnknownError" xml:space="preserve"><value>Unknown error.</value></data>
+  <data name="ErrorPrefix" xml:space="preserve"><value>Error: </value></data>
+  <data name="ActionFailed" xml:space="preserve"><value>The action '{0}' failed:
+
+{1}
+
+See the log in:
+{2}</value></data>
+  <data name="NoIp" xml:space="preserve"><value>No active network address found</value></data>
+  <data name="RunningPort" xml:space="preserve"><value>Running · port {0}</value></data>
+  <data name="SshdRunning" xml:space="preserve"><value>OpenSSH (sshd) running</value></data>
+  <data name="FtpsvcRunning" xml:space="preserve"><value>IIS FTP (ftpsvc) running</value></data>
+  <data name="PortOpen" xml:space="preserve"><value>Port {0} open</value></data>
+  <data name="ServiceRunningPortClosed" xml:space="preserve"><value>Service running – port closed</value></data>
+  <data name="FtpsvcForeign" xml:space="preserve"><value>ftpsvc running (not by Wi24rd)</value></data>
+  <data name="NotInstalled" xml:space="preserve"><value>Not installed</value></data>
+  <data name="Closed" xml:space="preserve"><value>Closed</value></data>
+  <data name="NewPasswordGenerated" xml:space="preserve"><value>New password generated.</value></data>
+  <data name="UsernameCopied" xml:space="preserve"><value>Username copied.</value></data>
+  <data name="PasswordCopied" xml:space="preserve"><value>Password copied.</value></data>
+  <data name="UnexpectedError" xml:space="preserve"><value>An unexpected error occurred:
+
+</value></data>
+  <data name="AtTime" xml:space="preserve"><value>At {0}</value></data>
+  <data name="About" xml:space="preserve"><value>About</value></data>
+  <data name="Version" xml:space="preserve"><value>Version {0}</value></data>
+  <data name="License" xml:space="preserve"><value>License</value></data>
+  <data name="ReadLicense" xml:space="preserve"><value>Read the license</value></data>
+  <data name="Close" xml:space="preserve"><value>Close</value></data>
+  <data name="AboutDescription" xml:space="preserve"><value>A simple front end for Windows' built-in IIS FTP server and OpenSSH: drag files in, press Start, hand over the address and one-time password, press Stop.</value></data>
+  <data name="AboutCredits" xml:space="preserve"><value>Built with .NET 8 / WPF. Developed by Wi24rd in collaboration with Claude (Anthropic).</value></data>
+</root>

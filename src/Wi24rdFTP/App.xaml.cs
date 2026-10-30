@@ -11,8 +11,8 @@ public partial class App : Application
         DispatcherUnhandledException += (_, args) =>
         {
             MessageBox.Show(
-                "Der opstod en uventet fejl:\n\n" + args.Exception.Message,
-                "Wi24rd FTP", MessageBoxButton.OK, MessageBoxImage.Error);
+                L.UnexpectedError + args.Exception.Message,
+                L.AppTitle, MessageBoxButton.OK, MessageBoxImage.Error);
             args.Handled = true;
         };
     }
