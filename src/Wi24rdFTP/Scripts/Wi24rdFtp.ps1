@@ -138,6 +138,7 @@ function Ensure-Folders {
     # men FTP-kontoen må udtrykkeligt IKKE skrive/slette (read-only udefra).
     & icacls $Share /inheritance:r /grant:r `
         '*S-1-5-18:(OI)(CI)F' '*S-1-5-32-544:(OI)(CI)F' '*S-1-5-11:(OI)(CI)M' | Out-Null
+    & icacls $Share /remove:d $FtpUser | Out-Null
     & icacls $Share /deny "${FtpUser}:(OI)(CI)(DE,WD,AD,WEA,WA,DC,WDAC,WO)" | Out-Null
 
     # ProgramData: GUI'en skal kunne læse state.json

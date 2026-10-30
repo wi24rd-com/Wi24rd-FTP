@@ -4,33 +4,46 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
 
-        <!-- ===== Wi24rd-palet: dyb navy + cyanblå accent ===== -->
-        <SolidColorBrush x:Key="Brush.Navy"      Color="#07132A"/>
-        <SolidColorBrush x:Key="Brush.NavyLight" Color="#122A52"/>
-        <SolidColorBrush x:Key="Brush.Accent"    Color="#1E8BFF"/>
-        <SolidColorBrush x:Key="Brush.AccentDark" Color="#1261D6"/>
-        <SolidColorBrush x:Key="Brush.AccentPale" Color="#0F2A4D"/>
-        <SolidColorBrush x:Key="Brush.Cyan"      Color="#5FD6FF"/>
-        <SolidColorBrush x:Key="Brush.Green"     Color="#1E8BFF"/>
-        <SolidColorBrush x:Key="Brush.GreenDark" Color="#1261D6"/>
-        <SolidColorBrush x:Key="Brush.GreenPale" Color="#0F2A4D"/>
-        <SolidColorBrush x:Key="Brush.Ok"        Color="#3DDC84"/>
-        <SolidColorBrush x:Key="Brush.Red"       Color="#FF5C5C"/>
-        <SolidColorBrush x:Key="Brush.RedPale"   Color="#3A1A22"/>
-        <SolidColorBrush x:Key="Brush.Amber"     Color="#F5B342"/>
-        <SolidColorBrush x:Key="Brush.AmberPale" Color="#3A2E14"/>
-        <SolidColorBrush x:Key="Brush.Bg"        Color="#0B1830"/>
-        <SolidColorBrush x:Key="Brush.Card"      Color="#112140"/>
-        <SolidColorBrush x:Key="Brush.Field"     Color="#0B1830"/>
-        <SolidColorBrush x:Key="Brush.Border"    Color="#22395E"/>
-        <SolidColorBrush x:Key="Brush.Text"      Color="#E8F0FB"/>
-        <SolidColorBrush x:Key="Brush.Muted"     Color="#8FA6C4"/>
-        <SolidColorBrush x:Key="Brush.Hover"     Color="#162B50"/>
+        <!-- ===== Wi24rd-palet (lys): hvid/isblå flader, blå gradient-header, blå accent ===== -->
+        <LinearGradientBrush x:Key="Brush.HeaderGradient" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#0D4FD6" Offset="0"/>
+            <GradientStop Color="#1E7BFF" Offset="0.55"/>
+            <GradientStop Color="#3FA3FF" Offset="1"/>
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="Brush.PrimaryGradient" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#2A8CFF" Offset="0"/>
+            <GradientStop Color="#0F5FE0" Offset="1"/>
+        </LinearGradientBrush>
+        <SolidColorBrush x:Key="Brush.Navy"      Color="#0D4FD6"/>
+        <SolidColorBrush x:Key="Brush.NavyLight" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="Brush.Accent"    Color="#1E7BFF"/>
+        <SolidColorBrush x:Key="Brush.AccentDark" Color="#0F5FE0"/>
+        <SolidColorBrush x:Key="Brush.AccentPale" Color="#E8F2FF"/>
+        <SolidColorBrush x:Key="Brush.Cyan"      Color="#3FA3FF"/>
+        <SolidColorBrush x:Key="Brush.Green"     Color="#1E7BFF"/>
+        <SolidColorBrush x:Key="Brush.GreenDark" Color="#0F5FE0"/>
+        <SolidColorBrush x:Key="Brush.GreenPale" Color="#E8F2FF"/>
+        <SolidColorBrush x:Key="Brush.Ok"        Color="#22C55E"/>
+        <SolidColorBrush x:Key="Brush.Red"       Color="#E5484D"/>
+        <SolidColorBrush x:Key="Brush.RedPale"   Color="#FFF1F1"/>
+        <SolidColorBrush x:Key="Brush.Amber"     Color="#E89B1C"/>
+        <SolidColorBrush x:Key="Brush.AmberPale" Color="#FFF4E0"/>
+        <SolidColorBrush x:Key="Brush.Bg"        Color="#EEF4FB"/>
+        <SolidColorBrush x:Key="Brush.Card"      Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="Brush.Field"     Color="#F4F7FB"/>
+        <SolidColorBrush x:Key="Brush.Border"    Color="#D5E1F0"/>
+        <SolidColorBrush x:Key="Brush.Text"      Color="#13213A"/>
+        <SolidColorBrush x:Key="Brush.Muted"     Color="#5F7390"/>
+        <SolidColorBrush x:Key="Brush.Hover"     Color="#F3F8FF"/>
+        <SolidColorBrush x:Key="Brush.Grey"      Color="#9AA8BB"/>
 
-        <!-- Adgangskode-farver (mørk baggrund): tal / STORE / små bogstaver -->
-        <SolidColorBrush x:Key="Brush.PwDigit"   Color="#FF7A7A"/>
-        <SolidColorBrush x:Key="Brush.PwUpper"   Color="#5FD6FF"/>
-        <SolidColorBrush x:Key="Brush.PwLower"   Color="#3DDC84"/>
+        <!-- Adgangskode-farver: tal / STORE / små bogstaver -->
+        <SolidColorBrush x:Key="Brush.PwDigit"   Color="#D83A3A"/>
+        <SolidColorBrush x:Key="Brush.PwUpper"   Color="#1E7BFF"/>
+        <SolidColorBrush x:Key="Brush.PwLower"   Color="#1A9A4A"/>
+        <SolidColorBrush x:Key="Brush.PwDigitPale" Color="#FBDADA"/>
+        <SolidColorBrush x:Key="Brush.PwUpperPale" Color="#1E7BFF"/>
+        <SolidColorBrush x:Key="Brush.PwLowerPale" Color="#D4F3DF"/>
 
         <!-- ===== Knapper ===== -->
         <Style x:Key="BaseButton" TargetType="Button">
@@ -48,7 +61,7 @@
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="3"
+                                CornerRadius="6"
                                 Padding="{TemplateBinding Padding}"
                                 SnapsToDevicePixels="True">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -72,8 +85,8 @@
         </Style>
 
         <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
-            <Setter Property="Background" Value="{StaticResource Brush.Green}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Brush.Green}"/>
+            <Setter Property="Background" Value="{StaticResource Brush.PrimaryGradient}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Brush.AccentDark}"/>
             <Setter Property="Foreground" Value="White"/>
         </Style>
 
@@ -84,7 +97,7 @@
         </Style>
 
         <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
-            <Setter Property="Background" Value="{StaticResource Brush.NavyLight}"/>
+            <Setter Property="Background" Value="{StaticResource Brush.Card}"/>
             <Setter Property="BorderBrush" Value="{StaticResource Brush.Border}"/>
             <Setter Property="Foreground" Value="{StaticResource Brush.Text}"/>
         </Style>
@@ -100,6 +113,18 @@
         </Style>
 
         <Style x:Key="IconButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
+            <Setter Property="Background" Value="{StaticResource Brush.Card}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Brush.Border}"/>
+            <Setter Property="Foreground" Value="{StaticResource Brush.Muted}"/>
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Width" Value="38"/>
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="MinHeight" Value="0"/>
+            <Setter Property="Margin" Value="8,0,0,0"/>
+        </Style>
+        <Style x:Key="RowIconButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="Foreground" Value="{StaticResource Brush.Muted}"/>
@@ -121,7 +146,7 @@
                     <ControlTemplate TargetType="RadioButton">
                         <Border x:Name="bd" Background="{StaticResource Brush.Field}"
                                 BorderBrush="{StaticResource Brush.Border}" BorderThickness="1"
-                                Padding="14,7" CornerRadius="3" Margin="0,0,6,0">
+                                Padding="14,8" CornerRadius="6" Margin="0,0,8,0">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -144,23 +169,32 @@
             <Setter Property="Background" Value="{StaticResource Brush.Card}"/>
             <Setter Property="BorderBrush" Value="{StaticResource Brush.Border}"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="CornerRadius" Value="4"/>
+            <Setter Property="CornerRadius" Value="8"/>
             <Setter Property="Padding" Value="18"/>
         </Style>
 
         <Style x:Key="CardTitle" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Foreground" Value="{StaticResource Brush.Muted}"/>
+            <Setter Property="Foreground" Value="{StaticResource Brush.Text}"/>
             <Setter Property="Margin" Value="0,0,0,10"/>
         </Style>
 
         <Style x:Key="Label" TargetType="TextBlock">
             <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Foreground" Value="{StaticResource Brush.Muted}"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource Brush.Text}"/>
             <Setter Property="Margin" Value="0,8,0,2"/>
+        </Style>
+
+        <Style x:Key="LabelIcon" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Segoe MDL2 Assets"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="{StaticResource Brush.Accent}"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
         </Style>
 
         <Style x:Key="Value" TargetType="TextBlock">
@@ -178,7 +212,18 @@
             <Setter Property="Background" Value="{StaticResource Brush.Field}"/>
             <Setter Property="Foreground" Value="{StaticResource Brush.Text}"/>
             <Setter Property="CaretBrush" Value="{StaticResource Brush.Text}"/>
-            <Setter Property="Padding" Value="8,5"/>
+            <Setter Property="Padding" Value="10,7"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
 
@@ -210,7 +255,10 @@
             <Setter Property="BorderThickness" Value="0,0,0,1"/>
             <Setter Property="BorderBrush" Value="{StaticResource Brush.Border}"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
-            <Setter Property="Padding" Value="6,6"/>
+            <Setter Property="Padding" Value="8,8"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource Brush.Text}"/>
         </Style>
 
     </Application.Resources>
