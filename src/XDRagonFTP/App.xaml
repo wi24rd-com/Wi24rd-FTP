@@ -4,27 +4,33 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
 
-        <!-- ===== Farvepalet (Veeam-inspireret: mørk navy, grøn accent, hvide kort) ===== -->
-        <SolidColorBrush x:Key="Brush.Navy"      Color="#1B2A41"/>
-        <SolidColorBrush x:Key="Brush.NavyLight" Color="#26384F"/>
-        <SolidColorBrush x:Key="Brush.Green"     Color="#00B336"/>
-        <SolidColorBrush x:Key="Brush.GreenDark" Color="#00962D"/>
-        <SolidColorBrush x:Key="Brush.GreenPale" Color="#E6F7EC"/>
-        <SolidColorBrush x:Key="Brush.Red"       Color="#D64545"/>
-        <SolidColorBrush x:Key="Brush.RedPale"   Color="#FBEAEA"/>
-        <SolidColorBrush x:Key="Brush.Amber"     Color="#E89B1C"/>
-        <SolidColorBrush x:Key="Brush.AmberPale" Color="#FFF4E0"/>
-        <SolidColorBrush x:Key="Brush.Bg"        Color="#F3F5F7"/>
-        <SolidColorBrush x:Key="Brush.Card"      Color="#FFFFFF"/>
-        <SolidColorBrush x:Key="Brush.Border"    Color="#D9DEE3"/>
-        <SolidColorBrush x:Key="Brush.Text"      Color="#1F2933"/>
-        <SolidColorBrush x:Key="Brush.Muted"     Color="#6B7680"/>
-        <SolidColorBrush x:Key="Brush.Hover"     Color="#F7F9FA"/>
+        <!-- ===== Wi24rd-palet: dyb navy + cyanblå accent ===== -->
+        <SolidColorBrush x:Key="Brush.Navy"      Color="#07132A"/>
+        <SolidColorBrush x:Key="Brush.NavyLight" Color="#122A52"/>
+        <SolidColorBrush x:Key="Brush.Accent"    Color="#1E8BFF"/>
+        <SolidColorBrush x:Key="Brush.AccentDark" Color="#1261D6"/>
+        <SolidColorBrush x:Key="Brush.AccentPale" Color="#0F2A4D"/>
+        <SolidColorBrush x:Key="Brush.Cyan"      Color="#5FD6FF"/>
+        <SolidColorBrush x:Key="Brush.Green"     Color="#1E8BFF"/>
+        <SolidColorBrush x:Key="Brush.GreenDark" Color="#1261D6"/>
+        <SolidColorBrush x:Key="Brush.GreenPale" Color="#0F2A4D"/>
+        <SolidColorBrush x:Key="Brush.Ok"        Color="#3DDC84"/>
+        <SolidColorBrush x:Key="Brush.Red"       Color="#FF5C5C"/>
+        <SolidColorBrush x:Key="Brush.RedPale"   Color="#3A1A22"/>
+        <SolidColorBrush x:Key="Brush.Amber"     Color="#F5B342"/>
+        <SolidColorBrush x:Key="Brush.AmberPale" Color="#3A2E14"/>
+        <SolidColorBrush x:Key="Brush.Bg"        Color="#0B1830"/>
+        <SolidColorBrush x:Key="Brush.Card"      Color="#112140"/>
+        <SolidColorBrush x:Key="Brush.Field"     Color="#0B1830"/>
+        <SolidColorBrush x:Key="Brush.Border"    Color="#22395E"/>
+        <SolidColorBrush x:Key="Brush.Text"      Color="#E8F0FB"/>
+        <SolidColorBrush x:Key="Brush.Muted"     Color="#8FA6C4"/>
+        <SolidColorBrush x:Key="Brush.Hover"     Color="#162B50"/>
 
-        <!-- Adgangskode-farver: tal / STORE / små bogstaver -->
-        <SolidColorBrush x:Key="Brush.PwDigit"   Color="#D64545"/>
-        <SolidColorBrush x:Key="Brush.PwUpper"   Color="#1B5FBF"/>
-        <SolidColorBrush x:Key="Brush.PwLower"   Color="#00962D"/>
+        <!-- Adgangskode-farver (mørk baggrund): tal / STORE / små bogstaver -->
+        <SolidColorBrush x:Key="Brush.PwDigit"   Color="#FF7A7A"/>
+        <SolidColorBrush x:Key="Brush.PwUpper"   Color="#5FD6FF"/>
+        <SolidColorBrush x:Key="Brush.PwLower"   Color="#3DDC84"/>
 
         <!-- ===== Knapper ===== -->
         <Style x:Key="BaseButton" TargetType="Button">
@@ -72,13 +78,13 @@
         </Style>
 
         <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
-            <Setter Property="Background" Value="{StaticResource Brush.Card}"/>
+            <Setter Property="Background" Value="{StaticResource Brush.RedPale}"/>
             <Setter Property="BorderBrush" Value="{StaticResource Brush.Red}"/>
             <Setter Property="Foreground" Value="{StaticResource Brush.Red}"/>
         </Style>
 
         <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
-            <Setter Property="Background" Value="{StaticResource Brush.Card}"/>
+            <Setter Property="Background" Value="{StaticResource Brush.NavyLight}"/>
             <Setter Property="BorderBrush" Value="{StaticResource Brush.Border}"/>
             <Setter Property="Foreground" Value="{StaticResource Brush.Text}"/>
         </Style>
@@ -113,15 +119,15 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
-                        <Border x:Name="bd" Background="{StaticResource Brush.Card}"
+                        <Border x:Name="bd" Background="{StaticResource Brush.Field}"
                                 BorderBrush="{StaticResource Brush.Border}" BorderThickness="1"
                                 Padding="14,7" CornerRadius="3" Margin="0,0,6,0">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="bd" Property="Background" Value="{StaticResource Brush.Navy}"/>
-                                <Setter TargetName="bd" Property="BorderBrush" Value="{StaticResource Brush.Navy}"/>
+                                <Setter TargetName="bd" Property="Background" Value="{StaticResource Brush.Accent}"/>
+                                <Setter TargetName="bd" Property="BorderBrush" Value="{StaticResource Brush.Accent}"/>
                                 <Setter Property="Foreground" Value="White"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
@@ -169,7 +175,9 @@
             <Setter Property="IsReadOnly" Value="True"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="BorderBrush" Value="{StaticResource Brush.Border}"/>
-            <Setter Property="Background" Value="{StaticResource Brush.Bg}"/>
+            <Setter Property="Background" Value="{StaticResource Brush.Field}"/>
+            <Setter Property="Foreground" Value="{StaticResource Brush.Text}"/>
+            <Setter Property="CaretBrush" Value="{StaticResource Brush.Text}"/>
             <Setter Property="Padding" Value="8,5"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
         </Style>
@@ -185,7 +193,8 @@
         <Style TargetType="ListViewItem">
             <Setter Property="Padding" Value="4,6"/>
             <Setter Property="BorderThickness" Value="0,0,0,1"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Brush.Bg}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Brush.Border}"/>
+            <Setter Property="Foreground" Value="{StaticResource Brush.Text}"/>
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">

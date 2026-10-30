@@ -1,4 +1,4 @@
-# XDRagon FTP
+# Wi24rd FTP
 
 Super enkel, midlertidig fildeling oven på Windows 11's indbyggede **IIS FTP-server** (ftpsvc) og **OpenSSH** (sshd).
 Træk filer ind → Start → giv modtageren adresse + brugernavn + engangsadgangskode → Stop. Færdig.
@@ -32,7 +32,7 @@ Resultatet er én selvstændig `.exe` (self-contained) – brugeren behøver ing
 
 Kør `dist\XDRagonFTP-Setup-1.0.0.exe`. Installeren:
 
-1. Lægger programmet i `C:\Program Files\XDRagon FTP`
+1. Lægger programmet i `C:\Program Files\Wi24rd FTP`
 2. Kører `XDRagonFtp.ps1 -Action Install` som aktiverer Windows-features `IIS-WebServerRole`, `IIS-FTPServer`, `IIS-FTPSvc`, `IIS-ManagementScriptingTools`, opretter FTP-sitet `XDRagonFTP`, de (deaktiverede) firewall-regler, mapperne og den (deaktiverede) konto.
 
 Afinstallation stopper alt og fjerner site, regler, konto og sshd-konfiguration. `C:\XDRagonFTP` bevares.

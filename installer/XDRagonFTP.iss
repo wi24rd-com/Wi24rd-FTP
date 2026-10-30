@@ -1,9 +1,9 @@
 ; XDRagon FTP – Inno Setup 6 script
 ; Byg først med ..\build.ps1 (laver ..\publish\XDRagonFTP.exe + Scripts\)
 
-#define AppName      "XDRagon FTP"
+#define AppName      "Wi24rd FTP"
 #define AppVersion   "1.0.0"
-#define AppPublisher "XDRAGON"
+#define AppPublisher "Wi24rd"
 #define AppExe       "XDRagonFTP.exe"
 
 [Setup]
@@ -11,11 +11,13 @@ AppId={{7E3C1F0A-9B52-4C8E-A1D4-XDRAGONFTP01}
 AppName={#AppName}
 AppVersion={#AppVersion}
 AppPublisher={#AppPublisher}
-DefaultDirName={autopf}\XDRagon FTP
+DefaultDirName={autopf}\Wi24rd FTP
 DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
 OutputDir=..\dist
-OutputBaseFilename=XDRagonFTP-Setup-{#AppVersion}
+OutputBaseFilename=Wi24rdFTP-Setup-{#AppVersion}
+SetupIconFile=..\src\XDRagonFTP\Assets\wi24rd-ftp.ico
+UninstallDisplayIcon={app}\{#AppExe}
 Compression=lzma2/max
 SolidCompression=yes
 WizardStyle=modern
