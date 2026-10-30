@@ -2,7 +2,9 @@
 ; Byg først med ..\build.ps1 (laver ..\publish\Wi24rdFTP.exe + Scripts\)
 
 #define AppName      "Wi24rd FTP"
+#ifndef AppVersion
 #define AppVersion   "1.0.0"
+#endif
 #define AppPublisher "Wi24rd"
 #define AppExe       "Wi24rdFTP.exe"
 

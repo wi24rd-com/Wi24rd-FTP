@@ -9,7 +9,8 @@
 #>
 [CmdletBinding()]
 param(
-    [switch]$SkipInstaller
+    [switch]$SkipInstaller,
+    [string]$Version = ''          # fx 1.0.1 – tom = brug <Version> i csproj
 )
 
 $ErrorActionPreference = 'Stop'
@@ -32,7 +33,11 @@ if ($running) {
 Write-Host '==> dotnet publish (win-x64, self-contained, single file)' -ForegroundColor Cyan
 if (Test-Path $publish) { Remove-Item $publish -Recurse -Force }
 
+$verArgs = @()
+if ($Version) { $verArgs = @("-p:Version=$Version") }
+
 dotnet publish $proj `
+    @verArgs `
     -c Release `
     -r win-x64 `
     --self-contained true `
@@ -64,7 +69,9 @@ if (-not $iscc) {
 
 Write-Host '==> Inno Setup' -ForegroundColor Cyan
 New-Item -ItemType Directory -Force -Path $dist | Out-Null
-& $iscc (Join-Path $here 'installer\Wi24rdFTP.iss')
+$isccArgs = @()
+if ($Version) { $isccArgs = @("/DAppVersion=$Version") }
+& $iscc @isccArgs (Join-Path $here 'installer\Wi24rdFTP.iss')
 if ($LASTEXITCODE -ne 0) { throw 'ISCC fejlede.' }
 
 Write-Host "    OK -> $(Get-ChildItem $dist -Filter *.exe | Select-Object -ExpandProperty FullName)" -ForegroundColor Green

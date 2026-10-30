@@ -1,7 +1,17 @@
 # Wi24rd FTP
 
+[![CI](https://github.com/wi24rd-com/Wi24rd-FTP/actions/workflows/ci.yml/badge.svg)](https://github.com/wi24rd-com/Wi24rd-FTP/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/wi24rd-com/Wi24rd-FTP?label=download)](https://github.com/wi24rd-com/Wi24rd-FTP/releases/latest)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 Super enkel, midlertidig fildeling oven på Windows 11's indbyggede **IIS FTP-server** (ftpsvc) og **OpenSSH** (sshd).
 Træk filer ind → Start → giv modtageren adresse + brugernavn + engangsadgangskode → Stop. Færdig.
+
+**Download:** [Wi24rdFTP-Setup.exe (nyeste version)](https://github.com/wi24rd-com/Wi24rd-FTP/releases/latest/download/Wi24rdFTP-Setup.exe) · Windows 10/11 64-bit · ingen .NET-installation nødvendig.
+
+> Installeren er endnu ikke kodesigneret, så SmartScreen kan vise "Windows beskyttede din pc" første gang. Klik *Flere oplysninger → Kør alligevel*, eller verificér SHA256 mod `SHA256SUMS.txt` på release-siden.
+
+Sproget følger Windows' visningssprog: dansk på dansk Windows, ellers engelsk.
 
 ## Sådan virker det
 
@@ -45,6 +55,15 @@ Afinstallation stopper alt og fjerner site, regler, konto og sshd-konfiguration.
 | `%ProgramData%\Wi24rdFTP\state.json` | Backendens resultat (status, IP'er, adgangskode mens serveren kører) |
 | `%ProgramData%\Wi24rdFTP\log\backend-ÅÅÅÅMMDD.log` | Transcript af hvert backend-kald – kig her ved fejl |
 | `%ProgramData%\ssh\sshd_config` | Får en `# WI24RD-FTP BEGIN … END`-blok (Match User wi24rdftp, ChrootDirectory, internal-sftp) i SFTP-mode |
+
+## Udgiv en ny version
+
+```bash
+git tag v1.0.1
+git push --tags
+```
+
+GitHub Actions bygger exe + installer, laver en Release med auto-genererede noter og lægger `Wi24rdFTP-Setup-1.0.1.exe`, `Wi24rdFTP-Setup.exe` og `SHA256SUMS.txt` som assets. Appen tjekker GitHub Releases ved opstart (ét anonymt kald, ingen telemetri) og viser et banner, hvis der findes en nyere version.
 
 ## Sikkerhedsnoter
 
