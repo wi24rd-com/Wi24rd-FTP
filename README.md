@@ -1,3 +1,5 @@
+![Wi24rd FTP](docs/banner.jpg)
+
 # Wi24rd FTP
 
 [![CI](https://github.com/wi24rd-com/Wi24rd-FTP/actions/workflows/ci.yml/badge.svg)](https://github.com/wi24rd-com/Wi24rd-FTP/actions/workflows/ci.yml)
