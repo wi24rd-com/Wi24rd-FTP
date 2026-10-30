@@ -7,13 +7,13 @@ Træk filer ind → Start → giv modtageren adresse + brugernavn + engangsadgan
 
 | Knap | Hvad sker der |
 |---|---|
-| **Start FTP / SFTP** | Ny engangsadgangskode til kontoen `xdragonftp` · kontoen aktiveres · ftpsvc (eller sshd) startes · firewall-regel for port 21 (+ passiv 50000-50100) eller port 22 aktiveres · adresse og adgangskode vises i GUI'en |
+| **Start FTP / SFTP** | Ny engangsadgangskode til kontoen `wi24rdftp` · kontoen aktiveres · ftpsvc (eller sshd) startes · firewall-regel for port 21 (+ passiv 50000-50100) eller port 22 aktiveres · adresse og adgangskode vises i GUI'en |
 | **Stop FTP / SFTP** | Firewall-regler deaktiveres · tjenesten stoppes · kontoen deaktiveres og får ny, ukendt adgangskode · bruger spørges: *slet filerne eller lad dem blive?* |
 | **Luk program** | Kører Stop-rutinen (hvis noget kører) → spørger om filerne → lukker |
 
-* Filer kopieres til `C:\XDRagonFTP\Share` – originalerne røres aldrig.
-* Modtageren har **kun læseadgang** (IIS-autorisation = Read, og NTFS-deny på skriv/slet for `xdragonftp`).
-* Alt der kræver admin (tjenester, firewall, konto, IIS-features) ligger i `Scripts\XDRagonFtp.ps1`, som GUI'en kører eleveret (UAC-prompt ved Start/Stop).
+* Filer kopieres til `C:\Wi24rdFTP\Share` – originalerne røres aldrig.
+* Modtageren har **kun læseadgang** (IIS-autorisation = Read, og NTFS-deny på skriv/slet for `wi24rdftp`).
+* Alt der kræver admin (tjenester, firewall, konto, IIS-features) ligger i `Scripts\Wi24rdFtp.ps1`, som GUI'en kører eleveret (UAC-prompt ved Start/Stop).
   GUI'en selv kører **uden** admin – det er bevidst: Windows blokerer drag-and-drop fra Explorer ind i elevede vinduer.
 * Første gang: hvis ftpsvc mangler, viser GUI'en et gult banner med **Installér nu** (installeren gør det samme automatisk).
 
@@ -22,7 +22,7 @@ Træk filer ind → Start → giv modtageren adresse + brugernavn + engangsadgan
 Krav på byggemaskinen: Windows, [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0), valgfrit [Inno Setup 6](https://jrsoftware.org/isdl.php).
 
 ```powershell
-.\build.ps1               # -> publish\XDRagonFTP.exe  og  dist\XDRagonFTP-Setup-1.0.0.exe
+.\build.ps1               # -> publish\Wi24rdFTP.exe  og  dist\Wi24rdFTP-Setup-1.0.0.exe
 .\build.ps1 -SkipInstaller
 ```
 
@@ -30,21 +30,21 @@ Resultatet er én selvstændig `.exe` (self-contained) – brugeren behøver ing
 
 ## Installér
 
-Kør `dist\XDRagonFTP-Setup-1.0.0.exe`. Installeren:
+Kør `dist\Wi24rdFTP-Setup-1.0.0.exe`. Installeren:
 
 1. Lægger programmet i `C:\Program Files\Wi24rd FTP`
-2. Kører `XDRagonFtp.ps1 -Action Install` som aktiverer Windows-features `IIS-WebServerRole`, `IIS-FTPServer`, `IIS-FTPSvc`, `IIS-ManagementScriptingTools`, opretter FTP-sitet `XDRagonFTP`, de (deaktiverede) firewall-regler, mapperne og den (deaktiverede) konto.
+2. Kører `Wi24rdFtp.ps1 -Action Install` som aktiverer Windows-features `IIS-WebServerRole`, `IIS-FTPServer`, `IIS-FTPSvc`, `IIS-ManagementScriptingTools`, opretter FTP-sitet `Wi24rdFTP`, de (deaktiverede) firewall-regler, mapperne og den (deaktiverede) konto.
 
-Afinstallation stopper alt og fjerner site, regler, konto og sshd-konfiguration. `C:\XDRagonFTP` bevares.
+Afinstallation stopper alt og fjerner site, regler, konto og sshd-konfiguration. `C:\Wi24rdFTP` bevares.
 
 ## Mapper og filer
 
 | Sti | Indhold |
 |---|---|
-| `C:\XDRagonFTP\Share` | Filer der deles (= FTP-rod / SFTP-chroot ser `/Share`) |
-| `%ProgramData%\XDRagonFTP\state.json` | Backendens resultat (status, IP'er, adgangskode mens serveren kører) |
-| `%ProgramData%\XDRagonFTP\log\backend-ÅÅÅÅMMDD.log` | Transcript af hvert backend-kald – kig her ved fejl |
-| `%ProgramData%\ssh\sshd_config` | Får en `# XDRAGON-FTP BEGIN … END`-blok (Match User xdragonftp, ChrootDirectory, internal-sftp) i SFTP-mode |
+| `C:\Wi24rdFTP\Share` | Filer der deles (= FTP-rod / SFTP-chroot ser `/Share`) |
+| `%ProgramData%\Wi24rdFTP\state.json` | Backendens resultat (status, IP'er, adgangskode mens serveren kører) |
+| `%ProgramData%\Wi24rdFTP\log\backend-ÅÅÅÅMMDD.log` | Transcript af hvert backend-kald – kig her ved fejl |
+| `%ProgramData%\ssh\sshd_config` | Får en `# WI24RD-FTP BEGIN … END`-blok (Match User wi24rdftp, ChrootDirectory, internal-sftp) i SFTP-mode |
 
 ## Sikkerhedsnoter
 
@@ -57,13 +57,13 @@ Afinstallation stopper alt og fjerner site, regler, konto og sshd-konfiguration.
 
 ```
 build.ps1                     Bygger exe + installer
-installer\XDRagonFTP.iss      Inno Setup-script
-src\XDRagonFTP\
-  XDRagonFTP.csproj           .NET 8 WPF
+installer\Wi24rdFTP.iss      Inno Setup-script
+src\Wi24rdFTP\
+  Wi24rdFTP.csproj           .NET 8 WPF
   app.manifest                asInvoker + PerMonitorV2 DPI
   App.xaml                    Farver og styles (Veeam-stil)
   MainWindow.xaml(.cs)        GUI
   Services\Backend.cs         Kører PowerShell eleveret, læser state.json
   Services\SharedFile.cs      Model for fillisten
-  Scripts\XDRagonFtp.ps1      Backend: Install / Start / Stop / Uninstall
+  Scripts\Wi24rdFtp.ps1      Backend: Install / Start / Stop / Uninstall
 ```

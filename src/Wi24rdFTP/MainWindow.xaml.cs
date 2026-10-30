@@ -6,9 +6,9 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Threading;
 using Microsoft.Win32;
-using XDRagonFTP.Services;
+using Wi24rdFTP.Services;
 
-namespace XDRagonFTP;
+namespace Wi24rdFTP;
 
 public partial class MainWindow : Window
 {
@@ -403,7 +403,7 @@ public partial class MainWindow : Window
     private void ApplyState(BackendState st)
     {
         if (!string.IsNullOrEmpty(st.Password)) { _password = st.Password; ShowPassword(_password); }
-        UserBox.Text = string.IsNullOrEmpty(st.User) ? "xdragonftp" : st.User;
+        UserBox.Text = string.IsNullOrEmpty(st.User) ? "wi24rdftp" : st.User;
         var ips = st.Ips?.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray() ?? Array.Empty<string>();
         IpList.ItemsSource = ips.Length == 0 ? null : ips.Select(ip => $"{ip}:{st.Port}").ToArray();
         IpHint.Visibility = ips.Length == 0 ? Visibility.Visible : Visibility.Collapsed;

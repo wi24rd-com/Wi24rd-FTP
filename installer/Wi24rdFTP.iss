@@ -1,13 +1,13 @@
-; XDRagon FTP – Inno Setup 6 script
-; Byg først med ..\build.ps1 (laver ..\publish\XDRagonFTP.exe + Scripts\)
+; Wi24rd FTP – Inno Setup 6 script
+; Byg først med ..\build.ps1 (laver ..\publish\Wi24rdFTP.exe + Scripts\)
 
 #define AppName      "Wi24rd FTP"
 #define AppVersion   "1.0.0"
 #define AppPublisher "Wi24rd"
-#define AppExe       "XDRagonFTP.exe"
+#define AppExe       "Wi24rdFTP.exe"
 
 [Setup]
-AppId={{7E3C1F0A-9B52-4C8E-A1D4-XDRAGONFTP01}
+AppId={{A00276B2-A46C-40FE-8ECF-A9D28D4558A5}
 AppName={#AppName}
 AppVersion={#AppVersion}
 AppPublisher={#AppPublisher}
@@ -16,7 +16,7 @@ DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
 OutputDir=..\dist
 OutputBaseFilename=Wi24rdFTP-Setup-{#AppVersion}
-SetupIconFile=..\src\XDRagonFTP\Assets\wi24rd-ftp.ico
+SetupIconFile=..\src\Wi24rdFTP\Assets\wi24rd-ftp.ico
 UninstallDisplayIcon={app}\{#AppExe}
 Compression=lzma2/max
 SolidCompression=yes
@@ -44,17 +44,17 @@ Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExe}"; Tasks: desktopico
 ; Sikrer IIS FTP-feature, FTP-site, firewall-regler, mapper og konto.
 ; Kører eleveret (installeren er admin). Kan tage et par minutter første gang.
 Filename: "powershell.exe"; \
-  Parameters: "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File ""{app}\Scripts\XDRagonFtp.ps1"" -Action Install"; \
+  Parameters: "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File ""{app}\Scripts\Wi24rdFtp.ps1"" -Action Install"; \
   StatusMsg: "Installerer Windows' indbyggede FTP-server (kan tage et par minutter)…"; \
   Flags: runhidden waituntilterminated
 
 Filename: "{app}\{#AppExe}"; Description: "Start {#AppName}"; Flags: nowait postinstall skipifsilent
 
 [UninstallRun]
-; Stopper server, lukker porte, fjerner site, regler og konto. Mappen C:\XDRagonFTP bevares.
+; Stopper server, lukker porte, fjerner site, regler og konto. Mappen C:\Wi24rdFTP bevares.
 Filename: "powershell.exe"; \
-  Parameters: "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File ""{app}\Scripts\XDRagonFtp.ps1"" -Action Uninstall"; \
-  Flags: runhidden waituntilterminated; RunOnceId: "XDRagonFtpUninstall"
+  Parameters: "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File ""{app}\Scripts\Wi24rdFtp.ps1"" -Action Uninstall"; \
+  Flags: runhidden waituntilterminated; RunOnceId: "Wi24rdFtpUninstall"
 
 [Code]
 function InitializeSetup(): Boolean;
@@ -62,7 +62,7 @@ begin
   Result := True;
   if not IsWin64 then
   begin
-    MsgBox('XDRagon FTP kræver 64-bit Windows 10/11.', mbError, MB_OK);
+    MsgBox('Wi24rd FTP kræver 64-bit Windows 10/11.', mbError, MB_OK);
     Result := False;
   end;
 end;

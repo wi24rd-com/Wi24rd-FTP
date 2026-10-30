@@ -1,12 +1,12 @@
 ﻿<#
 .SYNOPSIS
-    XDRagon FTP – backend.
+    Wi24rd FTP – backend.
     Styrer den indbyggede IIS FTP-server (ftpsvc) og OpenSSH (sshd),
     Windows Firewall og den lokale FTP-konto.
 
 .DESCRIPTION
-    Kaldes eleveret (UAC) fra XDRagon FTP-GUI'en eller fra installeren.
-    Resultatet skrives altid til %ProgramData%\XDRagonFTP\state.json,
+    Kaldes eleveret (UAC) fra Wi24rd FTP-GUI'en eller fra installeren.
+    Resultatet skrives altid til %ProgramData%\Wi24rdFTP\state.json,
     som GUI'en læser bagefter (stdout kan ikke læses fra en eleveret proces).
 
     Actions:
@@ -34,21 +34,21 @@ $ErrorActionPreference = 'Stop'
 # ---------------------------------------------------------------------------
 # Konstanter
 # ---------------------------------------------------------------------------
-$Root       = 'C:\XDRagonFTP'                      # chroot-rod for SFTP – må IKKE være skrivbar for andre
+$Root       = 'C:\Wi24rdFTP'                      # chroot-rod for SFTP – må IKKE være skrivbar for andre
 $Share      = Join-Path $Root 'Share'              # her ligger filerne der deles
-$DataDir    = Join-Path $env:ProgramData 'XDRagonFTP'
+$DataDir    = Join-Path $env:ProgramData 'Wi24rdFTP'
 $LogDir     = Join-Path $DataDir 'log'
 $StateFile  = Join-Path $DataDir 'state.json'
-$SiteName   = 'XDRagonFTP'
-$FtpUser    = 'xdragonftp'
+$SiteName   = 'Wi24rdFTP'
+$FtpUser    = 'wi24rdftp'
 $PasvLow    = 50000
 $PasvHigh   = 50100
-$RuleFtp    = 'XDRagon FTP - kontrolkanal (21)'
-$RulePasv   = 'XDRagon FTP - passiv datakanal'
-$RuleSftp   = 'XDRagon FTP - SFTP (22)'
-$RuleGroup  = 'XDRagon FTP'
+$RuleFtp    = 'Wi24rd FTP - kontrolkanal (21)'
+$RulePasv   = 'Wi24rd FTP - passiv datakanal'
+$RuleSftp   = 'Wi24rd FTP - SFTP (22)'
+$RuleGroup  = 'Wi24rd FTP'
 $SshdConfig = Join-Path $env:ProgramData 'ssh\sshd_config'
-$Marker     = '# XDRAGON-FTP'
+$Marker     = '# WI24RD-FTP'
 
 New-Item -ItemType Directory -Force -Path $DataDir, $LogDir | Out-Null
 Start-Transcript -Path (Join-Path $LogDir ("backend-{0:yyyyMMdd}.log" -f (Get-Date))) -Append | Out-Null
@@ -109,8 +109,8 @@ function Ensure-FtpUser([string]$Pw) {
     $u = Get-LocalUser -Name $FtpUser -ErrorAction SilentlyContinue
     if (-not $u) {
         Write-Log "Opretter lokal konto $FtpUser"
-        New-LocalUser -Name $FtpUser -Password $sec -FullName 'XDRagon FTP' `
-            -Description 'Midlertidig konto oprettet af XDRagon FTP' `
+        New-LocalUser -Name $FtpUser -Password $sec -FullName 'Wi24rd FTP' `
+            -Description 'Midlertidig konto oprettet af Wi24rd FTP' `
             -PasswordNeverExpires -AccountNeverExpires -UserMayNotChangePassword | Out-Null
     } else {
         Set-LocalUser -Name $FtpUser -Password $sec -PasswordNeverExpires $true
@@ -194,7 +194,7 @@ function Ensure-FtpSite {
     Set-ItemProperty $p -Name ftpServer.security.ssl.dataChannelPolicy    -Value 0
     Set-ItemProperty $p -Name ftpServer.userIsolation.mode -Value 0                  # None (alle ser Share)
 
-    # Autorisation: kun xdragonftp, kun læsning
+    # Autorisation: kun wi24rdftp, kun læsning
     try { Clear-WebConfiguration -Filter '/system.ftpServer/security/authorization' -PSPath 'IIS:\' -Location $SiteName } catch { }
     Add-WebConfiguration -Filter '/system.ftpServer/security/authorization' -PSPath 'IIS:\' -Location $SiteName `
         -Value @{ accessType = 'Allow'; users = $FtpUser; permissions = 'Read' }
@@ -317,7 +317,7 @@ function Invoke-Uninstall {
     Remove-SshdChroot
     Remove-LocalUser -Name $FtpUser -ErrorAction SilentlyContinue
     Remove-Item -Path $StateFile -Force -ErrorAction SilentlyContinue
-    Write-Log 'Afinstalleret (mappen C:\XDRagonFTP er bevaret)'
+    Write-Log 'Afinstalleret (mappen C:\Wi24rdFTP er bevaret)'
 }
 
 # ---------------------------------------------------------------------------
