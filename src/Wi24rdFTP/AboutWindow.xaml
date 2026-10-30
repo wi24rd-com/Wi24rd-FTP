@@ -41,7 +41,12 @@
             </StackPanel>
         </Border>
 
-        <TextBlock Text="{x:Static loc:L.AboutCredits}" Margin="0,14,0,0" FontSize="12" TextWrapping="Wrap"
+        <StackPanel Orientation="Horizontal" Margin="0,14,0,0">
+            <TextBlock Text="&#xE73E;" FontFamily="Segoe MDL2 Assets" FontSize="13" Foreground="{StaticResource Brush.Ok}"
+                       VerticalAlignment="Center" Margin="0,0,8,0"/>
+            <TextBlock Text="{x:Static loc:L.FreeNotice}" FontSize="12" TextWrapping="Wrap" VerticalAlignment="Center"/>
+        </StackPanel>
+        <TextBlock Text="{x:Static loc:L.AboutCredits}" Margin="0,8,0,0" FontSize="12" TextWrapping="Wrap"
                    Foreground="{StaticResource Brush.Muted}"/>
 
         <Button Content="{x:Static loc:L.Close}" Style="{StaticResource PrimaryButton}" HorizontalAlignment="Right"

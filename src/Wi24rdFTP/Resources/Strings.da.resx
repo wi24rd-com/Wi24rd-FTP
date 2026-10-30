@@ -128,4 +128,5 @@ Se loggen i:
   <data name="AboutCredits" xml:space="preserve"><value>Bygget med .NET 8 / WPF. Udviklet af Wi24rd.</value></data>
   <data name="UpdateAvailable" xml:space="preserve"><value>Version {0} af Wi24rd FTP er tilgængelig.</value></data>
   <data name="Download" xml:space="preserve"><value>Hent</value></data>
+  <data name="FreeNotice" xml:space="preserve"><value>Gratis og open source · ingen reklamer · ingen konto · ingen tracking</value></data>
 </root>

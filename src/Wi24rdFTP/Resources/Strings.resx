@@ -128,4 +128,5 @@ See the log in:
   <data name="AboutCredits" xml:space="preserve"><value>Built with .NET 8 / WPF. Developed by Wi24rd.</value></data>
   <data name="UpdateAvailable" xml:space="preserve"><value>Version {0} of Wi24rd FTP is available.</value></data>
   <data name="Download" xml:space="preserve"><value>Download</value></data>
+  <data name="FreeNotice" xml:space="preserve"><value>Free and open source · no ads · no account · no tracking</value></data>
 </root>

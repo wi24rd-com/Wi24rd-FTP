@@ -116,4 +116,5 @@ public static class L
     public static string AboutCredits => Get("AboutCredits");
     public static string UpdateAvailable => Get("UpdateAvailable");
     public static string Download => Get("Download");
+    public static string FreeNotice => Get("FreeNotice");
 }

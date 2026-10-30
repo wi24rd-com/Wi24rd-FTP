@@ -17,6 +17,13 @@ Træk filer ind → Start → giv modtageren adresse + brugernavn + engangsadgan
 
 Sproget følger Windows' visningssprog: dansk på dansk Windows, ellers engelsk.
 
+**Gratis – og det bliver det ved med at være**
+
+- ✅ Gratis og open source (MIT) – ingen betalingsversion, ingen prøveperiode
+- ✅ Ingen reklamer, ingen konto, ingen registrering
+- ✅ Ingen tracking eller telemetri – den eneste forbindelse programmet selv laver, er ét anonymt kald til GitHub ved opstart for at tjekke efter en nyere version
+- ✅ Alt kører lokalt på din egen pc – dine filer går aldrig gennem en tredjepart
+
 ![Wi24rd FTP hovedvindue](docs/screenshot.png)
 
 ## Sådan virker det

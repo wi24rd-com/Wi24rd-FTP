@@ -17,6 +17,13 @@ Drag files in → Start → hand the recipient address + username + one-time pas
 
 The UI follows the Windows display language: Danish on Danish Windows, English otherwise.
 
+**Free, and it stays that way**
+
+- ✅ Free and open source (MIT) – no paid tier, no trial period
+- ✅ No ads, no account, no registration
+- ✅ No tracking or telemetry – the only connection the program makes itself is one anonymous request to GitHub at startup to check for a newer version
+- ✅ Everything runs locally on your own PC – your files never pass through a third party
+
 ![Wi24rd FTP main window](docs/screenshot.png)
 
 ## How it works
