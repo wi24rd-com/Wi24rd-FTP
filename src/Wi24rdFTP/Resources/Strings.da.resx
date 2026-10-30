@@ -125,5 +125,5 @@ Se loggen i:
   <data name="ReadLicense" xml:space="preserve"><value>Læs licensen</value></data>
   <data name="Close" xml:space="preserve"><value>Luk</value></data>
   <data name="AboutDescription" xml:space="preserve"><value>En enkel brugerflade til Windows' indbyggede IIS FTP-server og OpenSSH: træk filer ind, tryk Start, giv adresse og engangsadgangskode videre, tryk Stop.</value></data>
-  <data name="AboutCredits" xml:space="preserve"><value>Bygget med .NET 8 / WPF. Udviklet af Wi24rd i samarbejde med Claude (Anthropic).</value></data>
+  <data name="AboutCredits" xml:space="preserve"><value>Bygget med .NET 8 / WPF. Udviklet af Wi24rd.</value></data>
 </root>
