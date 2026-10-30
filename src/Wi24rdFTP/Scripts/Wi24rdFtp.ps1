@@ -168,6 +168,7 @@ function Ensure-FtpFeatures {
         $state = (Get-WindowsOptionalFeature -Online -FeatureName $f -ErrorAction SilentlyContinue).State
         if ($state -ne 'Enabled') {
             Write-Log "Enabling Windows feature $f - this can take a few minutes"
+            Write-Host '           (Windows Update is working in the background - no output until it finishes)' -ForegroundColor DarkGray
             Enable-WindowsOptionalFeature -Online -FeatureName $f -All -NoRestart | Out-Null
             $newly = $true
         }
@@ -261,6 +262,11 @@ function Remove-SshdChroot {
 # Actions
 # ---------------------------------------------------------------------------
 function Invoke-Install {
+    $Host.UI.RawUI.WindowTitle = 'Wi24rd FTP - setup'
+    Write-Host ''
+    Write-Host '  Wi24rd FTP - setting up Windows components. Please wait, this window closes by itself.' -ForegroundColor Cyan
+    Write-Host '  (Enabling IIS FTP and installing OpenSSH can take 5-10 minutes on the first run.)' -ForegroundColor DarkGray
+    Write-Host ''
     Ensure-FtpUser (New-RandomPassword)
     Disable-LocalUser -Name $FtpUser
     Ensure-Folders
