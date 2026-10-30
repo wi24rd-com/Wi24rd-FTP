@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     XDRagon FTP – backend.
     Styrer den indbyggede IIS FTP-server (ftpsvc) og OpenSSH (sshd),

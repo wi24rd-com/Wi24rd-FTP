@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
     Bygger XDRagon FTP som én selvstændig .exe (ingen .NET-runtime påkrævet hos brugeren)
     og – hvis Inno Setup 6 er installeret – en Setup.exe i .\dist.
