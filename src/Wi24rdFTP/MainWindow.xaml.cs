@@ -65,8 +65,8 @@ public partial class MainWindow : Window
     private void Mode_Checked(object sender, RoutedEventArgs e)
     {
         if (BtnStart is null) return;   // kaldes under InitializeComponent
-        BtnStart.Content = ModeSftp.IsChecked == true ? "▶  Start SFTP" : "▶  Start FTP";
-        BtnStop.Content  = ModeSftp.IsChecked == true ? "■  Stop SFTP"  : "■  Stop FTP";
+        BtnStartText.Text = ModeSftp.IsChecked == true ? "Start SFTP" : "Start FTP";
+        BtnStopText.Text  = ModeSftp.IsChecked == true ? "Stop SFTP"  : "Stop FTP";
     }
 
     private async void BtnInstall_Click(object sender, RoutedEventArgs e)
@@ -85,8 +85,8 @@ public partial class MainWindow : Window
         e.Effects = ok ? DragDropEffects.Copy : DragDropEffects.None;
         if (ok)
         {
-            DropOutline.Stroke = (Brush)FindResource("Brush.Cyan");
-            DropOutline.Fill = (Brush)FindResource("Brush.AccentPale");
+            DropOutline.BorderBrush = (Brush)FindResource("Brush.Accent");
+            DropOutline.Background = (Brush)FindResource("Brush.AccentPale");
         }
         e.Handled = true;
     }
@@ -95,8 +95,8 @@ public partial class MainWindow : Window
 
     private void ResetDropZone()
     {
-        DropOutline.Stroke = (Brush)FindResource("Brush.Border");
-        DropOutline.Fill = (Brush)FindResource("Brush.Field");
+        DropOutline.BorderBrush = (Brush)FindResource("Brush.Border");
+        DropOutline.Background = (Brush)FindResource("Brush.Field");
     }
 
     private void DropZone_Drop(object sender, DragEventArgs e)
@@ -423,7 +423,10 @@ public partial class MainWindow : Window
         if (_running)
         {
             StatusDot.Fill = (Brush)FindResource("Brush.Ok");
+            SvcDot.Fill = (Brush)FindResource("Brush.Ok");
+            FwDot.Fill = (Brush)FindResource("Brush.Ok");
             StatusText.Text = $"Kører · port {port}";
+            LogHint.Text = "Tryk Stop FTP for at lukke porten igen.";
             SvcStatus.Text = st!.Mode == "SFTP" ? "OpenSSH (sshd) kører" : "IIS FTP (ftpsvc) kører";
             FwStatus.Text = $"Port {port} åben";
             if (st.Mode == "SFTP") ModeSftp.IsChecked = true; else ModeFtp.IsChecked = true;
@@ -432,8 +435,11 @@ public partial class MainWindow : Window
         }
         else
         {
-            StatusDot.Fill = (ftpUp || sshUp) ? (Brush)FindResource("Brush.Amber") : new SolidColorBrush(Color.FromRgb(0x8F, 0xA6, 0xC4));
+            StatusDot.Fill = (ftpUp || sshUp) ? (Brush)FindResource("Brush.Amber") : (Brush)FindResource("Brush.Grey");
+            SvcDot.Fill = (ftpUp || sshUp) ? (Brush)FindResource("Brush.Amber") : (Brush)FindResource("Brush.Grey");
+            FwDot.Fill = (Brush)FindResource("Brush.Red");
             StatusText.Text = (ftpUp || sshUp) ? "Tjeneste kører – port lukket" : "Stoppet";
+            LogHint.Text = "Start FTP for at dele filer og mapper.";
             SvcStatus.Text = Backend.ServiceExists("ftpsvc") ? (ftpUp ? "ftpsvc kører (ikke af Wi24rd)" : "Stoppet") : "Ikke installeret";
             FwStatus.Text = "Lukket";
         }
@@ -442,8 +448,8 @@ public partial class MainWindow : Window
         BtnStop.IsEnabled = !_busy && _running;
         ModeFtp.IsEnabled = ModeSftp.IsEnabled = !_running && !_busy;
         BtnNewPassword.IsEnabled = !_running && !_busy;
-        BtnStart.Content = ModeSftp.IsChecked == true ? "▶  Start SFTP" : "▶  Start FTP";
-        BtnStop.Content = ModeSftp.IsChecked == true ? "■  Stop SFTP" : "■  Stop FTP";
+        BtnStartText.Text = ModeSftp.IsChecked == true ? "Start SFTP" : "Start FTP";
+        BtnStopText.Text  = ModeSftp.IsChecked == true ? "Stop SFTP"  : "Stop FTP";
     }
 
     private void SetBusy(bool busy, string? message = null)
@@ -495,7 +501,8 @@ public partial class MainWindow : Window
 
     private void Log(string message)
     {
-        LogLine.Text = $"{DateTime.Now:HH:mm}  {message}";
+        LogLine.Text = message;
+        LogHint.Text = $"Kl. {DateTime.Now:HH:mm}";
     }
 
     // ------------------------------------------------------------------
