@@ -1,6 +1,6 @@
 using System.Windows;
 
-namespace XDRagonFTP;
+namespace Wi24rdFTP;
 
 public partial class App : Application
 {

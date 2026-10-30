@@ -5,7 +5,7 @@ using System.ServiceProcess;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace XDRagonFTP.Services;
+namespace Wi24rdFTP.Services;
 
 /// <summary>Spejler state.json som backend-scriptet skriver.</summary>
 public sealed class BackendState
@@ -27,20 +27,20 @@ public sealed class BackendState
 public enum BackendOutcome { Ok, Failed, Cancelled, ScriptMissing }
 
 /// <summary>
-/// Kører XDRagonFtp.ps1 eleveret (UAC) og læser resultatet fra state.json.
+/// Kører Wi24rdFtp.ps1 eleveret (UAC) og læser resultatet fra state.json.
 /// GUI'en selv kører uden admin-rettigheder, så drag-and-drop fra Explorer virker.
 /// </summary>
 public sealed class Backend
 {
-    public const string RootPath  = @"C:\XDRagonFTP";
-    public const string SharePath = @"C:\XDRagonFTP\Share";
+    public const string RootPath  = @"C:\Wi24rdFTP";
+    public const string SharePath = @"C:\Wi24rdFTP\Share";
 
     public static readonly string DataDir   = Path.Combine(
-        Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "XDRagonFTP");
+        Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "Wi24rdFTP");
     public static readonly string StateFile = Path.Combine(DataDir, "state.json");
     public static readonly string LogDir    = Path.Combine(DataDir, "log");
 
-    public string ScriptPath { get; } = Path.Combine(AppContext.BaseDirectory, "Scripts", "XDRagonFtp.ps1");
+    public string ScriptPath { get; } = Path.Combine(AppContext.BaseDirectory, "Scripts", "Wi24rdFtp.ps1");
 
     private static readonly JsonSerializerOptions JsonOpts = new()
     {

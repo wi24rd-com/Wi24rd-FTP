@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace XDRagonFTP.Services;
+namespace Wi24rdFTP.Services;
 
 /// <summary>En fil eller mappe i Share-mappen, som vist i GUI'ens liste.</summary>
 public sealed class SharedFile

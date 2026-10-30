@@ -1,6 +1,6 @@
 ﻿<#
 .SYNOPSIS
-    Bygger XDRagon FTP som én selvstændig .exe (ingen .NET-runtime påkrævet hos brugeren)
+    Bygger Wi24rd FTP som én selvstændig .exe (ingen .NET-runtime påkrævet hos brugeren)
     og – hvis Inno Setup 6 er installeret – en Setup.exe i .\dist.
 
 .EXAMPLE
@@ -14,7 +14,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $here    = Split-Path -Parent $MyInvocation.MyCommand.Path
-$proj    = Join-Path $here 'src\XDRagonFTP\XDRagonFTP.csproj'
+$proj    = Join-Path $here 'src\Wi24rdFTP\Wi24rdFTP.csproj'
 $publish = Join-Path $here 'publish'
 $dist    = Join-Path $here 'dist'
 
@@ -37,10 +37,10 @@ dotnet publish $proj `
 
 if ($LASTEXITCODE -ne 0) { throw 'dotnet publish fejlede.' }
 
-if (-not (Test-Path (Join-Path $publish 'Scripts\XDRagonFtp.ps1'))) {
-    throw 'Scripts\XDRagonFtp.ps1 blev ikke kopieret med til publish-mappen.'
+if (-not (Test-Path (Join-Path $publish 'Scripts\Wi24rdFtp.ps1'))) {
+    throw 'Scripts\Wi24rdFtp.ps1 blev ikke kopieret med til publish-mappen.'
 }
-Write-Host "    OK -> $publish\XDRagonFTP.exe" -ForegroundColor Green
+Write-Host "    OK -> $publish\Wi24rdFTP.exe" -ForegroundColor Green
 
 if ($SkipInstaller) { return }
 
@@ -57,7 +57,7 @@ if (-not $iscc) {
 
 Write-Host '==> Inno Setup' -ForegroundColor Cyan
 New-Item -ItemType Directory -Force -Path $dist | Out-Null
-& $iscc (Join-Path $here 'installer\XDRagonFTP.iss')
+& $iscc (Join-Path $here 'installer\Wi24rdFTP.iss')
 if ($LASTEXITCODE -ne 0) { throw 'ISCC fejlede.' }
 
 Write-Host "    OK -> $(Get-ChildItem $dist -Filter *.exe | Select-Object -ExpandProperty FullName)" -ForegroundColor Green

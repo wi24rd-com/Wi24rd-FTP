@@ -6,10 +6,10 @@
     <UseWPF>true</UseWPF>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyName>XDRagonFTP</AssemblyName>
-    <RootNamespace>XDRagonFTP</RootNamespace>
+    <AssemblyName>Wi24rdFTP</AssemblyName>
+    <RootNamespace>Wi24rdFTP</RootNamespace>
     <Version>1.0.0</Version>
-    <Company>XDRAGON</Company>
+    <Company>Wi24rd</Company>
     <Product>Wi24rd FTP</Product>
     <AssemblyTitle>Wi24rd FTP</AssemblyTitle>
     <ApplicationIcon>Assets\wi24rd-ftp.ico</ApplicationIcon>
@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Scripts\XDRagonFtp.ps1">
+    <None Include="Scripts\Wi24rdFtp.ps1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </None>
