@@ -126,4 +126,6 @@ Se loggen i:
   <data name="Close" xml:space="preserve"><value>Luk</value></data>
   <data name="AboutDescription" xml:space="preserve"><value>En enkel brugerflade til Windows' indbyggede IIS FTP-server og OpenSSH: træk filer ind, tryk Start, giv adresse og engangsadgangskode videre, tryk Stop.</value></data>
   <data name="AboutCredits" xml:space="preserve"><value>Bygget med .NET 8 / WPF. Udviklet af Wi24rd.</value></data>
+  <data name="UpdateAvailable" xml:space="preserve"><value>Version {0} af Wi24rd FTP er tilgængelig.</value></data>
+  <data name="Download" xml:space="preserve"><value>Hent</value></data>
 </root>

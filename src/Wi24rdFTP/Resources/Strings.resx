@@ -126,4 +126,6 @@ See the log in:
   <data name="Close" xml:space="preserve"><value>Close</value></data>
   <data name="AboutDescription" xml:space="preserve"><value>A simple front end for Windows' built-in IIS FTP server and OpenSSH: drag files in, press Start, hand over the address and one-time password, press Stop.</value></data>
   <data name="AboutCredits" xml:space="preserve"><value>Built with .NET 8 / WPF. Developed by Wi24rd.</value></data>
+  <data name="UpdateAvailable" xml:space="preserve"><value>Version {0} of Wi24rd FTP is available.</value></data>
+  <data name="Download" xml:space="preserve"><value>Download</value></data>
 </root>

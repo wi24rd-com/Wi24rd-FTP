@@ -20,6 +20,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="78"/>
         </Grid.RowDefinitions>
@@ -92,8 +93,23 @@
             </StackPanel>
         </Border>
 
+        <!-- BANNER: opdatering tilgængelig -->
+        <Border x:Name="UpdateBanner" Grid.Row="3" Background="{StaticResource Brush.AccentPale}"
+                BorderBrush="{StaticResource Brush.Accent}" BorderThickness="0,0,0,1" Padding="22,8"
+                Visibility="Collapsed">
+            <DockPanel>
+                <Button x:Name="BtnDownloadUpdate" DockPanel.Dock="Right" Content="{x:Static loc:L.Download}"
+                        Style="{StaticResource PrimaryButton}" Padding="16,6" MinHeight="32" Click="BtnDownloadUpdate_Click"/>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="&#xE896;" FontFamily="Segoe MDL2 Assets" FontSize="16"
+                               Foreground="{StaticResource Brush.Accent}" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="UpdateText" Margin="10,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
         <!-- STATUS-strimmel -->
-        <Border Grid.Row="3" Margin="22,16,22,14" Style="{StaticResource Card}" Padding="18,10">
+        <Border Grid.Row="4" Margin="22,16,22,14" Style="{StaticResource Card}" Padding="18,10">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -126,7 +142,7 @@
         </Border>
 
         <!-- INDHOLD -->
-        <Grid Grid.Row="4" Margin="22,0,22,16">
+        <Grid Grid.Row="5" Margin="22,0,22,16">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="18"/>
@@ -338,7 +354,7 @@
         </Grid>
 
         <!-- BUNDLINJE -->
-        <Border Grid.Row="5" Background="{StaticResource Brush.Card}"
+        <Border Grid.Row="6" Background="{StaticResource Brush.Card}"
                 BorderBrush="{StaticResource Brush.Border}" BorderThickness="0,1,0,0">
             <Grid Margin="22,0">
                 <Grid.ColumnDefinitions>

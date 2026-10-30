@@ -21,6 +21,7 @@ public partial class MainWindow : Window
     private bool _closeConfirmed;
     private string _mode = "FTP";
     private string _password = NewPassword();
+    private UpdateInfo? _update;
 
     public MainWindow()
     {
@@ -38,6 +39,7 @@ public partial class MainWindow : Window
             RefreshFiles();
             RefreshStatus();
             _statusTimer.Start();
+            _ = CheckForUpdateAsync();
         };
     }
 
@@ -344,6 +346,22 @@ public partial class MainWindow : Window
     }
 
     private void BtnClose_Click(object sender, RoutedEventArgs e) => Close();
+
+    private async Task CheckForUpdateAsync()
+    {
+        var current = Version.TryParse(AboutWindow.AppVersion, out var v) ? v : new Version(0, 0, 0);
+        _update = await UpdateChecker.CheckAsync(current);
+        if (_update is null) return;
+        UpdateText.Text = L.F(L.UpdateAvailable, _update.Version.ToString(3));
+        UpdateBanner.Visibility = Visibility.Visible;
+    }
+
+    private void BtnDownloadUpdate_Click(object sender, RoutedEventArgs e)
+    {
+        var url = _update?.InstallerUrl ?? _update?.ReleaseUrl;
+        if (string.IsNullOrEmpty(url)) return;
+        try { Process.Start(new ProcessStartInfo(url) { UseShellExecute = true }); } catch { }
+    }
 
     private void BtnAbout_Click(object sender, RoutedEventArgs e)
     {

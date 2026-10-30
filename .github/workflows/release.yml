@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Version from tag
+        id: ver
+        shell: pwsh
+        run: |
+          $v = "${{ github.ref_name }}".TrimStart('v')
+          "version=$v" >> $env:GITHUB_OUTPUT
+          Write-Host "Version $v"
+
+      - name: Build exe + installer
+        shell: pwsh
+        run: .\build.ps1 -Version ${{ steps.ver.outputs.version }}
+
+      - name: Stable download name
+        shell: pwsh
+        run: Copy-Item "dist\Wi24rdFTP-Setup-${{ steps.ver.outputs.version }}.exe" "dist\Wi24rdFTP-Setup.exe"
+
+      - name: Checksums
+        shell: pwsh
+        run: Get-ChildItem dist\*.exe | ForEach-Object { "$((Get-FileHash $_ -Algorithm SHA256).Hash.ToLower())  $($_.Name)" } | Set-Content dist\SHA256SUMS.txt
+
+      - name: GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Wi24rd FTP ${{ steps.ver.outputs.version }}
+          generate_release_notes: true
+          files: |
+            dist/Wi24rdFTP-Setup-${{ steps.ver.outputs.version }}.exe
+            dist/Wi24rdFTP-Setup.exe
+            dist/SHA256SUMS.txt
