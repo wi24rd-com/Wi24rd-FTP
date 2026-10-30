@@ -17,6 +17,8 @@ Drag files in → Start → hand the recipient address + username + one-time pas
 
 The UI follows the Windows display language: Danish on Danish Windows, English otherwise.
 
+![Wi24rd FTP main window](docs/screenshot.png)
+
 ## How it works
 
 | Button | What happens |
@@ -40,14 +42,10 @@ Run `dist\Wi24rdFTP-Setup-1.0.0.exe`. The installer:
 
 Uninstalling stops everything and removes the site, rules, account and sshd configuration. `C:\Wi24rdFTP` is kept.
 
-## Folders and files
+## Where things are
 
-| Path | Contents |
-|---|---|
-| `C:\Wi24rdFTP\Share` | Files being shared (= FTP root / SFTP chroot sees `/Share`) |
-| `%ProgramData%\Wi24rdFTP\state.json` | Backend result (status, IPs, password while the server runs) |
-| `%ProgramData%\Wi24rdFTP\log\backend-YYYYMMDD.log` | Transcript of every backend call – look here when something fails |
-| `%ProgramData%\ssh\sshd_config` | Gets a `# WI24RD-FTP BEGIN … END` block (Match User wi24rdftp, ChrootDirectory, internal-sftp) in SFTP mode |
+* Shared files: `C:\Wi24rdFTP\Share` (the **Open folder** link in the app)
+* Log, if something fails: `%ProgramData%\Wi24rdFTP\log\`
 
 ## Security notes
 

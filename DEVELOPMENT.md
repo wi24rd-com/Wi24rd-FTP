@@ -19,6 +19,15 @@ src\Wi24rdFTP\
   Scripts\Wi24rdFtp.ps1       Backend: Install / Start / Stop / Uninstall
 ```
 
+## Folders and files on the target machine
+
+| Path | Contents |
+|---|---|
+| `C:\Wi24rdFTP\Share` | Files being shared (= FTP root / SFTP chroot sees `/Share`) |
+| `%ProgramData%\Wi24rdFTP\state.json` | Backend result (status, IPs, password while the server runs) |
+| `%ProgramData%\Wi24rdFTP\log\backend-YYYYMMDD.log` | Transcript of every backend call – look here when something fails |
+| `%ProgramData%\ssh\sshd_config` | Gets a `# WI24RD-FTP BEGIN … END` block (Match User wi24rdftp, ChrootDirectory, internal-sftp) in SFTP mode |
+
 ## Build
 
 Requirements on the build machine: Windows, [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0), optionally [Inno Setup 6](https://jrsoftware.org/isdl.php).
