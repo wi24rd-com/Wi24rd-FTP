@@ -54,13 +54,23 @@ public partial class MainWindow : Window
         ElevatedBanner.Visibility = IsElevated() ? Visibility.Visible : Visibility.Collapsed;
     }
 
+    [System.Runtime.InteropServices.DllImport("advapi32.dll", SetLastError = true)]
+    private static extern bool GetTokenInformation(IntPtr token, int infoClass, out int info, int length, out int returned);
+
+    /// <summary>
+    /// Sand kun når processen er UAC-eleveret (TokenElevationTypeFull). Det er dét, der får Windows
+    /// til at blokere drag-and-drop fra Stifinder. "Bruger er admin" er ikke nok: med UAC slået fra
+    /// eller som standardbruger kører Stifinder på samme niveau, og drop virker fint.
+    /// </summary>
     private static bool IsElevated()
     {
         try
         {
             using var id = System.Security.Principal.WindowsIdentity.GetCurrent();
-            return new System.Security.Principal.WindowsPrincipal(id)
-                .IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator);
+            const int TokenElevationType = 18;
+            if (GetTokenInformation(id.Token, TokenElevationType, out var type, sizeof(int), out _))
+                return type == 2;   // 1 = Default (UAC off / standardbruger), 2 = Full (eleveret), 3 = Limited
+            return false;
         }
         catch { return false; }
     }

@@ -33,6 +33,10 @@ MinVersion=10.0.19041
 Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "danish"; MessagesFile: "compiler:Languages\Danish.isl"
 
+[CustomMessages]
+english.InstallingBackend=Setting up Windows' built-in FTP server and OpenSSH – follow the progress in the console window (can take 5-10 minutes)…
+danish.InstallingBackend=Sætter Windows' indbyggede FTP-server og OpenSSH op – følg med i konsolvinduet (kan tage 5-10 minutter)…
+
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: checkedonce
 
@@ -46,12 +50,14 @@ Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExe}"; Tasks: desktopico
 [Run]
 ; Sikrer IIS FTP-feature, FTP-site, firewall-regler, mapper og konto.
 ; Kører eleveret (installeren er admin). Kan tage et par minutter første gang.
+; Kører i et synligt konsolvindue, så brugeren kan følge med (IIS-features + OpenSSH kan tage 5-10 min).
 Filename: "powershell.exe"; \
   Parameters: "-NoProfile -NonInteractive -ExecutionPolicy Bypass -File ""{app}\Scripts\Wi24rdFtp.ps1"" -Action Install"; \
-  StatusMsg: "Installerer Windows' indbyggede FTP-server (kan tage et par minutter)…"; \
-  Flags: runhidden waituntilterminated
+  StatusMsg: "{cm:InstallingBackend}"; \
+  Flags: waituntilterminated
 
-Filename: "{app}\{#AppExe}"; Description: "{cm:LaunchProgram,{#AppName}}"; Flags: nowait postinstall skipifsilent
+; runasoriginaluser: ellers arver programmet installerens admin-token, og drag-and-drop fra Stifinder blokeres (UIPI)
+Filename: "{app}\{#AppExe}"; Description: "{cm:LaunchProgram,{#AppName}}"; Flags: nowait postinstall skipifsilent runasoriginaluser
 
 [UninstallRun]
 ; Stopper server, lukker porte, fjerner site, regler og konto. Mappen C:\Wi24rdFTP bevares.

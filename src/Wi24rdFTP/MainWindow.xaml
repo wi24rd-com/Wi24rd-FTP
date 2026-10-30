@@ -85,12 +85,12 @@
         <Border x:Name="ElevatedBanner" Grid.Row="2" Background="{StaticResource Brush.AmberPale}"
                 BorderBrush="{StaticResource Brush.Amber}" BorderThickness="0,0,0,1" Padding="22,8"
                 Visibility="Collapsed">
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                <TextBlock Text="&#xE7BA;" FontFamily="Segoe MDL2 Assets" FontSize="16"
+            <DockPanel VerticalAlignment="Center">
+                <TextBlock DockPanel.Dock="Left" Text="&#xE7BA;" FontFamily="Segoe MDL2 Assets" FontSize="16"
                            Foreground="{StaticResource Brush.Amber}" VerticalAlignment="Center"/>
                 <TextBlock Margin="10,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap"
                            Text="{x:Static loc:L.ElevatedBanner}"/>
-            </StackPanel>
+            </DockPanel>
         </Border>
 
         <!-- BANNER: opdatering tilgængelig -->
