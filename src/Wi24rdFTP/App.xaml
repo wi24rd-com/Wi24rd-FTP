@@ -57,25 +57,29 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="bd"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="6"
-                                Padding="{TemplateBinding Padding}"
-                                SnapsToDevicePixels="True">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                        <Grid>
+                            <Border x:Name="bd"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="6"
+                                    SnapsToDevicePixels="True"/>
+                            <!-- Hover/pressed-overlay: virker ens på alle knapfarver -->
+                            <Border x:Name="hov" Background="#000000" Opacity="0" CornerRadius="6"/>
+                            <ContentPresenter Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="Center" VerticalAlignment="Center"
                                               RecognizesAccessKey="True"/>
-                        </Border>
+                        </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="bd" Property="Opacity" Value="0.86"/>
+                                <Setter TargetName="hov" Property="Opacity" Value="0.12"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="bd" Property="Opacity" Value="0.72"/>
+                                <Setter TargetName="hov" Property="Opacity" Value="0.22"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter TargetName="bd" Property="Opacity" Value="0.40"/>
+                                <Setter Property="Foreground" Value="#9AA8BB"/>
                                 <Setter Property="Cursor" Value="Arrow"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -91,9 +95,9 @@
         </Style>
 
         <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
-            <Setter Property="Background" Value="{StaticResource Brush.RedPale}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Brush.Red}"/>
-            <Setter Property="Foreground" Value="{StaticResource Brush.Red}"/>
+            <Setter Property="Background" Value="{StaticResource Brush.Red}"/>
+            <Setter Property="BorderBrush" Value="#C73A3F"/>
+            <Setter Property="Foreground" Value="White"/>
         </Style>
 
         <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource BaseButton}">
