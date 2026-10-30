@@ -1,0 +1,112 @@
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.ServiceProcess;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+
+namespace XDRagonFTP.Services;
+
+/// <summary>Spejler state.json som backend-scriptet skriver.</summary>
+public sealed class BackendState
+{
+    [JsonPropertyName("timestamp")]     public string Timestamp { get; set; } = "";
+    [JsonPropertyName("action")]        public string Action { get; set; } = "";
+    [JsonPropertyName("mode")]          public string Mode { get; set; } = "FTP";
+    [JsonPropertyName("share")]         public string Share { get; set; } = "";
+    [JsonPropertyName("user")]          public string User { get; set; } = "";
+    [JsonPropertyName("ips")]           public string[] Ips { get; set; } = Array.Empty<string>();
+    [JsonPropertyName("ftpInstalled")]  public bool FtpInstalled { get; set; }
+    [JsonPropertyName("sftpInstalled")] public bool SftpInstalled { get; set; }
+    [JsonPropertyName("running")]       public bool Running { get; set; }
+    [JsonPropertyName("port")]          public int Port { get; set; }
+    [JsonPropertyName("password")]      public string Password { get; set; } = "";
+    [JsonPropertyName("lastError")]     public string LastError { get; set; } = "";
+}
+
+public enum BackendOutcome { Ok, Failed, Cancelled, ScriptMissing }
+
+/// <summary>
+/// Kører XDRagonFtp.ps1 eleveret (UAC) og læser resultatet fra state.json.
+/// GUI'en selv kører uden admin-rettigheder, så drag-and-drop fra Explorer virker.
+/// </summary>
+public sealed class Backend
+{
+    public const string RootPath  = @"C:\XDRagonFTP";
+    public const string SharePath = @"C:\XDRagonFTP\Share";
+
+    public static readonly string DataDir   = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), "XDRagonFTP");
+    public static readonly string StateFile = Path.Combine(DataDir, "state.json");
+    public static readonly string LogDir    = Path.Combine(DataDir, "log");
+
+    public string ScriptPath { get; } = Path.Combine(AppContext.BaseDirectory, "Scripts", "XDRagonFtp.ps1");
+
+    private static readonly JsonSerializerOptions JsonOpts = new()
+    {
+        PropertyNameCaseInsensitive = true,
+        ReadCommentHandling = JsonCommentHandling.Skip,
+        AllowTrailingCommas = true
+    };
+
+    public async Task<BackendOutcome> RunAsync(string action, string mode = "FTP")
+    {
+        if (!File.Exists(ScriptPath))
+            return BackendOutcome.ScriptMissing;
+
+        var psi = new ProcessStartInfo
+        {
+            FileName = "powershell.exe",
+            Arguments = $"-NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden " +
+                        $"-File \"{ScriptPath}\" -Action {action} -Mode {mode}",
+            UseShellExecute = true,
+            Verb = "runas",
+            WindowStyle = ProcessWindowStyle.Hidden,
+            CreateNoWindow = true
+        };
+
+        try
+        {
+            using var p = Process.Start(psi);
+            if (p is null) return BackendOutcome.Failed;
+            await p.WaitForExitAsync();
+            return p.ExitCode == 0 ? BackendOutcome.Ok : BackendOutcome.Failed;
+        }
+        catch (Win32Exception)
+        {
+            // Brugeren klikkede "Nej" i UAC-dialogen
+            return BackendOutcome.Cancelled;
+        }
+    }
+
+    public BackendState? ReadState()
+    {
+        try
+        {
+            if (!File.Exists(StateFile)) return null;
+            var json = File.ReadAllText(StateFile);
+            return JsonSerializer.Deserialize<BackendState>(json, JsonOpts);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
+    public static bool ServiceExists(string name) =>
+        ServiceController.GetServices().Any(s =>
+            string.Equals(s.ServiceName, name, StringComparison.OrdinalIgnoreCase));
+
+    public static bool ServiceRunning(string name)
+    {
+        try
+        {
+            using var sc = new ServiceController(name);
+            return sc.Status == ServiceControllerStatus.Running;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+}
