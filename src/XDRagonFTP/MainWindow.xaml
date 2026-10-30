@@ -68,7 +68,7 @@
                 <ColumnDefinition Width="2*" MaxWidth="400"/>
             </Grid.ColumnDefinitions>
 
-            <!-- ---------- Venstre: filer ---------- -->
+            <!-- Venstre: filer -->
             <Border Grid.Column="0" Style="{StaticResource Card}" Padding="0">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -141,7 +141,7 @@
                 </Grid>
             </Border>
 
-            <!-- ---------- Højre: forbindelse ---------- -->
+            <!-- Højre: forbindelse -->
             <StackPanel Grid.Column="2">
                 <Border Style="{StaticResource Card}">
                     <StackPanel>
