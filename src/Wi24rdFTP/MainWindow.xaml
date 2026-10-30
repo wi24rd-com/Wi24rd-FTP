@@ -1,9 +1,9 @@
-<Window x:Class="XDRagonFTP.MainWindow"
+<Window x:Class="Wi24rdFTP.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Wi24rd FTP"
         Icon="Assets/wi24rd-ftp.ico"
-        Width="980" Height="720" MinWidth="860" MinHeight="640"
+        Width="1000" Height="740" MinWidth="880" MinHeight="660"
         WindowStartupLocation="CenterScreen"
         Background="{StaticResource Brush.Bg}"
         FontFamily="Segoe UI"
@@ -15,38 +15,43 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="68"/>
+            <RowDefinition Height="84"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="72"/>
+            <RowDefinition Height="78"/>
         </Grid.RowDefinitions>
 
-        <!-- HEADER -->
-        <Border Grid.Row="0" Background="{StaticResource Brush.Navy}"
-                BorderBrush="{StaticResource Brush.Border}" BorderThickness="0,0,0,1">
-            <Grid Margin="22,0">
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <Image Source="Assets/logo-64.png" Width="44" Height="44"
-                           RenderOptions.BitmapScalingMode="HighQuality"/>
-                    <StackPanel Margin="14,0,0,0" VerticalAlignment="Center">
-                        <TextBlock FontSize="21" FontWeight="Bold" Foreground="White">
-                            <Run Text="Wi"/><Run Text="24" Foreground="{StaticResource Brush.Cyan}"/><Run Text="rd FTP"/>
-                        </TextBlock>
-                        <TextBlock Text="Sikker, midlertidig fildeling" FontSize="12"
-                                   Foreground="{StaticResource Brush.Muted}" Margin="0,-2,0,0"/>
+        <!-- HEADER (blå gradient) -->
+        <Border Grid.Row="0" Background="{StaticResource Brush.HeaderGradient}">
+            <Grid>
+                <!-- dekorativ bølge -->
+                <Path Data="M0,60 C250,10 500,110 760,50 C900,20 1000,70 1200,30 L1200,0 L0,0 Z"
+                      Fill="#FFFFFF" Opacity="0.08" Stretch="Fill" VerticalAlignment="Top" Height="84"/>
+                <Grid Margin="22,0">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Border Width="56" Height="56" CornerRadius="12" Background="#FFFFFF" Opacity="0.95">
+                            <Image Source="Assets/logo-64.png" Width="44" Height="44"
+                                   RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </Border>
+                        <StackPanel Margin="16,0,0,0" VerticalAlignment="Center">
+                            <TextBlock FontSize="24" FontWeight="Bold" Foreground="White">
+                                <Run Text="Wi"/><Run Text="24" Foreground="#BFE3FF"/><Run Text="rd FTP"/>
+                            </TextBlock>
+                            <TextBlock Text="Sikker, midlertidig fildeling" FontSize="13"
+                                       Foreground="#DCEBFF" Margin="0,-2,0,0"/>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
 
-                <Border x:Name="StatusPill" HorizontalAlignment="Right" VerticalAlignment="Center"
-                        Background="{StaticResource Brush.NavyLight}" BorderBrush="{StaticResource Brush.Border}"
-                        BorderThickness="1" CornerRadius="16" Padding="14,6">
-                    <StackPanel Orientation="Horizontal">
-                        <Ellipse x:Name="StatusDot" Width="10" Height="10" Fill="#8FA6C4" VerticalAlignment="Center"/>
-                        <TextBlock x:Name="StatusText" Text="Stoppet" Foreground="White" FontWeight="SemiBold"
-                                   FontSize="13" Margin="8,0,0,0" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </Border>
+                    <Border x:Name="StatusPill" HorizontalAlignment="Right" VerticalAlignment="Center"
+                            Background="#FFFFFF" Opacity="0.95" CornerRadius="20" Padding="18,8">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse x:Name="StatusDot" Width="10" Height="10" Fill="#9AA8BB" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="StatusText" Text="Stoppet" Foreground="{StaticResource Brush.Accent}"
+                                       FontWeight="SemiBold" FontSize="14" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
             </Grid>
         </Border>
 
@@ -67,7 +72,7 @@
             </DockPanel>
         </Border>
 
-        <!-- BANNER: kører eleveret (drag-and-drop virker ikke) -->
+        <!-- BANNER: kører eleveret -->
         <Border x:Name="ElevatedBanner" Grid.Row="2" Background="{StaticResource Brush.AmberPale}"
                 BorderBrush="{StaticResource Brush.Amber}" BorderThickness="0,0,0,1" Padding="22,8"
                 Visibility="Collapsed">
@@ -80,11 +85,11 @@
         </Border>
 
         <!-- INDHOLD -->
-        <Grid Grid.Row="3" Margin="22,18,22,14">
+        <Grid Grid.Row="3" Margin="22,18,22,16">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="18"/>
-                <ColumnDefinition Width="2*" MaxWidth="400"/>
+                <ColumnDefinition Width="2*" MaxWidth="420"/>
             </Grid.ColumnDefinitions>
 
             <!-- Venstre: filer -->
@@ -96,64 +101,88 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <DockPanel Grid.Row="0" Margin="18,16,18,0">
-                        <Button DockPanel.Dock="Right" Content="Åbn mappe" Style="{StaticResource LinkButton}"
-                                Click="BtnOpenFolder_Click"/>
-                        <TextBlock Text="FILER DER DELES" Style="{StaticResource CardTitle}" Margin="0"/>
+                    <DockPanel Grid.Row="0" Margin="20,18,20,0">
+                        <Button DockPanel.Dock="Right" Style="{StaticResource LinkButton}" Click="BtnOpenFolder_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xED25;" FontFamily="Segoe MDL2 Assets" FontSize="15" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                <TextBlock Text="Åbn mappe" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE8B7;" Style="{StaticResource LabelIcon}" FontSize="18"/>
+                            <TextBlock Text="FILER DER DELES" Style="{StaticResource CardTitle}" Margin="0" VerticalAlignment="Center"/>
+                        </StackPanel>
                     </DockPanel>
 
                     <!-- Drop-zone -->
-                    <Grid Grid.Row="1" Margin="18,12,18,0" Height="140" x:Name="DropZone" Background="Transparent">
-                        <Rectangle x:Name="DropOutline" Stroke="{StaticResource Brush.Border}" StrokeThickness="2"
-                                   StrokeDashArray="6 4" RadiusX="4" RadiusY="4" Fill="{StaticResource Brush.Field}"/>
+                    <Grid Grid.Row="1" Margin="20,14,20,0" Height="170" x:Name="DropZone" Background="Transparent">
+                        <Border x:Name="DropOutline" BorderBrush="{StaticResource Brush.Border}" BorderThickness="2"
+                                CornerRadius="10" Background="{StaticResource Brush.Field}"/>
+                        <Rectangle Stroke="{StaticResource Brush.Border}" StrokeThickness="0" StrokeDashArray="6 4"
+                                   RadiusX="10" RadiusY="10" Margin="0" x:Name="DropDash"/>
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock Text="&#xE898;" FontFamily="Segoe MDL2 Assets" FontSize="28"
-                                       Foreground="{StaticResource Brush.Cyan}" HorizontalAlignment="Center"/>
-                            <TextBlock Text="Træk filer eller mapper hertil" FontSize="15" FontWeight="SemiBold"
+                            <TextBlock Text="&#xE753;" FontFamily="Segoe MDL2 Assets" FontSize="34"
+                                       Foreground="{StaticResource Brush.Accent}" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Træk filer eller mapper hertil" FontSize="17" FontWeight="Bold"
                                        HorizontalAlignment="Center" Margin="0,6,0,2"/>
-                            <TextBlock Text="De kopieres til Wi24rd FTP – originalerne røres ikke" FontSize="12"
+                            <TextBlock Text="De kopieres til Wi24rd FTP – originalerne røres ikke" FontSize="13"
                                        Foreground="{StaticResource Brush.Muted}" HorizontalAlignment="Center"/>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-                                <Button Content="Gennemse filer…" Style="{StaticResource SecondaryButton}"
-                                        Padding="14,6" MinHeight="32" Click="BtnBrowseFiles_Click"/>
-                                <Button Content="Vælg mappe…" Style="{StaticResource SecondaryButton}"
-                                        Padding="14,6" MinHeight="32" Margin="8,0,0,0" Click="BtnBrowseFolder_Click"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,12,0,0">
+                                <Button Style="{StaticResource PrimaryButton}" Padding="18,8" Click="BtnBrowseFiles_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="&#xE8A5;" FontFamily="Segoe MDL2 Assets" FontSize="15" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                        <TextBlock Text="Gennemse filer…" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
+                                <Button Style="{StaticResource SecondaryButton}" Padding="18,8" Margin="10,0,0,0" Click="BtnBrowseFolder_Click">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="&#xE8B7;" FontFamily="Segoe MDL2 Assets" FontSize="15" Margin="0,0,8,0" VerticalAlignment="Center"
+                                                   Foreground="{StaticResource Brush.Accent}"/>
+                                        <TextBlock Text="Vælg mappe…" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
                             </StackPanel>
                         </StackPanel>
                     </Grid>
 
                     <!-- Filliste -->
-                    <Grid Grid.Row="2" Margin="12,10,12,10">
-                        <ListView x:Name="FileList" Style="{StaticResource FileList}">
-                            <ListView.View>
-                                <GridView>
-                                    <GridViewColumn Width="34">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding Icon}" FontFamily="Segoe MDL2 Assets"
-                                                           FontSize="14" Foreground="{StaticResource Brush.Muted}"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn Header="Navn" Width="300" DisplayMemberBinding="{Binding Name}"/>
-                                    <GridViewColumn Header="Størrelse" Width="110" DisplayMemberBinding="{Binding SizeText}"/>
-                                    <GridViewColumn Header="Tilføjet" Width="130" DisplayMemberBinding="{Binding AddedText}"/>
-                                    <GridViewColumn Width="40">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <Button Content="&#xE74D;" Style="{StaticResource IconButton}"
-                                                        ToolTip="Fjern fra Wi24rd FTP" Tag="{Binding}"
-                                                        Click="BtnRemoveFile_Click"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
-                        <TextBlock x:Name="EmptyHint" Text="Ingen filer endnu – træk dem ind ovenfor."
-                                   Foreground="{StaticResource Brush.Muted}" HorizontalAlignment="Center"
-                                   VerticalAlignment="Center" IsHitTestVisible="False"/>
-                    </Grid>
+                    <Border Grid.Row="2" Margin="20,14,20,20" BorderBrush="{StaticResource Brush.Border}"
+                            BorderThickness="1" CornerRadius="8" Background="{StaticResource Brush.Card}">
+                        <Grid>
+                            <ListView x:Name="FileList" Style="{StaticResource FileList}" Margin="4">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="36">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Icon}" FontFamily="Segoe MDL2 Assets"
+                                                               FontSize="14" Foreground="{StaticResource Brush.Accent}"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn Header="Navn" Width="300" DisplayMemberBinding="{Binding Name}"/>
+                                        <GridViewColumn Header="Størrelse" Width="110" DisplayMemberBinding="{Binding SizeText}"/>
+                                        <GridViewColumn Header="Tilføjet" Width="130" DisplayMemberBinding="{Binding AddedText}"/>
+                                        <GridViewColumn Width="40">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button Content="&#xE74D;" Style="{StaticResource RowIconButton}"
+                                                            ToolTip="Fjern fra Wi24rd FTP" Tag="{Binding}"
+                                                            Click="BtnRemoveFile_Click"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <StackPanel x:Name="EmptyHint" VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False">
+                                <TextBlock Text="&#xF12B;" FontFamily="Segoe MDL2 Assets" FontSize="44"
+                                           Foreground="{StaticResource Brush.Border}" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Ingen filer endnu – træk dem ind ovenfor." Margin="0,10,0,0"
+                                           Foreground="{StaticResource Brush.Muted}" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
                 </Grid>
             </Border>
 
@@ -165,38 +194,72 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Border Grid.Row="0" Style="{StaticResource Card}" Padding="18,14">
+                <Border Grid.Row="0" Style="{StaticResource Card}" Padding="20,16">
                     <StackPanel>
-                        <TextBlock Text="FORBINDELSE" Style="{StaticResource CardTitle}" Margin="0,0,0,6"/>
-
-                        <TextBlock Text="Protokol" Style="{StaticResource Label}" Margin="0,0,0,4"/>
-                        <StackPanel Orientation="Horizontal">
-                            <RadioButton x:Name="ModeFtp" Content="FTP · port 21" Style="{StaticResource SegmentRadio}"
-                                         IsChecked="True" GroupName="Mode" Checked="Mode_Checked"/>
-                            <RadioButton x:Name="ModeSftp" Content="SFTP · port 22" Style="{StaticResource SegmentRadio}"
-                                         GroupName="Mode" Checked="Mode_Checked"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <TextBlock Text="&#xE968;" Style="{StaticResource LabelIcon}" FontSize="18"/>
+                            <TextBlock Text="FORBINDELSE" Style="{StaticResource CardTitle}" Margin="0" VerticalAlignment="Center"/>
                         </StackPanel>
 
-                        <TextBlock Text="Adresse (vælg den der kan nås udefra)" Style="{StaticResource Label}"/>
-                        <ItemsControl x:Name="IpList">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding}" FontFamily="Cascadia Mono, Consolas" FontSize="14"
-                                               Foreground="{StaticResource Brush.Text}"/>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                        <TextBlock x:Name="IpHint" Text="Vises når serveren er startet" Style="{StaticResource Value}"
-                                   Foreground="{StaticResource Brush.Muted}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,6">
+                            <TextBlock Text="&#xE9D9;" Style="{StaticResource LabelIcon}"/>
+                            <TextBlock Text="Protokol" Style="{StaticResource Label}" Margin="0"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton x:Name="ModeFtp" Style="{StaticResource SegmentRadio}" IsChecked="True"
+                                         GroupName="Mode" Checked="Mode_Checked">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="&#xE839;" FontFamily="Segoe MDL2 Assets" FontSize="14" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                    <TextBlock Text="FTP · port 21" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton x:Name="ModeSftp" Style="{StaticResource SegmentRadio}"
+                                         GroupName="Mode" Checked="Mode_Checked">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="&#xE72E;" FontFamily="Segoe MDL2 Assets" FontSize="14" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                    <TextBlock Text="SFTP · port 22" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </RadioButton>
+                        </StackPanel>
 
-                        <TextBlock Text="Brugernavn" Style="{StaticResource Label}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,14,0,6">
+                            <TextBlock Text="&#xE774;" Style="{StaticResource LabelIcon}"/>
+                            <TextBlock Style="{StaticResource Label}" Margin="0">
+                                <Run Text="Adresse"/><Run Text=" (vælg den der kan nås udefra)" FontWeight="Normal" Foreground="{StaticResource Brush.Muted}"/>
+                            </TextBlock>
+                        </StackPanel>
+                        <Border Background="{StaticResource Brush.Field}" BorderBrush="{StaticResource Brush.Border}"
+                                BorderThickness="1" CornerRadius="6" Padding="10,8">
+                            <StackPanel>
+                                <ItemsControl x:Name="IpList">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding}" FontFamily="Cascadia Mono, Consolas" FontSize="14"
+                                                       Foreground="{StaticResource Brush.Text}"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                                <TextBlock x:Name="IpHint" Text="Vises når serveren er startet" FontSize="13"
+                                           Foreground="{StaticResource Brush.Muted}"/>
+                            </StackPanel>
+                        </Border>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,14,0,6">
+                            <TextBlock Text="&#xE77B;" Style="{StaticResource LabelIcon}"/>
+                            <TextBlock Text="Brugernavn" Style="{StaticResource Label}" Margin="0"/>
+                        </StackPanel>
                         <DockPanel>
                             <Button DockPanel.Dock="Right" Content="&#xE8C8;" Style="{StaticResource IconButton}"
                                     ToolTip="Kopiér" Click="BtnCopyUser_Click"/>
-                            <TextBox x:Name="UserBox" Style="{StaticResource MonoValue}" Text="xdragonftp"/>
+                            <TextBox x:Name="UserBox" Style="{StaticResource MonoValue}" Text="wi24rdftp"/>
                         </DockPanel>
 
-                        <TextBlock Text="Adgangskode" Style="{StaticResource Label}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,14,0,6">
+                            <TextBlock Text="&#xE8D7;" Style="{StaticResource LabelIcon}"/>
+                            <TextBlock Style="{StaticResource Label}" Margin="0">
+                                <Run Text="Adgangskode"/><Run Text=" (ny ved hver start)" FontWeight="Normal" Foreground="{StaticResource Brush.Muted}"/>
+                            </TextBlock>
+                        </StackPanel>
                         <DockPanel>
                             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center">
                                 <Button x:Name="BtnNewPassword" Content="&#xE72C;" Style="{StaticResource IconButton}"
@@ -205,45 +268,64 @@
                                         ToolTip="Kopiér" Click="BtnCopyPassword_Click"/>
                             </StackPanel>
                             <Border BorderBrush="{StaticResource Brush.Border}" BorderThickness="1"
-                                    Background="{StaticResource Brush.Field}" CornerRadius="3" Padding="10,6">
+                                    Background="{StaticResource Brush.Field}" CornerRadius="6" Padding="10,7">
                                 <TextBlock x:Name="PasswordText" FontFamily="Cascadia Mono, Consolas" FontSize="17"
                                            FontWeight="SemiBold" VerticalAlignment="Center"/>
                             </Border>
                         </DockPanel>
-                        <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
-                            <Border Background="{StaticResource Brush.PwDigit}" CornerRadius="2" Padding="6,1" Margin="0,0,6,0">
-                                <TextBlock Text="tal" Foreground="#07132A" FontSize="11" FontWeight="SemiBold"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                            <Border Background="{StaticResource Brush.PwDigitPale}" CornerRadius="4" Padding="8,2" Margin="0,0,6,0">
+                                <TextBlock Text="tal" Foreground="{StaticResource Brush.PwDigit}" FontSize="12" FontWeight="SemiBold"/>
                             </Border>
-                            <Border Background="{StaticResource Brush.PwUpper}" CornerRadius="2" Padding="6,1" Margin="0,0,6,0">
-                                <TextBlock Text="STORT bogstav" Foreground="#07132A" FontSize="11" FontWeight="SemiBold"/>
+                            <Border Background="{StaticResource Brush.PwUpperPale}" CornerRadius="4" Padding="8,2" Margin="0,0,6,0">
+                                <TextBlock Text="STORT bogstav" Foreground="White" FontSize="12" FontWeight="SemiBold"/>
                             </Border>
-                            <Border Background="{StaticResource Brush.PwLower}" CornerRadius="2" Padding="6,1">
-                                <TextBlock Text="lille bogstav" Foreground="#07132A" FontSize="11" FontWeight="SemiBold"/>
+                            <Border Background="{StaticResource Brush.PwLowerPale}" CornerRadius="4" Padding="8,2">
+                                <TextBlock Text="lille bogstav" Foreground="{StaticResource Brush.PwLower}" FontSize="12" FontWeight="SemiBold"/>
                             </Border>
                         </StackPanel>
 
-                        <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" FontSize="12" Foreground="{StaticResource Brush.Muted}"
-                                   Text="Modtageren får kun læseadgang. Kontoen lukkes igen ved Stop."/>
+                        <Border Background="{StaticResource Brush.AccentPale}" CornerRadius="8" Padding="12,10" Margin="0,14,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="16"
+                                           Foreground="{StaticResource Brush.Accent}" VerticalAlignment="Top" Margin="0,2,10,0"/>
+                                <TextBlock TextWrapping="Wrap" FontSize="13" Foreground="{StaticResource Brush.Text}" MaxWidth="300"
+                                           Text="Modtageren får kun læseadgang. Kontoen lukkes igen ved Stop."/>
+                            </StackPanel>
+                        </Border>
                     </StackPanel>
                 </Border>
 
-                <Border Grid.Row="2" Style="{StaticResource Card}" Padding="18,14" VerticalAlignment="Top">
+                <Border Grid.Row="2" Style="{StaticResource Card}" Padding="20,16" VerticalAlignment="Top">
                     <StackPanel>
-                        <TextBlock Text="STATUS" Style="{StaticResource CardTitle}" Margin="0,0,0,4"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                            <TextBlock Text="&#xE9D2;" Style="{StaticResource LabelIcon}" FontSize="18"/>
+                            <TextBlock Text="STATUS" Style="{StaticResource CardTitle}" Margin="0" VerticalAlignment="Center"/>
+                        </StackPanel>
                         <Grid>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition/><RowDefinition/><RowDefinition/>
+                                <RowDefinition Height="30"/><RowDefinition Height="30"/><RowDefinition Height="30"/>
                             </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Server" Style="{StaticResource Label}" Margin="0,2,16,2"/>
-                            <TextBlock Grid.Row="0" Grid.Column="1" x:Name="SvcStatus" Text="–" Style="{StaticResource Value}" Margin="0,2"/>
-                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Firewall" Style="{StaticResource Label}" Margin="0,2,16,2"/>
-                            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="FwStatus" Text="–" Style="{StaticResource Value}" Margin="0,2"/>
-                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Filer" Style="{StaticResource Label}" Margin="0,2,16,2"/>
-                            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="FileStatus" Text="0" Style="{StaticResource Value}" Margin="0,2"/>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="&#xE83B;" Style="{StaticResource LabelIcon}" Foreground="{StaticResource Brush.Muted}"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="Server" Style="{StaticResource Value}" Foreground="{StaticResource Brush.Muted}" VerticalAlignment="Center"/>
+                            <Ellipse Grid.Row="0" Grid.Column="2" x:Name="SvcDot" Width="9" Height="9" Fill="{StaticResource Brush.Grey}" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Row="0" Grid.Column="3" x:Name="SvcStatus" Text="–" Style="{StaticResource Value}" VerticalAlignment="Center"/>
+
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="&#xEA18;" Style="{StaticResource LabelIcon}" Foreground="{StaticResource Brush.Muted}"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" Text="Firewall" Style="{StaticResource Value}" Foreground="{StaticResource Brush.Muted}" VerticalAlignment="Center"/>
+                            <Ellipse Grid.Row="1" Grid.Column="2" x:Name="FwDot" Width="9" Height="9" Fill="{StaticResource Brush.Grey}" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Row="1" Grid.Column="3" x:Name="FwStatus" Text="–" Style="{StaticResource Value}" VerticalAlignment="Center"/>
+
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="&#xE8A5;" Style="{StaticResource LabelIcon}" Foreground="{StaticResource Brush.Muted}"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" Text="Filer" Style="{StaticResource Value}" Foreground="{StaticResource Brush.Muted}" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Row="2" Grid.Column="3" x:Name="FileStatus" Text="0" Style="{StaticResource Value}" VerticalAlignment="Center"/>
                         </Grid>
                     </StackPanel>
                 </Border>
@@ -251,25 +333,44 @@
         </Grid>
 
         <!-- BUNDLINJE -->
-        <Border Grid.Row="4" Background="{StaticResource Brush.Navy}"
+        <Border Grid.Row="4" Background="{StaticResource Brush.Card}"
                 BorderBrush="{StaticResource Brush.Border}" BorderThickness="0,1,0,0">
             <Grid Margin="22,0">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border Width="34" Height="34" CornerRadius="17" Background="{StaticResource Brush.AccentPale}" Margin="0,0,12,0">
+                        <TextBlock Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="16"
+                                   Foreground="{StaticResource Brush.Accent}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
                     <ProgressBar x:Name="Busy" Width="110" Height="4" IsIndeterminate="True"
-                                 Visibility="Collapsed" Foreground="{StaticResource Brush.Cyan}"
-                                 Background="{StaticResource Brush.NavyLight}"
-                                 BorderThickness="0" Margin="0,0,12,0"/>
-                    <TextBlock x:Name="LogLine" Text="Klar." Foreground="{StaticResource Brush.Muted}" FontSize="13"
-                               VerticalAlignment="Center"/>
+                                 Visibility="Collapsed" Foreground="{StaticResource Brush.Accent}"
+                                 Background="{StaticResource Brush.AccentPale}" BorderThickness="0" Margin="0,0,12,0"/>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock x:Name="LogLine" Text="Klar." FontWeight="SemiBold" FontSize="14"/>
+                        <TextBlock x:Name="LogHint" Text="Start FTP for at dele filer og mapper." FontSize="12"
+                                   Foreground="{StaticResource Brush.Muted}"/>
+                    </StackPanel>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                    <Button x:Name="BtnStart" Content="▶  Start FTP" Style="{StaticResource PrimaryButton}"
-                            MinWidth="140" Click="BtnStart_Click"/>
-                    <Button x:Name="BtnStop" Content="■  Stop FTP" Style="{StaticResource DangerButton}"
-                            MinWidth="140" Margin="10,0,0,0" IsEnabled="False" Click="BtnStop_Click"/>
-                    <Button x:Name="BtnClose" Content="Luk program" Style="{StaticResource SecondaryButton}"
-                            MinWidth="130" Margin="10,0,0,0" Click="BtnClose_Click"/>
+                    <Button x:Name="BtnStart" Style="{StaticResource PrimaryButton}" MinWidth="150" Click="BtnStart_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE768;" FontFamily="Segoe MDL2 Assets" FontSize="14" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="BtnStartText" Text="Start FTP" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="BtnStop" Style="{StaticResource DangerButton}" MinWidth="150" Margin="10,0,0,0"
+                            IsEnabled="False" Click="BtnStop_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE71A;" FontFamily="Segoe MDL2 Assets" FontSize="14" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <TextBlock x:Name="BtnStopText" Text="Stop FTP" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="BtnClose" Style="{StaticResource SecondaryButton}" MinWidth="150" Margin="10,0,0,0" Click="BtnClose_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE711;" FontFamily="Segoe MDL2 Assets" FontSize="14" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Luk program" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
             </Grid>
         </Border>
