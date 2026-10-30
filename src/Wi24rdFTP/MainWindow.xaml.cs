@@ -65,13 +65,13 @@ public partial class MainWindow : Window
     private void Mode_Checked(object sender, RoutedEventArgs e)
     {
         if (BtnStart is null) return;   // kaldes under InitializeComponent
-        BtnStartText.Text = ModeSftp.IsChecked == true ? "Start SFTP" : "Start FTP";
-        BtnStopText.Text  = ModeSftp.IsChecked == true ? "Stop SFTP"  : "Stop FTP";
+        BtnStartText.Text = ModeSftp.IsChecked == true ? L.StartSftp : L.StartFtp;
+        BtnStopText.Text  = ModeSftp.IsChecked == true ? L.StopSftp  : L.StopFtp;
     }
 
     private async void BtnInstall_Click(object sender, RoutedEventArgs e)
     {
-        await RunBackendAsync("Install", "Installerer Windows' FTP-server – vent venligst…");
+        await RunBackendAsync("Install", L.InstallingMsg);
         CheckPrerequisites();
         RefreshStatus();
     }
@@ -112,7 +112,7 @@ public partial class MainWindow : Window
     {
         var dlg = new OpenFileDialog
         {
-            Title = "Vælg filer der skal deles",
+            Title = L.DlgChooseFiles,
             Multiselect = true,
             CheckFileExists = true
         };
@@ -122,7 +122,7 @@ public partial class MainWindow : Window
 
     private void BtnBrowseFolder_Click(object sender, RoutedEventArgs e)
     {
-        var dlg = new OpenFolderDialog { Title = "Vælg mappe der skal deles", Multiselect = true };
+        var dlg = new OpenFolderDialog { Title = L.DlgChooseFolder, Multiselect = true };
         if (dlg.ShowDialog(this) == true)
             AddPaths(dlg.FolderNames);
     }
@@ -135,10 +135,10 @@ public partial class MainWindow : Window
         }
         catch (Exception ex)
         {
-            Log($"Kunne ikke oprette {Backend.SharePath}: {ex.Message}");
+            Log(L.F(L.ErrCreateFolder, Backend.SharePath, ex.Message));
             MessageBox.Show(this,
-                $"Mappen {Backend.SharePath} kunne ikke oprettes.\nKør 'Installér nu' først.\n\n{ex.Message}",
-                "Wi24rd FTP", MessageBoxButton.OK, MessageBoxImage.Warning);
+                L.F(L.ErrCreateFolderBox, Backend.SharePath, ex.Message),
+                L.AppTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
@@ -160,8 +160,8 @@ public partial class MainWindow : Window
                 if (overwriteAll is null)
                 {
                     var r = MessageBox.Show(this,
-                        $"\"{name}\" findes allerede i Wi24rd FTP.\n\nSkal den overskrives? (Gælder for alle i denne omgang)",
-                        "Overskriv?", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+                        L.F(L.OverwriteQ, name),
+                        L.OverwriteTitle, MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
                     if (r == MessageBoxResult.Cancel) break;
                     overwriteAll = r == MessageBoxResult.Yes;
                 }
@@ -185,16 +185,16 @@ public partial class MainWindow : Window
             catch (Exception ex)
             {
                 skipped++;
-                Log($"Fejl ved kopiering af {name}: {ex.Message}");
+                Log(L.F(L.ErrCopy, name, ex.Message));
             }
         }
 
         RefreshFiles();
         var msg = skipped == 0
-            ? $"{copied} element(er) kopieret til Wi24rd FTP."
-            : $"{copied} kopieret, {skipped} sprunget over.";
+            ? L.F(L.CopiedN, copied)
+            : L.F(L.CopiedSkipped, copied, skipped);
         Log(msg);
-        if (_running) LogHint.Text = "Serveren kører – filerne kan hentes med det samme.";
+        if (_running) LogHint.Text = L.RunningFilesHint;
     }
 
     private static void CopyDirectory(string src, string dst)
@@ -204,6 +204,15 @@ public partial class MainWindow : Window
             File.Copy(f, Path.Combine(dst, Path.GetFileName(f)), true);
         foreach (var d in Directory.GetDirectories(src))
             CopyDirectory(d, Path.Combine(dst, Path.GetFileName(d)));
+    }
+
+    /// <summary>Navn-kolonnen fylder den plads, de faste kolonner ikke bruger.</summary>
+    private void FileList_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        const double fixedCols = 36 + 40;                 // ikon + fjern-knap
+        var scroll = SystemParameters.VerticalScrollBarWidth + 12;
+        var w = FileList.ActualWidth - fixedCols - ColSize.Width - ColAdded.Width - scroll;
+        ColName.Width = Math.Max(120, w);
     }
 
     private void RefreshFiles()
@@ -233,8 +242,8 @@ public partial class MainWindow : Window
     private void BtnRemoveFile_Click(object sender, RoutedEventArgs e)
     {
         if ((sender as FrameworkElement)?.Tag is not SharedFile sf) return;
-        var r = MessageBox.Show(this, $"Fjern \"{sf.Name}\" fra Wi24rd FTP?\n\nOriginalen andre steder på disken røres ikke.",
-            "Fjern", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var r = MessageBox.Show(this, L.F(L.RemoveQ, sf.Name),
+            L.RemoveTitle, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (r != MessageBoxResult.Yes) return;
         try
         {
@@ -243,7 +252,7 @@ public partial class MainWindow : Window
         }
         catch (Exception ex)
         {
-            Log($"Kunne ikke fjerne {sf.Name}: {ex.Message}");
+            Log(L.F(L.ErrRemove, sf.Name, ex.Message));
         }
         RefreshFiles();
     }
@@ -274,14 +283,14 @@ public partial class MainWindow : Window
     {
         if (_files.Count == 0)
         {
-            var r = MessageBox.Show(this, "Der er ingen filer i Wi24rd FTP endnu.\n\nVil du starte serveren alligevel?",
-                "Ingen filer", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var r = MessageBox.Show(this, L.NoFilesQ,
+                L.NoFilesTitle, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (r != MessageBoxResult.Yes) return;
         }
 
         _mode = ModeSftp.IsChecked == true ? "SFTP" : "FTP";
         var ok = await RunBackendAsync("Start",
-            _mode == "FTP" ? "Starter FTP-server og åbner port 21…" : "Starter SFTP (OpenSSH) og åbner port 22…",
+            _mode == "FTP" ? L.StartingFtp : L.StartingSftp,
             _mode, _password);
 
         var st = _backend.ReadState();
@@ -289,12 +298,12 @@ public partial class MainWindow : Window
         {
             _running = true;
             ApplyState(st);
-            Log($"{_mode} kører. Giv modtageren adresse, brugernavn og adgangskode.");
+            Log(L.F(L.RunningMsg, _mode));
         }
         else
         {
             _running = false;
-            Log("Start mislykkedes.");
+            Log(L.StartFailed);
         }
         RefreshStatus();
     }
@@ -307,7 +316,7 @@ public partial class MainWindow : Window
 
     private async Task<bool> StopAsync()
     {
-        var ok = await RunBackendAsync("Stop", "Lukker port og stopper server…", _mode);
+        var ok = await RunBackendAsync("Stop", L.StoppingMsg, _mode);
         if (ok)
         {
             _running = false;
@@ -315,7 +324,7 @@ public partial class MainWindow : Window
             ShowPassword(_password);
             IpList.ItemsSource = null;
             IpHint.Visibility = Visibility.Visible;
-            Log("Stoppet – porten er lukket og kontoen deaktiveret.");
+            Log(L.StoppedMsg);
         }
         RefreshStatus();
         return ok;
@@ -325,18 +334,21 @@ public partial class MainWindow : Window
     {
         if (_files.Count == 0) return;
         var r = MessageBox.Show(this,
-            $"Der ligger {_files.Count} element(er) i Wi24rd FTP.\n\n" +
-            "Skal de slettes nu?\n\n" +
-            "Ja = slet filerne fra Wi24rd FTP\nNej = lad dem blive til næste gang",
-            "Slet filer?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
+            L.F(L.DeleteFilesQ, _files.Count),
+            L.DeleteFilesTitle, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
         if (r == MessageBoxResult.Yes)
         {
             ClearShare();
-            Log("Filerne er slettet fra Wi24rd FTP.");
+            Log(L.FilesDeleted);
         }
     }
 
     private void BtnClose_Click(object sender, RoutedEventArgs e) => Close();
+
+    private void BtnAbout_Click(object sender, RoutedEventArgs e)
+    {
+        new AboutWindow { Owner = this }.ShowDialog();
+    }
 
     private void Window_Closing(object sender, CancelEventArgs e)
     {
@@ -355,8 +367,8 @@ public partial class MainWindow : Window
             if (!ok)
             {
                 var r = MessageBox.Show(this,
-                    "Serveren kunne ikke stoppes (måske afviste du administrator-prompten).\n\nLuk alligevel og lad porten stå åben?",
-                    "Advarsel", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
+                    L.StopFailedQ,
+                    L.Warning, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
                 if (r != MessageBoxResult.Yes) return;
             }
         }
@@ -383,19 +395,19 @@ public partial class MainWindow : Window
                 case BackendOutcome.Ok:
                     return true;
                 case BackendOutcome.Cancelled:
-                    Log("Afbrudt – administrator-godkendelse blev afvist.");
+                    Log(L.Cancelled);
                     return false;
                 case BackendOutcome.ScriptMissing:
-                    MessageBox.Show(this, $"Backend-scriptet mangler:\n{_backend.ScriptPath}\n\nGeninstallér Wi24rd FTP.",
-                        "Wi24rd FTP", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(this, L.F(L.ScriptMissing, _backend.ScriptPath),
+                        L.AppTitle, MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 default:
                     var st = _backend.ReadState();
-                    var err = string.IsNullOrWhiteSpace(st?.LastError) ? "Ukendt fejl." : st!.LastError;
-                    Log("Fejl: " + err);
+                    var err = string.IsNullOrWhiteSpace(st?.LastError) ? L.UnknownError : st!.LastError;
+                    Log(L.ErrorPrefix + err);
                     MessageBox.Show(this,
-                        $"Handlingen '{action}' mislykkedes:\n\n{err}\n\nSe loggen i:\n{Backend.LogDir}",
-                        "Wi24rd FTP", MessageBoxButton.OK, MessageBoxImage.Error);
+                        L.F(L.ActionFailed, action, err, Backend.LogDir),
+                        L.AppTitle, MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
             }
         }
@@ -412,7 +424,7 @@ public partial class MainWindow : Window
         var ips = st.Ips?.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray() ?? Array.Empty<string>();
         IpList.ItemsSource = ips.Length == 0 ? null : ips.Select(ip => $"{ip}:{st.Port}").ToArray();
         IpHint.Visibility = ips.Length == 0 ? Visibility.Visible : Visibility.Collapsed;
-        if (ips.Length == 0) IpHint.Text = "Ingen aktiv netværksadresse fundet";
+        if (ips.Length == 0) IpHint.Text = L.NoIp;
     }
 
     private void RefreshStatus()
@@ -430,10 +442,10 @@ public partial class MainWindow : Window
             StatusDot.Fill = (Brush)FindResource("Brush.Ok");
             SvcDot.Fill = (Brush)FindResource("Brush.Ok");
             FwDot.Fill = (Brush)FindResource("Brush.Ok");
-            StatusText.Text = $"Kører · port {port}";
-            LogHint.Text = "Tryk Stop FTP for at lukke porten igen.";
-            SvcStatus.Text = st!.Mode == "SFTP" ? "OpenSSH (sshd) kører" : "IIS FTP (ftpsvc) kører";
-            FwStatus.Text = $"Port {port} åben";
+            StatusText.Text = L.F(L.RunningPort, port);
+            LogHint.Text = L.HintStop;
+            SvcStatus.Text = st!.Mode == "SFTP" ? L.SshdRunning : L.FtpsvcRunning;
+            FwStatus.Text = L.F(L.PortOpen, port);
             if (st.Mode == "SFTP") ModeSftp.IsChecked = true; else ModeFtp.IsChecked = true;
             if (IpList.ItemsSource is null)      // fx efter genstart af GUI'en mens serveren kørte
                 ApplyState(st);
@@ -443,18 +455,18 @@ public partial class MainWindow : Window
             StatusDot.Fill = (ftpUp || sshUp) ? (Brush)FindResource("Brush.Amber") : (Brush)FindResource("Brush.Grey");
             SvcDot.Fill = (ftpUp || sshUp) ? (Brush)FindResource("Brush.Amber") : (Brush)FindResource("Brush.Grey");
             FwDot.Fill = (Brush)FindResource("Brush.Red");
-            StatusText.Text = (ftpUp || sshUp) ? "Tjeneste kører – port lukket" : "Stoppet";
-            LogHint.Text = "Start FTP for at dele filer og mapper.";
-            SvcStatus.Text = Backend.ServiceExists("ftpsvc") ? (ftpUp ? "ftpsvc kører (ikke af Wi24rd)" : "Stoppet") : "Ikke installeret";
-            FwStatus.Text = "Lukket";
+            StatusText.Text = (ftpUp || sshUp) ? L.ServiceRunningPortClosed : L.Stopped;
+            LogHint.Text = L.HintStart;
+            SvcStatus.Text = Backend.ServiceExists("ftpsvc") ? (ftpUp ? L.FtpsvcForeign : L.Stopped) : L.NotInstalled;
+            FwStatus.Text = L.Closed;
         }
 
         BtnStart.IsEnabled = !_busy && !_running;
         BtnStop.IsEnabled = !_busy && _running;
         ModeFtp.IsEnabled = ModeSftp.IsEnabled = !_running && !_busy;
         BtnNewPassword.IsEnabled = !_running && !_busy;
-        BtnStartText.Text = ModeSftp.IsChecked == true ? "Start SFTP" : "Start FTP";
-        BtnStopText.Text  = ModeSftp.IsChecked == true ? "Stop SFTP"  : "Stop FTP";
+        BtnStartText.Text = ModeSftp.IsChecked == true ? L.StartSftp : L.StartFtp;
+        BtnStopText.Text  = ModeSftp.IsChecked == true ? L.StopSftp  : L.StopFtp;
     }
 
     private void SetBusy(bool busy, string? message = null)
@@ -501,13 +513,13 @@ public partial class MainWindow : Window
         if (_running) return;
         _password = NewPassword();
         ShowPassword(_password);
-        Log("Ny adgangskode genereret.");
+        Log(L.NewPasswordGenerated);
     }
 
     private void Log(string message)
     {
         LogLine.Text = message;
-        LogHint.Text = $"Kl. {DateTime.Now:HH:mm}";
+        LogHint.Text = L.F(L.AtTime, DateTime.Now.ToString("t"));
     }
 
     // ------------------------------------------------------------------
@@ -516,12 +528,12 @@ public partial class MainWindow : Window
     private void BtnCopyUser_Click(object sender, RoutedEventArgs e)
     {
         Clipboard.SetText(UserBox.Text);
-        Log("Brugernavn kopieret.");
+        Log(L.UsernameCopied);
     }
 
     private void BtnCopyPassword_Click(object sender, RoutedEventArgs e)
     {
         Clipboard.SetText(_password);
-        Log("Adgangskode kopieret.");
+        Log(L.PasswordCopied);
     }
 }

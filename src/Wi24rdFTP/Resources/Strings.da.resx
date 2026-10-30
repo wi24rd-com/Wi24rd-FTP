@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <data name="AppTitle" xml:space="preserve"><value>Wi24rd FTP</value></data>
+  <data name="Tagline" xml:space="preserve"><value>Sikker, midlertidig fildeling</value></data>
+  <data name="Stopped" xml:space="preserve"><value>Stoppet</value></data>
+  <data name="InstallNow" xml:space="preserve"><value>Installér nu</value></data>
+  <data name="PrereqBanner" xml:space="preserve"><value>Windows' indbyggede FTP-server er ikke installeret endnu. Klik Installér nu – det kræver administrator-godkendelse og tager et par minutter.</value></data>
+  <data name="ElevatedBanner" xml:space="preserve"><value>Programmet kører som administrator. Windows blokerer så træk-og-slip fra Stifinder – start Wi24rd FTP fra Start-menuen eller skrivebordet i stedet. Gennemse-knapperne virker stadig.</value></data>
+  <data name="Status" xml:space="preserve"><value>STATUS</value></data>
+  <data name="Server" xml:space="preserve"><value>Server</value></data>
+  <data name="Firewall" xml:space="preserve"><value>Firewall</value></data>
+  <data name="Files" xml:space="preserve"><value>Filer</value></data>
+  <data name="OpenFolder" xml:space="preserve"><value>Åbn mappe</value></data>
+  <data name="FilesShared" xml:space="preserve"><value>FILER DER DELES</value></data>
+  <data name="DropTitle" xml:space="preserve"><value>Træk filer eller mapper hertil</value></data>
+  <data name="DropSub" xml:space="preserve"><value>De kopieres til Wi24rd FTP – originalerne røres ikke</value></data>
+  <data name="BrowseFiles" xml:space="preserve"><value>Gennemse filer…</value></data>
+  <data name="ChooseFolder" xml:space="preserve"><value>Vælg mappe…</value></data>
+  <data name="ColName" xml:space="preserve"><value>Navn</value></data>
+  <data name="ColSize" xml:space="preserve"><value>Størrelse</value></data>
+  <data name="ColAdded" xml:space="preserve"><value>Tilføjet</value></data>
+  <data name="RemoveTip" xml:space="preserve"><value>Fjern fra Wi24rd FTP</value></data>
+  <data name="EmptyList" xml:space="preserve"><value>Ingen filer endnu – træk dem ind ovenfor.</value></data>
+  <data name="Connection" xml:space="preserve"><value>FORBINDELSE</value></data>
+  <data name="Protocol" xml:space="preserve"><value>Protokol</value></data>
+  <data name="Address" xml:space="preserve"><value>Adresse</value></data>
+  <data name="AddressHint" xml:space="preserve"><value> (vælg den der kan nås udefra)</value></data>
+  <data name="IpHint" xml:space="preserve"><value>Vises når serveren er startet</value></data>
+  <data name="Username" xml:space="preserve"><value>Brugernavn</value></data>
+  <data name="Copy" xml:space="preserve"><value>Kopiér</value></data>
+  <data name="Password" xml:space="preserve"><value>Adgangskode</value></data>
+  <data name="PasswordHint" xml:space="preserve"><value> (ny ved hver start)</value></data>
+  <data name="NewPassword" xml:space="preserve"><value>Ny adgangskode</value></data>
+  <data name="LegendDigit" xml:space="preserve"><value>tal</value></data>
+  <data name="LegendUpper" xml:space="preserve"><value>STORT bogstav</value></data>
+  <data name="LegendLower" xml:space="preserve"><value>lille bogstav</value></data>
+  <data name="ReadOnlyInfo" xml:space="preserve"><value>Modtageren får kun læseadgang. Kontoen lukkes igen ved Stop.</value></data>
+  <data name="Ready" xml:space="preserve"><value>Klar.</value></data>
+  <data name="HintStart" xml:space="preserve"><value>Start FTP for at dele filer og mapper.</value></data>
+  <data name="HintStop" xml:space="preserve"><value>Tryk Stop FTP for at lukke porten igen.</value></data>
+  <data name="StartFtp" xml:space="preserve"><value>Start FTP</value></data>
+  <data name="StartSftp" xml:space="preserve"><value>Start SFTP</value></data>
+  <data name="StopFtp" xml:space="preserve"><value>Stop FTP</value></data>
+  <data name="StopSftp" xml:space="preserve"><value>Stop SFTP</value></data>
+  <data name="CloseApp" xml:space="preserve"><value>Luk program</value></data>
+  <data name="InstallingMsg" xml:space="preserve"><value>Installerer Windows' FTP-server – vent venligst…</value></data>
+  <data name="DlgChooseFiles" xml:space="preserve"><value>Vælg filer der skal deles</value></data>
+  <data name="DlgChooseFolder" xml:space="preserve"><value>Vælg mappe der skal deles</value></data>
+  <data name="ErrCreateFolder" xml:space="preserve"><value>Kunne ikke oprette {0}: {1}</value></data>
+  <data name="ErrCreateFolderBox" xml:space="preserve"><value>Mappen {0} kunne ikke oprettes.
+Kør 'Installér nu' først.
+
+{1}</value></data>
+  <data name="OverwriteQ" xml:space="preserve"><value>"{0}" findes allerede i Wi24rd FTP.
+
+Skal den overskrives? (Gælder for alle i denne omgang)</value></data>
+  <data name="OverwriteTitle" xml:space="preserve"><value>Overskriv?</value></data>
+  <data name="ErrCopy" xml:space="preserve"><value>Fejl ved kopiering af {0}: {1}</value></data>
+  <data name="CopiedN" xml:space="preserve"><value>{0} element(er) kopieret til Wi24rd FTP.</value></data>
+  <data name="CopiedSkipped" xml:space="preserve"><value>{0} kopieret, {1} sprunget over.</value></data>
+  <data name="RunningFilesHint" xml:space="preserve"><value>Serveren kører – filerne kan hentes med det samme.</value></data>
+  <data name="RemoveQ" xml:space="preserve"><value>Fjern "{0}" fra Wi24rd FTP?
+
+Originalen andre steder på disken røres ikke.</value></data>
+  <data name="RemoveTitle" xml:space="preserve"><value>Fjern</value></data>
+  <data name="ErrRemove" xml:space="preserve"><value>Kunne ikke fjerne {0}: {1}</value></data>
+  <data name="NoFilesQ" xml:space="preserve"><value>Der er ingen filer i Wi24rd FTP endnu.
+
+Vil du starte serveren alligevel?</value></data>
+  <data name="NoFilesTitle" xml:space="preserve"><value>Ingen filer</value></data>
+  <data name="StartingFtp" xml:space="preserve"><value>Starter FTP-server og åbner port 21…</value></data>
+  <data name="StartingSftp" xml:space="preserve"><value>Starter SFTP (OpenSSH) og åbner port 22…</value></data>
+  <data name="RunningMsg" xml:space="preserve"><value>{0} kører. Giv modtageren adresse, brugernavn og adgangskode.</value></data>
+  <data name="StartFailed" xml:space="preserve"><value>Start mislykkedes.</value></data>
+  <data name="StoppingMsg" xml:space="preserve"><value>Lukker port og stopper server…</value></data>
+  <data name="StoppedMsg" xml:space="preserve"><value>Stoppet – porten er lukket og kontoen deaktiveret.</value></data>
+  <data name="DeleteFilesQ" xml:space="preserve"><value>Der ligger {0} element(er) i Wi24rd FTP.
+
+Skal de slettes nu?
+
+Ja = slet filerne fra Wi24rd FTP
+Nej = lad dem blive til næste gang</value></data>
+  <data name="DeleteFilesTitle" xml:space="preserve"><value>Slet filer?</value></data>
+  <data name="FilesDeleted" xml:space="preserve"><value>Filerne er slettet fra Wi24rd FTP.</value></data>
+  <data name="StopFailedQ" xml:space="preserve"><value>Serveren kunne ikke stoppes (måske afviste du administrator-prompten).
+
+Luk alligevel og lad porten stå åben?</value></data>
+  <data name="Warning" xml:space="preserve"><value>Advarsel</value></data>
+  <data name="Cancelled" xml:space="preserve"><value>Afbrudt – administrator-godkendelse blev afvist.</value></data>
+  <data name="ScriptMissing" xml:space="preserve"><value>Backend-scriptet mangler:
+{0}
+
+Geninstallér Wi24rd FTP.</value></data>
+  <data name="UnknownError" xml:space="preserve"><value>Ukendt fejl.</value></data>
+  <data name="ErrorPrefix" xml:space="preserve"><value>Fejl: </value></data>
+  <data name="ActionFailed" xml:space="preserve"><value>Handlingen '{0}' mislykkedes:
+
+{1}
+
+Se loggen i:
+{2}</value></data>
+  <data name="NoIp" xml:space="preserve"><value>Ingen aktiv netværksadresse fundet</value></data>
+  <data name="RunningPort" xml:space="preserve"><value>Kører · port {0}</value></data>
+  <data name="SshdRunning" xml:space="preserve"><value>OpenSSH (sshd) kører</value></data>
+  <data name="FtpsvcRunning" xml:space="preserve"><value>IIS FTP (ftpsvc) kører</value></data>
+  <data name="PortOpen" xml:space="preserve"><value>Port {0} åben</value></data>
+  <data name="ServiceRunningPortClosed" xml:space="preserve"><value>Tjeneste kører – port lukket</value></data>
+  <data name="FtpsvcForeign" xml:space="preserve"><value>ftpsvc kører (ikke af Wi24rd)</value></data>
+  <data name="NotInstalled" xml:space="preserve"><value>Ikke installeret</value></data>
+  <data name="Closed" xml:space="preserve"><value>Lukket</value></data>
+  <data name="NewPasswordGenerated" xml:space="preserve"><value>Ny adgangskode genereret.</value></data>
+  <data name="UsernameCopied" xml:space="preserve"><value>Brugernavn kopieret.</value></data>
+  <data name="PasswordCopied" xml:space="preserve"><value>Adgangskode kopieret.</value></data>
+  <data name="UnexpectedError" xml:space="preserve"><value>Der opstod en uventet fejl:
+
+</value></data>
+  <data name="AtTime" xml:space="preserve"><value>Kl. {0}</value></data>
+  <data name="About" xml:space="preserve"><value>Om</value></data>
+  <data name="Version" xml:space="preserve"><value>Version {0}</value></data>
+  <data name="License" xml:space="preserve"><value>Licens</value></data>
+  <data name="ReadLicense" xml:space="preserve"><value>Læs licensen</value></data>
+  <data name="Close" xml:space="preserve"><value>Luk</value></data>
+  <data name="AboutDescription" xml:space="preserve"><value>En enkel brugerflade til Windows' indbyggede IIS FTP-server og OpenSSH: træk filer ind, tryk Start, giv adresse og engangsadgangskode videre, tryk Stop.</value></data>
+  <data name="AboutCredits" xml:space="preserve"><value>Bygget med .NET 8 / WPF. Udviklet af Wi24rd i samarbejde med Claude (Anthropic).</value></data>
+</root>

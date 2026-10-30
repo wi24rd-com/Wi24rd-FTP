@@ -11,7 +11,7 @@ public sealed class SharedFile
     public long Size { get; init; }
     public DateTime Added { get; init; }
 
-    public string Icon => IsDirectory ? "" : "";          // Segoe MDL2: Folder / Document
+    public string Icon => IsDirectory ? "\uED25" : "\uE8A5";          // Segoe MDL2: Folder / Document
     public string SizeText => IsDirectory ? $"{FormatSize(Size)} (mappe)" : FormatSize(Size);
     public string AddedText => Added.ToString("dd-MM-yyyy HH:mm");
 

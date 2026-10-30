@@ -28,10 +28,11 @@ UninstallDisplayName={#AppName}
 MinVersion=10.0.19041
 
 [Languages]
+Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "danish"; MessagesFile: "compiler:Languages\Danish.isl"
 
 [Tasks]
-Name: "desktopicon"; Description: "Opret genvej på skrivebordet"; GroupDescription: "Genveje:"
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
 
 [Files]
 Source: "..\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -48,7 +49,7 @@ Filename: "powershell.exe"; \
   StatusMsg: "Installerer Windows' indbyggede FTP-server (kan tage et par minutter)…"; \
   Flags: runhidden waituntilterminated
 
-Filename: "{app}\{#AppExe}"; Description: "Start {#AppName}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\{#AppExe}"; Description: "{cm:LaunchProgram,{#AppName}}"; Flags: nowait postinstall skipifsilent
 
 [UninstallRun]
 ; Stopper server, lukker porte, fjerner site, regler og konto. Mappen C:\Wi24rdFTP bevares.
