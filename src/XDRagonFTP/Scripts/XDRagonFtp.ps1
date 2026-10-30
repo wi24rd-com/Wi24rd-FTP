@@ -22,7 +22,11 @@ param(
     [string]$Action,
 
     [ValidateSet('FTP', 'SFTP')]
-    [string]$Mode = 'FTP'
+    [string]$Mode = 'FTP',
+
+    # Adgangskode valgt i GUI'en (kun A-Z a-z 2-9). Tom = generér selv.
+    [ValidatePattern('^[A-Za-z2-9]{0,64}$')]
+    [string]$Password = ''
 )
 
 $ErrorActionPreference = 'Stop'
@@ -100,8 +104,8 @@ function New-RandomPassword {
     return -join ($bytes | ForEach-Object { $chars[$_ % $chars.Length] })
 }
 
-function Ensure-FtpUser([string]$Password) {
-    $sec = ConvertTo-SecureString $Password -AsPlainText -Force
+function Ensure-FtpUser([string]$Pw) {
+    $sec = ConvertTo-SecureString $Pw -AsPlainText -Force
     $u = Get-LocalUser -Name $FtpUser -ErrorAction SilentlyContinue
     if (-not $u) {
         Write-Log "Opretter lokal konto $FtpUser"
@@ -252,7 +256,7 @@ function Invoke-Install {
 
 function Invoke-Start {
     Ensure-Folders
-    $pw = New-RandomPassword
+    $pw = if ($Password) { $Password } else { New-RandomPassword }
     Ensure-FtpUser $pw
     Enable-LocalUser -Name $FtpUser
     Ensure-FirewallRules

@@ -49,16 +49,19 @@ public sealed class Backend
         AllowTrailingCommas = true
     };
 
-    public async Task<BackendOutcome> RunAsync(string action, string mode = "FTP")
+    public async Task<BackendOutcome> RunAsync(string action, string mode = "FTP", string? password = null)
     {
         if (!File.Exists(ScriptPath))
             return BackendOutcome.ScriptMissing;
+
+        // Adgangskoden er altid kun [A-Za-z2-9], så den kan sendes sikkert som argument
+        var pwArg = string.IsNullOrEmpty(password) ? "" : $" -Password {password}";
 
         var psi = new ProcessStartInfo
         {
             FileName = "powershell.exe",
             Arguments = $"-NoProfile -NonInteractive -ExecutionPolicy Bypass -WindowStyle Hidden " +
-                        $"-File \"{ScriptPath}\" -Action {action} -Mode {mode}",
+                        $"-File \"{ScriptPath}\" -Action {action} -Mode {mode}{pwArg}",
             UseShellExecute = true,
             Verb = "runas",
             WindowStyle = ProcessWindowStyle.Hidden,

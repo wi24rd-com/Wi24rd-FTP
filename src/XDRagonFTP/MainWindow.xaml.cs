@@ -20,7 +20,7 @@ public partial class MainWindow : Window
     private bool _busy;
     private bool _closeConfirmed;
     private string _mode = "FTP";
-    private string? _password;
+    private string _password = NewPassword();
 
     public MainWindow()
     {
@@ -29,6 +29,8 @@ public partial class MainWindow : Window
 
         _statusTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(3) };
         _statusTimer.Tick += (_, _) => RefreshStatus();
+
+        ShowPassword(_password);
 
         Loaded += (_, _) =>
         {
@@ -257,7 +259,7 @@ public partial class MainWindow : Window
         _mode = ModeSftp.IsChecked == true ? "SFTP" : "FTP";
         var ok = await RunBackendAsync("Start",
             _mode == "FTP" ? "Starter FTP-server og åbner port 21…" : "Starter SFTP (OpenSSH) og åbner port 22…",
-            _mode);
+            _mode, _password);
 
         var st = _backend.ReadState();
         if (ok && st is { Running: true })
@@ -286,7 +288,8 @@ public partial class MainWindow : Window
         if (ok)
         {
             _running = false;
-            ShowPassword(null);
+            _password = NewPassword();
+            ShowPassword(_password);
             IpList.ItemsSource = null;
             IpHint.Visibility = Visibility.Visible;
             Log("Stoppet – porten er lukket og kontoen deaktiveret.");
@@ -342,13 +345,13 @@ public partial class MainWindow : Window
     // ------------------------------------------------------------------
     // Backend-kald + status
     // ------------------------------------------------------------------
-    private async Task<bool> RunBackendAsync(string action, string message, string mode = "FTP")
+    private async Task<bool> RunBackendAsync(string action, string message, string mode = "FTP", string? password = null)
     {
         if (_busy) return false;
         SetBusy(true, message);
         try
         {
-            var outcome = await _backend.RunAsync(action, mode);
+            var outcome = await _backend.RunAsync(action, mode, password);
             switch (outcome)
             {
                 case BackendOutcome.Ok:
@@ -378,7 +381,7 @@ public partial class MainWindow : Window
 
     private void ApplyState(BackendState st)
     {
-        ShowPassword(string.IsNullOrEmpty(st.Password) ? null : st.Password);
+        if (!string.IsNullOrEmpty(st.Password)) { _password = st.Password; ShowPassword(_password); }
         UserBox.Text = string.IsNullOrEmpty(st.User) ? "xdragonftp" : st.User;
         var ips = st.Ips?.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray() ?? Array.Empty<string>();
         IpList.ItemsSource = ips.Length == 0 ? null : ips.Select(ip => $"{ip}  :{st.Port}").ToArray();
@@ -417,6 +420,7 @@ public partial class MainWindow : Window
         BtnStart.IsEnabled = !_busy && !_running;
         BtnStop.IsEnabled = !_busy && _running;
         ModeFtp.IsEnabled = ModeSftp.IsEnabled = !_running && !_busy;
+        BtnNewPassword.IsEnabled = !_running && !_busy;
         BtnStart.Content = ModeSftp.IsChecked == true ? "▶  Start SFTP" : "▶  Start FTP";
         BtnStop.Content = ModeSftp.IsChecked == true ? "■  Stop SFTP" : "■  Stop FTP";
     }
@@ -433,39 +437,39 @@ public partial class MainWindow : Window
         DropZone.IsEnabled = !busy;
     }
 
-    /// <summary>
-    /// Viser adgangskoden farvekodet: tal = rød, STORE bogstaver = blå, små bogstaver = grøn,
-    /// grupperet i blokke af 4 så den er let at læse op i telefonen.
-    /// </summary>
-    private void ShowPassword(string? password)
+    private const string PasswordChars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
+
+    /// <summary>12 tegn, kun A-Z/a-z/2-9 uden 0,O,1,l,I – kan læses op i telefonen.</summary>
+    private static string NewPassword()
     {
-        _password = password;
-        PasswordText.Inlines.Clear();
-        PasswordLegend.Visibility = password is null ? Visibility.Collapsed : Visibility.Visible;
+        var bytes = new byte[12];
+        System.Security.Cryptography.RandomNumberGenerator.Fill(bytes);
+        return new string(bytes.Select(b => PasswordChars[b % PasswordChars.Length]).ToArray());
+    }
 
-        if (password is null)
-        {
-            PasswordText.Foreground = (Brush)FindResource("Brush.Muted");
-            PasswordText.Text = "••••••••••••••••";
-            return;
-        }
-
+    /// <summary>Farvekodet: tal = rød, STORE bogstaver = blå, små bogstaver = grøn.</summary>
+    private void ShowPassword(string password)
+    {
         var digit = (Brush)FindResource("Brush.PwDigit");
         var upper = (Brush)FindResource("Brush.PwUpper");
         var lower = (Brush)FindResource("Brush.PwLower");
 
-        for (int i = 0; i < password.Length; i++)
+        PasswordText.Inlines.Clear();
+        foreach (var c in password)
         {
-            if (i > 0 && i % 4 == 0)
-                PasswordText.Inlines.Add(new System.Windows.Documents.Run(" ") );
-
-            var c = password[i];
-            var run = new System.Windows.Documents.Run(c.ToString())
+            PasswordText.Inlines.Add(new System.Windows.Documents.Run(c.ToString())
             {
                 Foreground = char.IsDigit(c) ? digit : char.IsUpper(c) ? upper : lower
-            };
-            PasswordText.Inlines.Add(run);
+            });
         }
+    }
+
+    private void BtnNewPassword_Click(object sender, RoutedEventArgs e)
+    {
+        if (_running) return;
+        _password = NewPassword();
+        ShowPassword(_password);
+        Log("Ny adgangskode genereret.");
     }
 
     private void Log(string message)
@@ -484,7 +488,6 @@ public partial class MainWindow : Window
 
     private void BtnCopyPassword_Click(object sender, RoutedEventArgs e)
     {
-        if (_password is null) { Log("Ingen aktiv adgangskode – start serveren først."); return; }
         Clipboard.SetText(_password);
         Log("Adgangskode kopieret.");
     }
