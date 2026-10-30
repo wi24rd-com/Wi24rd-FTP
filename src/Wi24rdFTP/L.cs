@@ -114,11 +114,4 @@ public static class L
     public static string Close => Get("Close");
     public static string AboutDescription => Get("AboutDescription");
     public static string AboutCredits => Get("AboutCredits");
-    public static string About => Get("About");
-    public static string Version => Get("Version");
-    public static string License => Get("License");
-    public static string ReadLicense => Get("ReadLicense");
-    public static string Close => Get("Close");
-    public static string AboutDescription => Get("AboutDescription");
-    public static string AboutCredits => Get("AboutCredits");
 }
