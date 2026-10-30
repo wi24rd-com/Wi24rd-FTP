@@ -190,9 +190,11 @@ public partial class MainWindow : Window
         }
 
         RefreshFiles();
-        Log(skipped == 0
+        var msg = skipped == 0
             ? $"{copied} element(er) kopieret til Wi24rd FTP."
-            : $"{copied} kopieret, {skipped} sprunget over.");
+            : $"{copied} kopieret, {skipped} sprunget over.";
+        Log(msg);
+        if (_running) LogHint.Text = "Serveren kører – filerne kan hentes med det samme.";
     }
 
     private static void CopyDirectory(string src, string dst)
@@ -336,14 +338,17 @@ public partial class MainWindow : Window
 
     private void BtnClose_Click(object sender, RoutedEventArgs e) => Close();
 
-    private async void Window_Closing(object sender, CancelEventArgs e)
+    private void Window_Closing(object sender, CancelEventArgs e)
     {
         if (_closeConfirmed) return;
-        if (_busy) { e.Cancel = true; return; }
+        e.Cancel = true;                 // vi lukker selv, når stop-rutinen er kørt
+        if (_busy) return;
+        _ = Dispatcher.InvokeAsync(ShutdownAsync);
+    }
 
-        e.Cancel = true;
-
-        // Luk kører altid stop-rutinen, hvis der er noget at stoppe
+    /// <summary>Luk = Stop-rutine (hvis noget kører) → spørg om filer → luk.</summary>
+    private async Task ShutdownAsync()
+    {
         if (_running || Backend.ServiceRunning("ftpsvc") || Backend.ServiceRunning("sshd"))
         {
             var ok = await StopAsync();
