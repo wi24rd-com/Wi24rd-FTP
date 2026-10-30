@@ -17,6 +17,8 @@ Træk filer ind → Start → giv modtageren adresse + brugernavn + engangsadgan
 
 Sproget følger Windows' visningssprog: dansk på dansk Windows, ellers engelsk.
 
+![Wi24rd FTP hovedvindue](docs/screenshot.png)
+
 ## Sådan virker det
 
 | Knap | Hvad sker der |
@@ -40,14 +42,10 @@ Kør `dist\Wi24rdFTP-Setup-1.0.0.exe`. Installeren:
 
 Afinstallation stopper alt og fjerner site, regler, konto og sshd-konfiguration. `C:\Wi24rdFTP` bevares.
 
-## Mapper og filer
+## Hvor ligger tingene
 
-| Sti | Indhold |
-|---|---|
-| `C:\Wi24rdFTP\Share` | Filer der deles (= FTP-rod / SFTP-chroot ser `/Share`) |
-| `%ProgramData%\Wi24rdFTP\state.json` | Backendens resultat (status, IP'er, adgangskode mens serveren kører) |
-| `%ProgramData%\Wi24rdFTP\log\backend-ÅÅÅÅMMDD.log` | Transcript af hvert backend-kald – kig her ved fejl |
-| `%ProgramData%\ssh\sshd_config` | Får en `# WI24RD-FTP BEGIN … END`-blok (Match User wi24rdftp, ChrootDirectory, internal-sftp) i SFTP-mode |
+* Delte filer: `C:\Wi24rdFTP\Share` (linket **Åbn mappe** i programmet)
+* Log, hvis noget fejler: `%ProgramData%\Wi24rdFTP\log\`
 
 ## Sikkerhedsnoter
 

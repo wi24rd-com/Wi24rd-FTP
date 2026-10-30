@@ -405,6 +405,16 @@ public partial class MainWindow : Window
     {
         if (_busy) return false;
         SetBusy(true, message);
+        var poll = new DispatcherTimer { Interval = TimeSpan.FromSeconds(2) };
+        var started = DateTime.Now;
+        poll.Tick += (_, _) =>
+        {
+            var last = Backend.ReadLastLogLine();
+            if (!string.IsNullOrWhiteSpace(last) && !last.StartsWith("==="))
+                LogHint.Text = last;
+            LogLine.Text = $"{message}  ({(int)(DateTime.Now - started).TotalSeconds}s)";
+        };
+        poll.Start();
         try
         {
             var outcome = await _backend.RunAsync(action, mode, password);
@@ -431,6 +441,7 @@ public partial class MainWindow : Window
         }
         finally
         {
+            poll.Stop();
             SetBusy(false);
         }
     }

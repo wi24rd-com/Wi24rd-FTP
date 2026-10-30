@@ -82,6 +82,23 @@ public sealed class Backend
         }
     }
 
+    /// <summary>Sidste log-linje fra dagens backend-log (uden tidsstempel), til statusfeltet.</summary>
+    public static string? ReadLastLogLine()
+    {
+        try
+        {
+            var path = Path.Combine(LogDir, $"backend-{DateTime.Now:yyyyMMdd}.log");
+            if (!File.Exists(path)) return null;
+            using var fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+            using var sr = new StreamReader(fs);
+            string? last = null;
+            while (sr.ReadLine() is { } line)
+                if (line.StartsWith('[') && line.Length > 11 && line[9] == ']') last = line[11..];
+            return last;
+        }
+        catch { return null; }
+    }
+
     public BackendState? ReadState()
     {
         try

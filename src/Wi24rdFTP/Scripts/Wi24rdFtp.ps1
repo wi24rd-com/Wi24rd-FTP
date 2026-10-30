@@ -108,7 +108,7 @@ function Ensure-FtpUser([string]$Pw) {
     $sec = ConvertTo-SecureString $Pw -AsPlainText -Force
     $u = Get-LocalUser -Name $FtpUser -ErrorAction SilentlyContinue
     if (-not $u) {
-        Write-Log "Opretter lokal konto $FtpUser"
+        Write-Log "Creating local account $FtpUser"
         New-LocalUser -Name $FtpUser -Password $sec -FullName 'Wi24rd FTP' `
             -Description 'Midlertidig konto oprettet af Wi24rd FTP' `
             -PasswordNeverExpires -AccountNeverExpires -UserMayNotChangePassword | Out-Null
@@ -127,7 +127,7 @@ function Ensure-FtpUser([string]$Pw) {
 }
 
 function Ensure-Folders {
-    Write-Log 'Sikrer mapper og rettigheder'
+    Write-Log 'Preparing folders and permissions'
     New-Item -ItemType Directory -Force -Path $Root, $Share, $DataDir, $LogDir | Out-Null
 
     # Rod: kun SYSTEM/Administrators må skrive (krav for sshd ChrootDirectory)
@@ -167,7 +167,7 @@ function Ensure-FtpFeatures {
     foreach ($f in $features) {
         $state = (Get-WindowsOptionalFeature -Online -FeatureName $f -ErrorAction SilentlyContinue).State
         if ($state -ne 'Enabled') {
-            Write-Log "Aktiverer Windows-feature $f"
+            Write-Log "Enabling Windows feature $f - this can take a few minutes"
             Enable-WindowsOptionalFeature -Online -FeatureName $f -All -NoRestart | Out-Null
             $newly = $true
         }
@@ -183,7 +183,7 @@ function Ensure-FtpFeatures {
 function Ensure-FtpSite {
     Import-Module WebAdministration -ErrorAction Stop
     if (-not (Test-Path "IIS:\Sites\$SiteName")) {
-        Write-Log "Opretter FTP-site $SiteName"
+        Write-Log "Creating FTP site $SiteName"
         New-WebFtpSite -Name $SiteName -Port 21 -PhysicalPath $Share -IPAddress '*' -Force | Out-Null
     }
     $p = "IIS:\Sites\$SiteName"
@@ -209,8 +209,9 @@ function Ensure-OpenSsh {
     $cap = Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH.Server*' | Select-Object -First 1
     if (-not $cap) { throw 'OpenSSH Server-capability findes ikke på denne Windows-udgave.' }
     if ($cap.State -ne 'Installed') {
-        Write-Log "Installerer $($cap.Name) (kræver internet)"
+        Write-Log "Installing OpenSSH Server (Windows capability, needs internet) - this can take several minutes"
         Add-WindowsCapability -Online -Name $cap.Name | Out-Null
+        Write-Log "OpenSSH Server installed"
     }
     Set-Service -Name sshd -StartupType Manual
 }
@@ -227,8 +228,24 @@ Match User $FtpUser
 $Marker END
 "@
     $content = if (Test-Path $SshdConfig) { Get-Content $SshdConfig -Raw } else { '' }
+    if ($null -eq $content) { $content = '' }
+
+    # Windows' sshd opretter selv sshd_config fra skabelonen ved FØRSTE start - men kun hvis filen
+    # ikke findes. Skriver vi vores blok før første start, mangler bl.a. 'Subsystem sftp'
+    # ("subsystem request failed"). Derfor: seed fra skabelonen hvis filen mangler eller er tom.
+    $template = Join-Path $env:SystemRoot 'System32\OpenSSH\sshd_config_default'
+    if ($content -notmatch '(?m)^\s*Subsystem\s+sftp' -and (Test-Path $template)) {
+        Write-Log 'Seeding sshd_config from Windows template'
+        $content = (Get-Content $template -Raw) + "`r`n" + $content
+    }
+
     $pattern = "(?s)\r?\n?$([regex]::Escape($Marker)) BEGIN.*?$([regex]::Escape($Marker)) END\r?\n?"
     $content = [regex]::Replace($content, $pattern, '')
+
+    # Sikkerhedsnet: Subsystem-linjen SKAL findes, og den skal stå før Match-blokke
+    if ($content -notmatch '(?m)^\s*Subsystem\s+sftp') {
+        $content = $content.TrimEnd() + "`r`nSubsystem sftp sftp-server.exe`r`n"
+    }
     # Match-blokke skal stå sidst i sshd_config
     Set-Content -Path $SshdConfig -Value ($content.TrimEnd() + "`r`n`r`n" + $block) -Encoding ASCII
 }
@@ -250,6 +267,9 @@ function Invoke-Install {
     Ensure-FtpFeatures
     Ensure-FtpSite
     Ensure-FirewallRules
+    # OpenSSH forhåndsinstalleres, så første SFTP-start ikke skal vente på download.
+    # Best effort - uden internet springes det over og hentes ved første SFTP-start i stedet.
+    try { Ensure-OpenSsh; Stop-Service sshd -Force -ErrorAction SilentlyContinue } catch { Write-Log "OpenSSH skipped: $($_.Exception.Message)" }
     Stop-Service ftpsvc -Force -ErrorAction SilentlyContinue
     Write-Log 'Installation færdig'
     Write-State
@@ -267,14 +287,14 @@ function Invoke-Start {
         Ensure-FtpSite
         Import-Module WebAdministration
         Set-ItemProperty "IIS:\Sites\$SiteName" -Name ftpServer.serverAutoStart -Value $true
-        Write-Log 'Starter ftpsvc'
+        Write-Log 'Starting FTP service'
         Restart-Service ftpsvc -Force
         Enable-NetFirewallRule -DisplayName $RuleFtp, $RulePasv
         $port = 21
     } else {
         Ensure-OpenSsh
         Set-SshdChroot
-        Write-Log 'Starter sshd'
+        Write-Log 'Starting OpenSSH service'
         Restart-Service sshd -Force
         Enable-NetFirewallRule -DisplayName $RuleSftp
         $port = 22
@@ -284,7 +304,7 @@ function Invoke-Start {
 }
 
 function Invoke-Stop {
-    Write-Log 'Lukker porte'
+    Write-Log 'Closing ports'
     Disable-NetFirewallRule -DisplayName $RuleFtp, $RulePasv, $RuleSftp -ErrorAction SilentlyContinue
 
     if (Get-Service ftpsvc -ErrorAction SilentlyContinue) {
