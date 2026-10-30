@@ -22,6 +22,13 @@ if (-not (Get-Command dotnet -ErrorAction SilentlyContinue)) {
     throw '.NET SDK 8 mangler. Hent den fra https://dotnet.microsoft.com/download/dotnet/8.0 (SDK, ikke kun runtime).'
 }
 
+$running = Get-Process -Name Wi24rdFTP -ErrorAction SilentlyContinue
+if ($running) {
+    Write-Host '==> Lukker kørende Wi24rd FTP' -ForegroundColor Yellow
+    $running | Stop-Process -Force
+    Start-Sleep -Seconds 1
+}
+
 Write-Host '==> dotnet publish (win-x64, self-contained, single file)' -ForegroundColor Cyan
 if (Test-Path $publish) { Remove-Item $publish -Recurse -Force }
 
