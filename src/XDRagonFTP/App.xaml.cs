@@ -12,7 +12,7 @@ public partial class App : Application
         {
             MessageBox.Show(
                 "Der opstod en uventet fejl:\n\n" + args.Exception.Message,
-                "XDRagon FTP", MessageBoxButton.OK, MessageBoxImage.Error);
+                "Wi24rd FTP", MessageBoxButton.OK, MessageBoxImage.Error);
             args.Handled = true;
         };
     }

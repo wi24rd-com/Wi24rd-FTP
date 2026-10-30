@@ -48,6 +48,25 @@ public partial class MainWindow : Window
     {
         var hasFtp = Backend.ServiceExists("ftpsvc");
         PrereqBanner.Visibility = hasFtp ? Visibility.Collapsed : Visibility.Visible;
+        ElevatedBanner.Visibility = IsElevated() ? Visibility.Visible : Visibility.Collapsed;
+    }
+
+    private static bool IsElevated()
+    {
+        try
+        {
+            using var id = System.Security.Principal.WindowsIdentity.GetCurrent();
+            return new System.Security.Principal.WindowsPrincipal(id)
+                .IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator);
+        }
+        catch { return false; }
+    }
+
+    private void Mode_Checked(object sender, RoutedEventArgs e)
+    {
+        if (BtnStart is null) return;   // kaldes under InitializeComponent
+        BtnStart.Content = ModeSftp.IsChecked == true ? "▶  Start SFTP" : "▶  Start FTP";
+        BtnStop.Content  = ModeSftp.IsChecked == true ? "■  Stop SFTP"  : "■  Stop FTP";
     }
 
     private async void BtnInstall_Click(object sender, RoutedEventArgs e)
@@ -62,12 +81,12 @@ public partial class MainWindow : Window
     // ------------------------------------------------------------------
     private void DropZone_DragEnter(object sender, DragEventArgs e)
     {
-        var ok = e.Data.GetDataPresent(DataFormats.FileDrop);
+        var ok = !_busy && e.Data.GetDataPresent(DataFormats.FileDrop);
         e.Effects = ok ? DragDropEffects.Copy : DragDropEffects.None;
         if (ok)
         {
-            DropOutline.Stroke = (Brush)FindResource("Brush.Green");
-            DropOutline.Fill = (Brush)FindResource("Brush.GreenPale");
+            DropOutline.Stroke = (Brush)FindResource("Brush.Cyan");
+            DropOutline.Fill = (Brush)FindResource("Brush.AccentPale");
         }
         e.Handled = true;
     }
@@ -77,14 +96,16 @@ public partial class MainWindow : Window
     private void ResetDropZone()
     {
         DropOutline.Stroke = (Brush)FindResource("Brush.Border");
-        DropOutline.Fill = (Brush)FindResource("Brush.Bg");
+        DropOutline.Fill = (Brush)FindResource("Brush.Field");
     }
 
     private void DropZone_Drop(object sender, DragEventArgs e)
     {
         ResetDropZone();
+        if (_busy) return;
         if (e.Data.GetData(DataFormats.FileDrop) is string[] paths)
             AddPaths(paths);
+        e.Handled = true;
     }
 
     private void BtnBrowseFiles_Click(object sender, RoutedEventArgs e)
@@ -117,7 +138,7 @@ public partial class MainWindow : Window
             Log($"Kunne ikke oprette {Backend.SharePath}: {ex.Message}");
             MessageBox.Show(this,
                 $"Mappen {Backend.SharePath} kunne ikke oprettes.\nKør 'Installér nu' først.\n\n{ex.Message}",
-                "XDRagon FTP", MessageBoxButton.OK, MessageBoxImage.Warning);
+                "Wi24rd FTP", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
@@ -139,7 +160,7 @@ public partial class MainWindow : Window
                 if (overwriteAll is null)
                 {
                     var r = MessageBox.Show(this,
-                        $"\"{name}\" findes allerede i XDRagon FTP.\n\nSkal den overskrives? (Gælder for alle i denne omgang)",
+                        $"\"{name}\" findes allerede i Wi24rd FTP.\n\nSkal den overskrives? (Gælder for alle i denne omgang)",
                         "Overskriv?", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
                     if (r == MessageBoxResult.Cancel) break;
                     overwriteAll = r == MessageBoxResult.Yes;
@@ -170,7 +191,7 @@ public partial class MainWindow : Window
 
         RefreshFiles();
         Log(skipped == 0
-            ? $"{copied} element(er) kopieret til XDRagon FTP."
+            ? $"{copied} element(er) kopieret til Wi24rd FTP."
             : $"{copied} kopieret, {skipped} sprunget over.");
     }
 
@@ -210,7 +231,7 @@ public partial class MainWindow : Window
     private void BtnRemoveFile_Click(object sender, RoutedEventArgs e)
     {
         if ((sender as FrameworkElement)?.Tag is not SharedFile sf) return;
-        var r = MessageBox.Show(this, $"Fjern \"{sf.Name}\" fra XDRagon FTP?\n\nOriginalen andre steder på disken røres ikke.",
+        var r = MessageBox.Show(this, $"Fjern \"{sf.Name}\" fra Wi24rd FTP?\n\nOriginalen andre steder på disken røres ikke.",
             "Fjern", MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (r != MessageBoxResult.Yes) return;
         try
@@ -251,7 +272,7 @@ public partial class MainWindow : Window
     {
         if (_files.Count == 0)
         {
-            var r = MessageBox.Show(this, "Der er ingen filer i XDRagon FTP endnu.\n\nVil du starte serveren alligevel?",
+            var r = MessageBox.Show(this, "Der er ingen filer i Wi24rd FTP endnu.\n\nVil du starte serveren alligevel?",
                 "Ingen filer", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (r != MessageBoxResult.Yes) return;
         }
@@ -302,14 +323,14 @@ public partial class MainWindow : Window
     {
         if (_files.Count == 0) return;
         var r = MessageBox.Show(this,
-            $"Der ligger {_files.Count} element(er) i XDRagon FTP.\n\n" +
+            $"Der ligger {_files.Count} element(er) i Wi24rd FTP.\n\n" +
             "Skal de slettes nu?\n\n" +
-            "Ja = slet filerne fra XDRagon FTP\nNej = lad dem blive til næste gang",
+            "Ja = slet filerne fra Wi24rd FTP\nNej = lad dem blive til næste gang",
             "Slet filer?", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
         if (r == MessageBoxResult.Yes)
         {
             ClearShare();
-            Log("Filerne er slettet fra XDRagon FTP.");
+            Log("Filerne er slettet fra Wi24rd FTP.");
         }
     }
 
@@ -360,8 +381,8 @@ public partial class MainWindow : Window
                     Log("Afbrudt – administrator-godkendelse blev afvist.");
                     return false;
                 case BackendOutcome.ScriptMissing:
-                    MessageBox.Show(this, $"Backend-scriptet mangler:\n{_backend.ScriptPath}\n\nGeninstallér XDRagon FTP.",
-                        "XDRagon FTP", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(this, $"Backend-scriptet mangler:\n{_backend.ScriptPath}\n\nGeninstallér Wi24rd FTP.",
+                        "Wi24rd FTP", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
                 default:
                     var st = _backend.ReadState();
@@ -369,7 +390,7 @@ public partial class MainWindow : Window
                     Log("Fejl: " + err);
                     MessageBox.Show(this,
                         $"Handlingen '{action}' mislykkedes:\n\n{err}\n\nSe loggen i:\n{Backend.LogDir}",
-                        "XDRagon FTP", MessageBoxButton.OK, MessageBoxImage.Error);
+                        "Wi24rd FTP", MessageBoxButton.OK, MessageBoxImage.Error);
                     return false;
             }
         }
@@ -384,7 +405,7 @@ public partial class MainWindow : Window
         if (!string.IsNullOrEmpty(st.Password)) { _password = st.Password; ShowPassword(_password); }
         UserBox.Text = string.IsNullOrEmpty(st.User) ? "xdragonftp" : st.User;
         var ips = st.Ips?.Where(x => !string.IsNullOrWhiteSpace(x)).ToArray() ?? Array.Empty<string>();
-        IpList.ItemsSource = ips.Length == 0 ? null : ips.Select(ip => $"{ip}  :{st.Port}").ToArray();
+        IpList.ItemsSource = ips.Length == 0 ? null : ips.Select(ip => $"{ip}:{st.Port}").ToArray();
         IpHint.Visibility = ips.Length == 0 ? Visibility.Visible : Visibility.Collapsed;
         if (ips.Length == 0) IpHint.Text = "Ingen aktiv netværksadresse fundet";
     }
@@ -401,7 +422,7 @@ public partial class MainWindow : Window
 
         if (_running)
         {
-            StatusDot.Fill = (Brush)FindResource("Brush.Green");
+            StatusDot.Fill = (Brush)FindResource("Brush.Ok");
             StatusText.Text = $"Kører · port {port}";
             SvcStatus.Text = st!.Mode == "SFTP" ? "OpenSSH (sshd) kører" : "IIS FTP (ftpsvc) kører";
             FwStatus.Text = $"Port {port} åben";
@@ -411,9 +432,9 @@ public partial class MainWindow : Window
         }
         else
         {
-            StatusDot.Fill = (ftpUp || sshUp) ? (Brush)FindResource("Brush.Amber") : new SolidColorBrush(Color.FromRgb(0x8A, 0x96, 0xA3));
+            StatusDot.Fill = (ftpUp || sshUp) ? (Brush)FindResource("Brush.Amber") : new SolidColorBrush(Color.FromRgb(0x8F, 0xA6, 0xC4));
             StatusText.Text = (ftpUp || sshUp) ? "Tjeneste kører – port lukket" : "Stoppet";
-            SvcStatus.Text = Backend.ServiceExists("ftpsvc") ? (ftpUp ? "ftpsvc kører (ikke af XDRagon)" : "Stoppet") : "Ikke installeret";
+            SvcStatus.Text = Backend.ServiceExists("ftpsvc") ? (ftpUp ? "ftpsvc kører (ikke af Wi24rd)" : "Stoppet") : "Ikke installeret";
             FwStatus.Text = "Lukket";
         }
 
