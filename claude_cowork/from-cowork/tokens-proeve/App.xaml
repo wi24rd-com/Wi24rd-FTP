@@ -1,0 +1,34 @@
+<Application x:Class="TokensProeve.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Application.Resources>
+        <!-- Praecis som i pakkens README, "Flet ind", punkt 2 -->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Tokens/Tokens.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Saadan vil FTP's stilarter bruge kittet: DynamicResource i Setter og i en skabelon -->
+            <Style x:Key="Proeve.Knap" TargetType="Button">
+                <Setter Property="Background" Value="{DynamicResource Wi24rdAccentBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource Wi24rdOnAccentBrush}"/>
+                <Setter Property="FontFamily" Value="{DynamicResource Wi24rdFontSans}"/>
+                <Setter Property="FontSize" Value="{DynamicResource Wi24rdBodySize}"/>
+                <Setter Property="FontWeight" Value="{DynamicResource Wi24rdH3Weight}"/>
+                <Setter Property="Padding" Value="{DynamicResource Wi24rdSpace3Thickness}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="bd" Background="{TemplateBinding Background}"
+                                    CornerRadius="{DynamicResource Wi24rdRadiusMd}"
+                                    Effect="{DynamicResource Wi24rdShadowCard}"
+                                    Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

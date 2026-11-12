@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- GENERERET fra wi24rd-ui-kit-2.tokens.json (Wi24rd UI Kit 2, pakke 2.6.0). Ret ikke i hånden.
+     To ordbøger med de samme nøgler: Wi24rdLys og Wi24rdMoerk. Flet præcis én ind i programmets ressourcer og brug
+     DynamicResource, så temaet kan skiftes (se pakkens README.md). Tal er WPF-enheder (1 = 1 px ved 96 dpi);
+     …Tracking er i em, og WPF har ingen egenskab til det på TextBlock. -->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+  <ResourceDictionary x:Key="Wi24rdLys">
+    <Color x:Key="Wi24rdBgColor">#FFF3F5F8</Color>
+    <SolidColorBrush x:Key="Wi24rdBgBrush" Color="#FFF3F5F8"/>
+    <Color x:Key="Wi24rdSurfaceColor">#FFFFFFFF</Color>
+    <SolidColorBrush x:Key="Wi24rdSurfaceBrush" Color="#FFFFFFFF"/>
+    <Color x:Key="Wi24rdSurfaceRaisedColor">#FFF8FAFB</Color>
+    <SolidColorBrush x:Key="Wi24rdSurfaceRaisedBrush" Color="#FFF8FAFB"/>
+    <Color x:Key="Wi24rdRailColor">#FF0B1F33</Color>
+    <SolidColorBrush x:Key="Wi24rdRailBrush" Color="#FF0B1F33"/>
+    <Color x:Key="Wi24rdRailTextColor">#FFC9D5E2</Color>
+    <SolidColorBrush x:Key="Wi24rdRailTextBrush" Color="#FFC9D5E2"/>
+    <Color x:Key="Wi24rdRailStrongColor">#FFFFFFFF</Color>
+    <SolidColorBrush x:Key="Wi24rdRailStrongBrush" Color="#FFFFFFFF"/>
+    <Color x:Key="Wi24rdRailActiveColor">#FF16364F</Color>
+    <SolidColorBrush x:Key="Wi24rdRailActiveBrush" Color="#FF16364F"/>
+    <Color x:Key="Wi24rdAccentOnRailColor">#FF35D6B3</Color>
+    <SolidColorBrush x:Key="Wi24rdAccentOnRailBrush" Color="#FF35D6B3"/>
+    <Color x:Key="Wi24rdBorderColor">#FFD8DEE6</Color>
+    <SolidColorBrush x:Key="Wi24rdBorderBrush" Color="#FFD8DEE6"/>
+    <Color x:Key="Wi24rdBorderStrongColor">#FF7C8A99</Color>
+    <SolidColorBrush x:Key="Wi24rdBorderStrongBrush" Color="#FF7C8A99"/>
+    <Color x:Key="Wi24rdTextColor">#FF17212B</Color>
+    <SolidColorBrush x:Key="Wi24rdTextBrush" Color="#FF17212B"/>
+    <Color x:Key="Wi24rdTextMutedColor">#FF4F5E6D</Color>
+    <SolidColorBrush x:Key="Wi24rdTextMutedBrush" Color="#FF4F5E6D"/>
+    <Color x:Key="Wi24rdTextDisabledColor">#FF647182</Color>
+    <SolidColorBrush x:Key="Wi24rdTextDisabledBrush" Color="#FF647182"/>
+    <Color x:Key="Wi24rdAccentColor">#FF007864</Color>
+    <SolidColorBrush x:Key="Wi24rdAccentBrush" Color="#FF007864"/>
+    <Color x:Key="Wi24rdAccentHoverColor">#FF006050</Color>
+    <SolidColorBrush x:Key="Wi24rdAccentHoverBrush" Color="#FF006050"/>
+    <Color x:Key="Wi24rdOnAccentColor">#FFFFFFFF</Color>
+    <SolidColorBrush x:Key="Wi24rdOnAccentBrush" Color="#FFFFFFFF"/>
+    <Color x:Key="Wi24rdAccentSoftColor">#FFE2F4F0</Color>
+    <SolidColorBrush x:Key="Wi24rdAccentSoftBrush" Color="#FFE2F4F0"/>
+    <Color x:Key="Wi24rdOkColor">#FF007864</Color>
+    <SolidColorBrush x:Key="Wi24rdOkBrush" Color="#FF007864"/>
+    <Color x:Key="Wi24rdOkSoftColor">#FFE2F4F0</Color>
+    <SolidColorBrush x:Key="Wi24rdOkSoftBrush" Color="#FFE2F4F0"/>
+    <Color x:Key="Wi24rdInfoColor">#FF1B5CC8</Color>
+    <SolidColorBrush x:Key="Wi24rdInfoBrush" Color="#FF1B5CC8"/>
+    <Color x:Key="Wi24rdInfoSoftColor">#FFE7EFFD</Color>
+    <SolidColorBrush x:Key="Wi24rdInfoSoftBrush" Color="#FFE7EFFD"/>
+    <Color x:Key="Wi24rdWarnColor">#FF8A5300</Color>
+    <SolidColorBrush x:Key="Wi24rdWarnBrush" Color="#FF8A5300"/>
+    <Color x:Key="Wi24rdWarnSoftColor">#FFFFF2DA</Color>
+    <SolidColorBrush x:Key="Wi24rdWarnSoftBrush" Color="#FFFFF2DA"/>
+    <Color x:Key="Wi24rdDangerColor">#FFB3261E</Color>
+    <SolidColorBrush x:Key="Wi24rdDangerBrush" Color="#FFB3261E"/>
+    <Color x:Key="Wi24rdDangerSoftColor">#FFFDEBE9</Color>
+    <SolidColorBrush x:Key="Wi24rdDangerSoftBrush" Color="#FFFDEBE9"/>
+    <Color x:Key="Wi24rdOkMarkColor">#FF0E9F85</Color>
+    <SolidColorBrush x:Key="Wi24rdOkMarkBrush" Color="#FF0E9F85"/>
+    <Color x:Key="Wi24rdWarnMarkColor">#FFC27500</Color>
+    <SolidColorBrush x:Key="Wi24rdWarnMarkBrush" Color="#FFC27500"/>
+    <Color x:Key="Wi24rdDangerMarkColor">#FFD93A30</Color>
+    <SolidColorBrush x:Key="Wi24rdDangerMarkBrush" Color="#FFD93A30"/>
+    <Color x:Key="Wi24rdInfoMarkColor">#FF2F74E0</Color>
+    <SolidColorBrush x:Key="Wi24rdInfoMarkBrush" Color="#FF2F74E0"/>
+    <Color x:Key="Wi24rdNoneMarkColor">#FF7C8A99</Color>
+    <SolidColorBrush x:Key="Wi24rdNoneMarkBrush" Color="#FF7C8A99"/>
+    <Color x:Key="Wi24rdOkMarkHoverColor">#FF108371</Color>
+    <SolidColorBrush x:Key="Wi24rdOkMarkHoverBrush" Color="#FF108371"/>
+    <Color x:Key="Wi24rdWarnMarkHoverColor">#FF9C6309</Color>
+    <SolidColorBrush x:Key="Wi24rdWarnMarkHoverBrush" Color="#FF9C6309"/>
+    <Color x:Key="Wi24rdDangerMarkHoverColor">#FFAE352F</Color>
+    <SolidColorBrush x:Key="Wi24rdDangerMarkHoverBrush" Color="#FFAE352F"/>
+    <Color x:Key="Wi24rdInfoMarkHoverColor">#FF2A62B8</Color>
+    <SolidColorBrush x:Key="Wi24rdInfoMarkHoverBrush" Color="#FF2A62B8"/>
+    <Color x:Key="Wi24rdNoneMarkHoverColor">#FF667381</Color>
+    <SolidColorBrush x:Key="Wi24rdNoneMarkHoverBrush" Color="#FF667381"/>
+    <Color x:Key="Wi24rdData1Color">#FF2F74E0</Color>
+    <SolidColorBrush x:Key="Wi24rdData1Brush" Color="#FF2F74E0"/>
+    <Color x:Key="Wi24rdData2Color">#FFB85C00</Color>
+    <SolidColorBrush x:Key="Wi24rdData2Brush" Color="#FFB85C00"/>
+    <Color x:Key="Wi24rdData3Color">#FF7A4FD1</Color>
+    <SolidColorBrush x:Key="Wi24rdData3Brush" Color="#FF7A4FD1"/>
+    <Color x:Key="Wi24rdData4Color">#FF0B8F8A</Color>
+    <SolidColorBrush x:Key="Wi24rdData4Brush" Color="#FF0B8F8A"/>
+    <Color x:Key="Wi24rdData5Color">#FFC23A86</Color>
+    <SolidColorBrush x:Key="Wi24rdData5Brush" Color="#FFC23A86"/>
+    <Color x:Key="Wi24rdData6Color">#FF667317</Color>
+    <SolidColorBrush x:Key="Wi24rdData6Brush" Color="#FF667317"/>
+    <Color x:Key="Wi24rdDataAxisColor">#FF7C8A99</Color>
+    <SolidColorBrush x:Key="Wi24rdDataAxisBrush" Color="#FF7C8A99"/>
+    <Color x:Key="Wi24rdDataGridColor">#FFD8DEE6</Color>
+    <SolidColorBrush x:Key="Wi24rdDataGridBrush" Color="#FFD8DEE6"/>
+    <Color x:Key="Wi24rdDataLabelColor">#FF4F5E6D</Color>
+    <SolidColorBrush x:Key="Wi24rdDataLabelBrush" Color="#FF4F5E6D"/>
+    <Color x:Key="Wi24rdSeq1Color">#FFF6D9A8</Color>
+    <SolidColorBrush x:Key="Wi24rdSeq1Brush" Color="#FFF6D9A8"/>
+    <Color x:Key="Wi24rdSeq2Color">#FFF0B45E</Color>
+    <SolidColorBrush x:Key="Wi24rdSeq2Brush" Color="#FFF0B45E"/>
+    <Color x:Key="Wi24rdSeq3Color">#FFE58A2B</Color>
+    <SolidColorBrush x:Key="Wi24rdSeq3Brush" Color="#FFE58A2B"/>
+    <Color x:Key="Wi24rdSeq4Color">#FFCF5A1E</Color>
+    <SolidColorBrush x:Key="Wi24rdSeq4Brush" Color="#FFCF5A1E"/>
+    <Color x:Key="Wi24rdSeq5Color">#FFA62B14</Color>
+    <SolidColorBrush x:Key="Wi24rdSeq5Brush" Color="#FFA62B14"/>
+    <Color x:Key="Wi24rdMapSeaColor">#FFDDE7F2</Color>
+    <SolidColorBrush x:Key="Wi24rdMapSeaBrush" Color="#FFDDE7F2"/>
+    <Color x:Key="Wi24rdMapLandColor">#FFFBFCFD</Color>
+    <SolidColorBrush x:Key="Wi24rdMapLandBrush" Color="#FFFBFCFD"/>
+    <Color x:Key="Wi24rdMapBorderColor">#FF9AA8B8</Color>
+    <SolidColorBrush x:Key="Wi24rdMapBorderBrush" Color="#FF9AA8B8"/>
+    <Color x:Key="Wi24rdMapRingColor">#FFD93A30</Color>
+    <SolidColorBrush x:Key="Wi24rdMapRingBrush" Color="#FFD93A30"/>
+    <Color x:Key="Wi24rdMapArcColor">#FF2F74E0</Color>
+    <SolidColorBrush x:Key="Wi24rdMapArcBrush" Color="#FF2F74E0"/>
+    <DropShadowEffect x:Key="Wi24rdShadowCard" Direction="270" ShadowDepth="1" BlurRadius="2" Color="#0B1F33" Opacity="0.08"/>
+    <DropShadowEffect x:Key="Wi24rdShadowPop" Direction="270" ShadowDepth="16" BlurRadius="40" Color="#0B1F33" Opacity="0.35"/>
+    <FontFamily x:Key="Wi24rdFontSans">Inter, Segoe UI</FontFamily>
+    <FontFamily x:Key="Wi24rdFontMono">JetBrains Mono, Cascadia Mono, Menlo</FontFamily>
+    <sys:Double x:Key="Wi24rdDisplaySize">32</sys:Double>
+    <sys:Double x:Key="Wi24rdDisplayLine">38</sys:Double>
+    <FontWeight x:Key="Wi24rdDisplayWeight">SemiBold</FontWeight>
+    <sys:Double x:Key="Wi24rdDisplayTracking">-0.01</sys:Double>
+    <FontFamily x:Key="Wi24rdDisplayFamily">Inter, Segoe UI</FontFamily>
+    <sys:Double x:Key="Wi24rdH1Size">24</sys:Double>
+    <sys:Double x:Key="Wi24rdH1Line">30</sys:Double>
+    <FontWeight x:Key="Wi24rdH1Weight">SemiBold</FontWeight>
+    <sys:Double x:Key="Wi24rdH1Tracking">-0.01</sys:Double>
+    <FontFamily x:Key="Wi24rdH1Family">Inter, Segoe UI</FontFamily>
+    <sys:Double x:Key="Wi24rdH2Size">18</sys:Double>
+    <sys:Double x:Key="Wi24rdH2Line">24</sys:Double>
+    <FontWeight x:Key="Wi24rdH2Weight">SemiBold</FontWeight>
+    <FontFamily x:Key="Wi24rdH2Family">Inter, Segoe UI</FontFamily>
+    <sys:Double x:Key="Wi24rdH3Size">15</sys:Double>
+    <sys:Double x:Key="Wi24rdH3Line">20</sys:Double>
+    <FontWeight x:Key="Wi24rdH3Weight">SemiBold</FontWeight>
+    <FontFamily x:Key="Wi24rdH3Family">Inter, Segoe UI</FontFamily>
+    <sys:Double x:Key="Wi24rdBodySize">14</sys:Double>
+    <sys:Double x:Key="Wi24rdBodyLine">20</sys:Double>
+    <FontWeight x:Key="Wi24rdBodyWeight">Normal</FontWeight>
+    <FontFamily x:Key="Wi24rdBodyFamily">Inter, Segoe UI</FontFamily>
+    <sys:Double x:Key="Wi24rdSmallSize">12</sys:Double>
+    <sys:Double x:Key="Wi24rdSmallLine">16</sys:Double>
+    <FontWeight x:Key="Wi24rdSmallWeight">Normal</FontWeight>
+    <FontFamily x:Key="Wi24rdSmallFamily">Inter, Segoe UI</FontFamily>
+    <sys:Double x:Key="Wi24rdLabelSize">11</sys:Double>
+    <sys:Double x:Key="Wi24rdLabelLine">14</sys:Double>
+    <FontWeight x:Key="Wi24rdLabelWeight">SemiBold</FontWeight>
+    <sys:Double x:Key="Wi24rdLabelTracking">0.06</sys:Double>
+    <FontFamily x:Key="Wi24rdLabelFamily">Inter, Segoe UI</FontFamily>
+    <sys:Double x:Key="Wi24rdMonoSize">13</sys:Double>
+    <sys:Double x:Key="Wi24rdMonoLine">20</sys:Double>
+    <FontWeight x:Key="Wi24rdMonoWeight">Normal</FontWeight>
+    <FontFamily x:Key="Wi24rdMonoFamily">JetBrains Mono, Cascadia Mono, Menlo</FontFamily>
+    <sys:Double x:Key="Wi24rdSpace1">4</sys:Double>
+    <Thickness x:Key="Wi24rdSpace1Thickness">4</Thickness>
+    <sys:Double x:Key="Wi24rdSpace2">8</sys:Double>
+    <Thickness x:Key="Wi24rdSpace2Thickness">8</Thickness>
+    <sys:Double x:Key="Wi24rdSpace3">12</sys:Double>
+    <Thickness x:Key="Wi24rdSpace3Thickness">12</Thickness>
+    <sys:Double x:Key="Wi24rdSpace4">16</sys:Double>
+    <Thickness x:Key="Wi24rdSpace4Thickness">16</Thickness>
+    <sys:Double x:Key="Wi24rdSpace6">24</sys:Double>
+    <Thickness x:Key="Wi24rdSpace6Thickness">24</Thickness>
+    <sys:Double x:Key="Wi24rdSpace8">32</sys:Double>
+    <Thickness x:Key="Wi24rdSpace8Thickness">32</Thickness>
+    <CornerRadius x:Key="Wi24rdRadiusSm">4</CornerRadius>
+    <CornerRadius x:Key="Wi24rdRadiusMd">6</CornerRadius>
+    <CornerRadius x:Key="Wi24rdRadiusLg">10</CornerRadius>
+    <CornerRadius x:Key="Wi24rdRadiusPill">999</CornerRadius>
+  </ResourceDictionary>
+  <ResourceDictionary x:Key="Wi24rdMoerk">
+    <Color x:Key="Wi24rdBgColor">#FF0B131E</Color>
+    <SolidColorBrush x:Key="Wi24rdBgBrush" Color="#FF0B131E"/>
+    <Color x:Key="Wi24rdSurfaceColor">#FF121C29</Color>
+    <SolidColorBrush x:Key="Wi24rdSurfaceBrush" Color="#FF121C29"/>
+    <Color x:Key="Wi24rdSurfaceRaisedColor">#FF192433</Color>
+    <SolidColorBrush x:Key="Wi24rdSurfaceRaisedBrush" Color="#FF192433"/>
+    <Color x:Key="Wi24rdRailColor">#FF070E17</Color>
+    <SolidColorBrush x:Key="Wi24rdRailBrush" Color="#FF070E17"/>
+    <Color x:Key="Wi24rdRailTextColor">#FFB9C6D6</Color>
+    <SolidColorBrush x:Key="Wi24rdRailTextBrush" Color="#FFB9C6D6"/>
+    <Color x:Key="Wi24rdRailStrongColor">#FFFFFFFF</Color>
+    <SolidColorBrush x:Key="Wi24rdRailStrongBrush" Color="#FFFFFFFF"/>
+    <Color x:Key="Wi24rdRailActiveColor">#FF13293D</Color>
+    <SolidColorBrush x:Key="Wi24rdRailActiveBrush" Color="#FF13293D"/>
+    <Color x:Key="Wi24rdAccentOnRailColor">#FF35D6B3</Color>
+    <SolidColorBrush x:Key="Wi24rdAccentOnRailBrush" Color="#FF35D6B3"/>
+    <Color x:Key="Wi24rdBorderColor">#FF263345</Color>
+    <SolidColorBrush x:Key="Wi24rdBorderBrush" Color="#FF263345"/>
+    <Color x:Key="Wi24rdBorderStrongColor">#FF6B7C90</Color>
+    <SolidColorBrush x:Key="Wi24rdBorderStrongBrush" Color="#FF6B7C90"/>
+    <Color x:Key="Wi24rdTextColor">#FFE8EEF4</Color>
+    <SolidColorBrush x:Key="Wi24rdTextBrush" Color="#FFE8EEF4"/>
+    <Color x:Key="Wi24rdTextMutedColor">#FFA6B4C3</Color>
+    <SolidColorBrush x:Key="Wi24rdTextMutedBrush" Color="#FFA6B4C3"/>
+    <Color x:Key="Wi24rdTextDisabledColor">#FF8091A5</Color>
+    <SolidColorBrush x:Key="Wi24rdTextDisabledBrush" Color="#FF8091A5"/>
+    <Color x:Key="Wi24rdAccentColor">#FF35D6B3</Color>
+    <SolidColorBrush x:Key="Wi24rdAccentBrush" Color="#FF35D6B3"/>
+    <Color x:Key="Wi24rdAccentHoverColor">#FF6BE5CA</Color>
+    <SolidColorBrush x:Key="Wi24rdAccentHoverBrush" Color="#FF6BE5CA"/>
+    <Color x:Key="Wi24rdOnAccentColor">#FF04231D</Color>
+    <SolidColorBrush x:Key="Wi24rdOnAccentBrush" Color="#FF04231D"/>
+    <Color x:Key="Wi24rdAccentSoftColor">#FF0F322D</Color>
+    <SolidColorBrush x:Key="Wi24rdAccentSoftBrush" Color="#FF0F322D"/>
+    <Color x:Key="Wi24rdOkColor">#FF35D6B3</Color>
+    <SolidColorBrush x:Key="Wi24rdOkBrush" Color="#FF35D6B3"/>
+    <Color x:Key="Wi24rdOkSoftColor">#FF0F322D</Color>
+    <SolidColorBrush x:Key="Wi24rdOkSoftBrush" Color="#FF0F322D"/>
+    <Color x:Key="Wi24rdInfoColor">#FF86B4FF</Color>
+    <SolidColorBrush x:Key="Wi24rdInfoBrush" Color="#FF86B4FF"/>
+    <Color x:Key="Wi24rdInfoSoftColor">#FF13284A</Color>
+    <SolidColorBrush x:Key="Wi24rdInfoSoftBrush" Color="#FF13284A"/>
+    <Color x:Key="Wi24rdWarnColor">#FFFFC66E</Color>
+    <SolidColorBrush x:Key="Wi24rdWarnBrush" Color="#FFFFC66E"/>
+    <Color x:Key="Wi24rdWarnSoftColor">#FF39290C</Color>
+    <SolidColorBrush x:Key="Wi24rdWarnSoftBrush" Color="#FF39290C"/>
+    <Color x:Key="Wi24rdDangerColor">#FFFF9E96</Color>
+    <SolidColorBrush x:Key="Wi24rdDangerBrush" Color="#FFFF9E96"/>
+    <Color x:Key="Wi24rdDangerSoftColor">#FF3E1613</Color>
+    <SolidColorBrush x:Key="Wi24rdDangerSoftBrush" Color="#FF3E1613"/>
+    <Color x:Key="Wi24rdOkMarkColor">#FF35D6B3</Color>
+    <SolidColorBrush x:Key="Wi24rdOkMarkBrush" Color="#FF35D6B3"/>
+    <Color x:Key="Wi24rdWarnMarkColor">#FFFFB74A</Color>
+    <SolidColorBrush x:Key="Wi24rdWarnMarkBrush" Color="#FFFFB74A"/>
+    <Color x:Key="Wi24rdDangerMarkColor">#FFFF7A70</Color>
+    <SolidColorBrush x:Key="Wi24rdDangerMarkBrush" Color="#FFFF7A70"/>
+    <Color x:Key="Wi24rdInfoMarkColor">#FF6FA5FF</Color>
+    <SolidColorBrush x:Key="Wi24rdInfoMarkBrush" Color="#FF6FA5FF"/>
+    <Color x:Key="Wi24rdNoneMarkColor">#FF7A8BA0</Color>
+    <SolidColorBrush x:Key="Wi24rdNoneMarkBrush" Color="#FF7A8BA0"/>
+    <Color x:Key="Wi24rdOkMarkHoverColor">#FF5CDBC1</Color>
+    <SolidColorBrush x:Key="Wi24rdOkMarkHoverBrush" Color="#FF5CDBC1"/>
+    <Color x:Key="Wi24rdWarnMarkHoverColor">#FFFAC36F</Color>
+    <SolidColorBrush x:Key="Wi24rdWarnMarkHoverBrush" Color="#FFFAC36F"/>
+    <Color x:Key="Wi24rdDangerMarkHoverColor">#FFFA948D</Color>
+    <SolidColorBrush x:Key="Wi24rdDangerMarkHoverBrush" Color="#FFFA948D"/>
+    <Color x:Key="Wi24rdInfoMarkHoverColor">#FF8AB5FD</Color>
+    <SolidColorBrush x:Key="Wi24rdInfoMarkHoverBrush" Color="#FF8AB5FD"/>
+    <Color x:Key="Wi24rdNoneMarkHoverColor">#FF92A1B2</Color>
+    <SolidColorBrush x:Key="Wi24rdNoneMarkHoverBrush" Color="#FF92A1B2"/>
+    <Color x:Key="Wi24rdData1Color">#FF6FA5FF</Color>
+    <SolidColorBrush x:Key="Wi24rdData1Brush" Color="#FF6FA5FF"/>
+    <Color x:Key="Wi24rdData2Color">#FFFFB066</Color>
+    <SolidColorBrush x:Key="Wi24rdData2Brush" Color="#FFFFB066"/>
+    <Color x:Key="Wi24rdData3Color">#FFB9A1FF</Color>
+    <SolidColorBrush x:Key="Wi24rdData3Brush" Color="#FFB9A1FF"/>
+    <Color x:Key="Wi24rdData4Color">#FF4FD1CA</Color>
+    <SolidColorBrush x:Key="Wi24rdData4Brush" Color="#FF4FD1CA"/>
+    <Color x:Key="Wi24rdData5Color">#FFFF8FC4</Color>
+    <SolidColorBrush x:Key="Wi24rdData5Brush" Color="#FFFF8FC4"/>
+    <Color x:Key="Wi24rdData6Color">#FFC9D56A</Color>
+    <SolidColorBrush x:Key="Wi24rdData6Brush" Color="#FFC9D56A"/>
+    <Color x:Key="Wi24rdDataAxisColor">#FF6B7C90</Color>
+    <SolidColorBrush x:Key="Wi24rdDataAxisBrush" Color="#FF6B7C90"/>
+    <Color x:Key="Wi24rdDataGridColor">#FF263345</Color>
+    <SolidColorBrush x:Key="Wi24rdDataGridBrush" Color="#FF263345"/>
+    <Color x:Key="Wi24rdDataLabelColor">#FFA6B4C3</Color>
+    <SolidColorBrush x:Key="Wi24rdDataLabelBrush" Color="#FFA6B4C3"/>
+    <Color x:Key="Wi24rdSeq1Color">#FF5A3F1C</Color>
+    <SolidColorBrush x:Key="Wi24rdSeq1Brush" Color="#FF5A3F1C"/>
+    <Color x:Key="Wi24rdSeq2Color">#FF7A5216</Color>
+    <SolidColorBrush x:Key="Wi24rdSeq2Brush" Color="#FF7A5216"/>
+    <Color x:Key="Wi24rdSeq3Color">#FFB8741A</Color>
+    <SolidColorBrush x:Key="Wi24rdSeq3Brush" Color="#FFB8741A"/>
+    <Color x:Key="Wi24rdSeq4Color">#FFE8952F</Color>
+    <SolidColorBrush x:Key="Wi24rdSeq4Brush" Color="#FFE8952F"/>
+    <Color x:Key="Wi24rdSeq5Color">#FFFFC66E</Color>
+    <SolidColorBrush x:Key="Wi24rdSeq5Brush" Color="#FFFFC66E"/>
+    <Color x:Key="Wi24rdMapSeaColor">#FF0B131E</Color>
+    <SolidColorBrush x:Key="Wi24rdMapSeaBrush" Color="#FF0B131E"/>
+    <Color x:Key="Wi24rdMapLandColor">#FF1E2B3C</Color>
+    <SolidColorBrush x:Key="Wi24rdMapLandBrush" Color="#FF1E2B3C"/>
+    <Color x:Key="Wi24rdMapBorderColor">#FF4A5C73</Color>
+    <SolidColorBrush x:Key="Wi24rdMapBorderBrush" Color="#FF4A5C73"/>
+    <Color x:Key="Wi24rdMapRingColor">#FFFF7A70</Color>
+    <SolidColorBrush x:Key="Wi24rdMapRingBrush" Color="#FFFF7A70"/>
+    <Color x:Key="Wi24rdMapArcColor">#FF6FA5FF</Color>
+    <SolidColorBrush x:Key="Wi24rdMapArcBrush" Color="#FF6FA5FF"/>
+    <DropShadowEffect x:Key="Wi24rdShadowCard" Direction="270" ShadowDepth="1" BlurRadius="2" Color="#000000" Opacity="0.4"/>
+    <DropShadowEffect x:Key="Wi24rdShadowPop" Direction="270" ShadowDepth="16" BlurRadius="40" Color="#000000" Opacity="0.7"/>
+    <FontFamily x:Key="Wi24rdFontSans">Inter, Segoe UI</FontFamily>
+    <FontFamily x:Key="Wi24rdFontMono">JetBrains Mono, Cascadia Mono, Menlo</FontFamily>
+    <sys:Double x:Key="Wi24rdDisplaySize">32</sys:Double>
+    <sys:Double x:Key="Wi24rdDisplayLine">38</sys:Double>
+    <FontWeight x:Key="Wi24rdDisplayWeight">SemiBold</FontWeight>
+    <sys:Double x:Key="Wi24rdDisplayTracking">-0.01</sys:Double>
+    <FontFamily x:Key="Wi24rdDisplayFamily">Inter, Segoe UI</FontFamily>
+    <sys:Double x:Key="Wi24rdH1Size">24</sys:Double>
+    <sys:Double x:Key="Wi24rdH1Line">30</sys:Double>
+    <FontWeight x:Key="Wi24rdH1Weight">SemiBold</FontWeight>
+    <sys:Double x:Key="Wi24rdH1Tracking">-0.01</sys:Double>
+    <FontFamily x:Key="Wi24rdH1Family">Inter, Segoe UI</FontFamily>
+    <sys:Double x:Key="Wi24rdH2Size">18</sys:Double>
+    <sys:Double x:Key="Wi24rdH2Line">24</sys:Double>
+    <FontWeight x:Key="Wi24rdH2Weight">SemiBold</FontWeight>
+    <FontFamily x:Key="Wi24rdH2Family">Inter, Segoe UI</FontFamily>
+    <sys:Double x:Key="Wi24rdH3Size">15</sys:Double>
+    <sys:Double x:Key="Wi24rdH3Line">20</sys:Double>
+    <FontWeight x:Key="Wi24rdH3Weight">SemiBold</FontWeight>
+    <FontFamily x:Key="Wi24rdH3Family">Inter, Segoe UI</FontFamily>
+    <sys:Double x:Key="Wi24rdBodySize">14</sys:Double>
+    <sys:Double x:Key="Wi24rdBodyLine">20</sys:Double>
+    <FontWeight x:Key="Wi24rdBodyWeight">Normal</FontWeight>
+    <FontFamily x:Key="Wi24rdBodyFamily">Inter, Segoe UI</FontFamily>
+    <sys:Double x:Key="Wi24rdSmallSize">12</sys:Double>
+    <sys:Double x:Key="Wi24rdSmallLine">16</sys:Double>
+    <FontWeight x:Key="Wi24rdSmallWeight">Normal</FontWeight>
+    <FontFamily x:Key="Wi24rdSmallFamily">Inter, Segoe UI</FontFamily>
+    <sys:Double x:Key="Wi24rdLabelSize">11</sys:Double>
+    <sys:Double x:Key="Wi24rdLabelLine">14</sys:Double>
+    <FontWeight x:Key="Wi24rdLabelWeight">SemiBold</FontWeight>
+    <sys:Double x:Key="Wi24rdLabelTracking">0.06</sys:Double>
+    <FontFamily x:Key="Wi24rdLabelFamily">Inter, Segoe UI</FontFamily>
+    <sys:Double x:Key="Wi24rdMonoSize">13</sys:Double>
+    <sys:Double x:Key="Wi24rdMonoLine">20</sys:Double>
+    <FontWeight x:Key="Wi24rdMonoWeight">Normal</FontWeight>
+    <FontFamily x:Key="Wi24rdMonoFamily">JetBrains Mono, Cascadia Mono, Menlo</FontFamily>
+    <sys:Double x:Key="Wi24rdSpace1">4</sys:Double>
+    <Thickness x:Key="Wi24rdSpace1Thickness">4</Thickness>
+    <sys:Double x:Key="Wi24rdSpace2">8</sys:Double>
+    <Thickness x:Key="Wi24rdSpace2Thickness">8</Thickness>
+    <sys:Double x:Key="Wi24rdSpace3">12</sys:Double>
+    <Thickness x:Key="Wi24rdSpace3Thickness">12</Thickness>
+    <sys:Double x:Key="Wi24rdSpace4">16</sys:Double>
+    <Thickness x:Key="Wi24rdSpace4Thickness">16</Thickness>
+    <sys:Double x:Key="Wi24rdSpace6">24</sys:Double>
+    <Thickness x:Key="Wi24rdSpace6Thickness">24</Thickness>
+    <sys:Double x:Key="Wi24rdSpace8">32</sys:Double>
+    <Thickness x:Key="Wi24rdSpace8Thickness">32</Thickness>
+    <CornerRadius x:Key="Wi24rdRadiusSm">4</CornerRadius>
+    <CornerRadius x:Key="Wi24rdRadiusMd">6</CornerRadius>
+    <CornerRadius x:Key="Wi24rdRadiusLg">10</CornerRadius>
+    <CornerRadius x:Key="Wi24rdRadiusPill">999</CornerRadius>
+  </ResourceDictionary>
+</ResourceDictionary>

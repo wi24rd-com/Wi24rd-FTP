@@ -1,0 +1,4 @@
+Wi24rd UI Kit 2, pakke 2.6.0
+Kopieret uaendret fra Grimnir/design/ui-kit-2/pakke/tokens/Tokens.xaml den 2026-11-12.
+Ret ikke i kopien. Rettelser sker i kittets kilde i Grimnir.
+sha256 c5a406af1e1741145e60ceb42286c0a61ff38628c05242ffddb572ded545639e
