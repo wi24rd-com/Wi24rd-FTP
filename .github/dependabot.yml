@@ -1,0 +1,20 @@
+# Once a month: one pull request for the NuGet packages of the app and one for
+# the actions the two workflows use, for a person to review.
+version: 2
+updates:
+  - package-ecosystem: nuget
+    directory: /src/Wi24rdFTP
+    schedule:
+      interval: monthly
+    groups:
+      nuget:
+        patterns: ["*"]
+    open-pull-requests-limit: 2
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]
+    open-pull-requests-limit: 2

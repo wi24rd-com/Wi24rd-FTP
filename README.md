@@ -49,7 +49,7 @@ The UI follows the Windows display language: Danish on Danish Windows, English o
 
 ## Install
 
-Run `dist\Wi24rdFTP-Setup-1.0.0.exe`. The installer:
+Run the installer you downloaded, `Wi24rdFTP-Setup.exe`. It:
 
 1. Puts the program in `C:\Program Files\Wi24rd FTP`
 2. Runs `Wi24rdFtp.ps1 -Action Install`, which enables the Windows features `IIS-WebServerRole`, `IIS-FTPServer`, `IIS-FTPSvc`, `IIS-ManagementScriptingTools`, creates the `Wi24rdFTP` FTP site, the (disabled) firewall rules, the folders and the (disabled) account.
@@ -72,6 +72,8 @@ Uninstalling stops everything and removes the site, rules, account and sshd conf
 ## Developer notes
 
 Project layout, build instructions and the release process are in [DEVELOPMENT.md](DEVELOPMENT.md).
+[CONTRIBUTING.md](CONTRIBUTING.md) says how to send a change, [SECURITY.md](SECURITY.md) how to report a
+vulnerability, and [CHANGELOG.md](CHANGELOG.md) what each version holds.
 
 ## License
 

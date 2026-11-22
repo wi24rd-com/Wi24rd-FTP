@@ -4,44 +4,65 @@ on:
   push:
     tags: ['v*']
 
-permissions:
-  contents: write
+permissions: {}
+
+# Two releases never run at the same time, and one in progress is never cut short.
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 jobs:
   release:
     runs-on: windows-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write # creates the release and uploads its three files; nothing else
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
         with:
           dotnet-version: 8.0.x
 
+      # The tag name is read from the environment, never pasted into the script,
+      # and it has to be a plain version before anything is built from it.
       - name: Version from tag
         id: ver
         shell: pwsh
         run: |
-          $v = "${{ github.ref_name }}".TrimStart('v')
+          $v = $env:GITHUB_REF_NAME.TrimStart('v')
+          if ($v -notmatch '^\d+\.\d+\.\d+$') { Write-Error "The tag '$env:GITHUB_REF_NAME' is not a version such as v1.2.3"; exit 1 }
           "version=$v" >> $env:GITHUB_OUTPUT
           Write-Host "Version $v"
 
       - name: Build exe + installer
         shell: pwsh
-        run: .\build.ps1 -Version ${{ steps.ver.outputs.version }}
+        env:
+          VERSION: ${{ steps.ver.outputs.version }}
+        run: .\build.ps1 -Version $env:VERSION
 
       - name: Stable download name
         shell: pwsh
-        run: Copy-Item "dist\Wi24rdFTP-Setup-${{ steps.ver.outputs.version }}.exe" "dist\Wi24rdFTP-Setup.exe"
+        env:
+          VERSION: ${{ steps.ver.outputs.version }}
+        run: Copy-Item "dist\Wi24rdFTP-Setup-$env:VERSION.exe" "dist\Wi24rdFTP-Setup.exe"
 
       - name: Checksums
         shell: pwsh
         run: Get-ChildItem dist\*.exe | ForEach-Object { "$((Get-FileHash $_ -Algorithm SHA256).Hash.ToLower())  $($_.Name)" } | Set-Content dist\SHA256SUMS.txt
 
+      # Made with the GitHub CLI that the runner already has, so no outside
+      # action gets write access. The release is a draft until all three files
+      # are attached, and is published as the last step.
       - name: GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          name: Wi24rd FTP ${{ steps.ver.outputs.version }}
-          generate_release_notes: true
-          files: |
-            dist/Wi24rdFTP-Setup-${{ steps.ver.outputs.version }}.exe
-            dist/Wi24rdFTP-Setup.exe
-            dist/SHA256SUMS.txt
+        shell: pwsh
+        env:
+          VERSION: ${{ steps.ver.outputs.version }}
+        run: |
+          gh release create $env:GITHUB_REF_NAME --repo $env:GITHUB_REPOSITORY --draft --verify-tag --title "Wi24rd FTP $env:VERSION" --generate-notes "dist/Wi24rdFTP-Setup-$env:VERSION.exe" "dist/Wi24rdFTP-Setup.exe" "dist/SHA256SUMS.txt"
+          if ($LASTEXITCODE -ne 0) { exit 1 }
+          gh release edit $env:GITHUB_REF_NAME --repo $env:GITHUB_REPOSITORY --draft=false
+          if ($LASTEXITCODE -ne 0) { exit 1 }

@@ -53,7 +53,9 @@ git tag v1.0.1
 git push --tags
 ```
 
-`.github/workflows/release.yml` builds the exe + installer with the version taken from the tag, creates a GitHub Release with auto-generated notes and attaches:
+Move the lines under "Unreleased" in `CHANGELOG.md` to the new version first. The tag has to be a plain version such as `v1.0.2`.
+
+`.github/workflows/release.yml` builds the exe + installer with the version taken from the tag, creates a GitHub Release as a draft with auto-generated notes, attaches the files below, and publishes it when all three are in place:
 
 * `Wi24rdFTP-Setup-1.0.1.exe` – the versioned installer
 * `Wi24rdFTP-Setup.exe` – same file under a stable name, so `…/releases/latest/download/Wi24rdFTP-Setup.exe` always points at the newest version

@@ -49,7 +49,7 @@ Sproget følger Windows' visningssprog: dansk på dansk Windows, ellers engelsk.
 
 ## Installér
 
-Kør `dist\Wi24rdFTP-Setup-1.0.0.exe`. Installeren:
+Kør den installer, du har hentet, `Wi24rdFTP-Setup.exe`. Den:
 
 1. Lægger programmet i `C:\Program Files\Wi24rd FTP`
 2. Kører `Wi24rdFtp.ps1 -Action Install` som aktiverer Windows-features `IIS-WebServerRole`, `IIS-FTPServer`, `IIS-FTPSvc`, `IIS-ManagementScriptingTools`, opretter FTP-sitet `Wi24rdFTP`, de (deaktiverede) firewall-regler, mapperne og den (deaktiverede) konto.
