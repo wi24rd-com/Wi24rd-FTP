@@ -6,6 +6,11 @@ updates:
     directory: /src/Wi24rdFTP
     schedule:
       interval: monthly
+    # The packages follow the .NET version the app is built for. A new major
+    # version is taken together with a move to a newer .NET, not on its own.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
     groups:
       nuget:
         patterns: ["*"]
